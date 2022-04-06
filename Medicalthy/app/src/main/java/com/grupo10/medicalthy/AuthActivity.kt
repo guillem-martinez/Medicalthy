@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_auth.*
 class AuthActivity : AppCompatActivity() {
 
     val database = FirebaseAuth.getInstance()
-
+    val authobject = Auth() ;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
@@ -23,6 +23,9 @@ class AuthActivity : AppCompatActivity() {
         title = getString(R.string.authTitle)
 
         signUpButton.setOnClickListener {
+            authobject.login(email.text.toString(),password.text.toString(), database, this);
+
+            /*
             if(email.text.isNotEmpty() && password.text.isNotEmpty()){
                 database.createUserWithEmailAndPassword(email.text.toString(),password.text.toString()).addOnCompleteListener {
 
@@ -34,6 +37,8 @@ class AuthActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            */
         }
     }
 
