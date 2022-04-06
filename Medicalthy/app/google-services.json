@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "999955772355",
+    "project_id": "medicalthy-4eb89",
+    "storage_bucket": "medicalthy-4eb89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999955772355:android:426205c6d97e2fb3b70376",
+        "android_client_info": {
+          "package_name": "com.grupo10.medicalthy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999955772355-2qab3e47qfo3lcnmml4dihpdhpq4q9uv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPUaDw9xLn-jPoKZYXrhvMmz_VSUPtr18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999955772355-2qab3e47qfo3lcnmml4dihpdhpq4q9uv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

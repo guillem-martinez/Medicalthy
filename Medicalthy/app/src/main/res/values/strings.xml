@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Medicalthy</string>
+
+    //authentication activity
+    <string name="authTitle">Autentificación</string>
+    <string name="signUpButton">Registrar</string>
+    <string name="loginButton">Acceder</string>
+    <string name="emailHint">Email</string>
+    <string name="passwordHint">Contraseña</string>
+</resources>
