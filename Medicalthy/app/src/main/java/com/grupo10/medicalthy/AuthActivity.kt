@@ -47,13 +47,38 @@ class AuthActivity : AppCompatActivity() {
     }
 
 
-    //TODO:Función para verificar que las credenciales sean correctas (criterios mínimos establecido p.e: password >= 8 caracteres)
-    private fun verifyCredentials(email : EditText, password : EditText) : Boolean {
+    /*
+    Función para verificar que las credenciales sean correctas.
+    Comprobaciones:
+    -Parámetros >= 6 length
+    -Parámetros no vacíos
+
+    Devuelve un Array:
+    Array[0] -> True/False según si són validas las credenciales.
+    Array[1] -> Devuelve un string con el código de error.
+     */
+    private fun verifyCredentials(email : EditText, password : EditText) : Array<Any> {
+
+        val arrayResult = arrayOf<Any>(true,"")
+
+
         if(email.text.isNotEmpty() && password.text.isNotEmpty()){
-            return true
+
+            if(password.text.length >= 6){
+
+                return arrayResult
+            }
+            else{
+                arrayResult[0] = false
+                arrayResult[1] = "length"
+                return arrayResult
+            }
+
         }
         else{
-            return false
+            arrayResult[0] = false
+            arrayResult[1] = "empty"
+            return arrayResult
         }
     }
 
@@ -62,7 +87,9 @@ class AuthActivity : AppCompatActivity() {
     */
     private fun register() : Boolean {
 
-        if(verifyCredentials(email, password)){
+        val success = verifyCredentials(email, password)
+
+        if(success[0] as Boolean){
             database.createUserWithEmailAndPassword(email.text.toString(),password.text.toString()).addOnCompleteListener {
                 if(it.isSuccessful){
                     //it.result?.user?.email?: "" --> null safety
@@ -73,7 +100,12 @@ class AuthActivity : AppCompatActivity() {
                 }
             }
         }else {
-            showAlert(getString(R.string.emptyCredentialsErrorMessage))
+            if(success[1] == "empty"){
+                showAlert(getString(R.string.emptyCredentialsErrorMessage))
+            }else if(success[1] == "length"){
+                showAlert(getString(R.string.lengthCredentialsErrorMessage))
+            }
+
             return false
         }
         return true;
@@ -81,7 +113,10 @@ class AuthActivity : AppCompatActivity() {
 
     //Función login usuario con email y contraseña
     private fun login() : Boolean {
-        if (verifyCredentials(email, password)) {
+
+        val success = verifyCredentials(email, password)
+
+        if (success[0] as Boolean) {
             database.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -91,7 +126,11 @@ class AuthActivity : AppCompatActivity() {
                     }
                 }
         } else {
-            showAlert(getString(R.string.emptyCredentialsErrorMessage))
+            if(success[1] == "empty"){
+                showAlert(getString(R.string.emptyCredentialsErrorMessage))
+            }else if(success[1] == "length"){
+                showAlert(getString(R.string.lengthCredentialsErrorMessage))
+            }
             return false
         }
         return true;

@@ -15,6 +15,7 @@
     <string name="simpleErrorMessage">Error</string>
     <string name="authErrorMessage">Se ha producido un error autenticando al usuario.\nCompruebe que el email tenga el siguiente estilo: ejemplo@gmail.com</string>
     <string name="emptyCredentialsErrorMessage">Correo electrónicos i/o contraseña vacíos, por favor ingrese el texto restante.</string>
+    <string name="lengthCredentialsErrorMessage">El tamaño de el correo electrónico i/o contraseña es demasiado pequeño,por favor ingrese el texto restante .</string>
 
     //Positive button messages
     <string name="acceptMessage">Aceptar</string>
