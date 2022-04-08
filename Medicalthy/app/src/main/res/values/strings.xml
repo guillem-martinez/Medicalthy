@@ -1,10 +1,25 @@
 <resources>
     <string name="app_name">Medicalthy</string>
 
-    //authentication activity
+    //Auth Activity
     <string name="authTitle">Autentificación</string>
     <string name="signUpButton">Registrar</string>
     <string name="loginButton">Acceder</string>
     <string name="emailHint">Email</string>
     <string name="passwordHint">Contraseña</string>
+
+    //Home Activity
+    <string name="homeTitle">Inicio</string>
+
+    //Error Messages
+    <string name="simpleErrorMessage">Error</string>
+    <string name="authErrorMessage">Se ha producido un error autenticando al usuario.\nCompruebe que el email tenga el siguiente estilo: ejemplo@gmail.com</string>
+    <string name="emptyCredentialsErrorMessage">Correo electrónicos i/o contraseña vacíos, por favor ingrese el texto restante.</string>
+
+    //Positive button messages
+    <string name="acceptMessage">Aceptar</string>
+
+    //Constants intent IDs
+    <string name="intentEmail">IntentEmail</string>
+    <string name="provider">Proveedor</string>
 </resources>

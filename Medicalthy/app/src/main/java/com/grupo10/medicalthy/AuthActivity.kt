@@ -1,5 +1,6 @@
 package com.grupo10.medicalthy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_auth.*
 class AuthActivity : AppCompatActivity() {
 
     val database = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
@@ -23,26 +25,11 @@ class AuthActivity : AppCompatActivity() {
         title = getString(R.string.authTitle)
 
         signUpButton.setOnClickListener {
+            register()
+        }
 
-
-            register(email,password,database)
-
-            /*
-            if(email.text.isNotEmpty() && password.text.isNotEmpty()){
-
-
-                database.createUserWithEmailAndPassword(email.text.toString(),password.text.toString()).addOnCompleteListener {
-
-                    if(it.isSuccessful){
-                        R.layout.activity_home
-                    }
-                    else{
-                        showAlert()
-                    }
-                }
-            }
-            */
-
+        loginButton.setOnClickListener {
+            login()
         }
     }
 
@@ -50,40 +37,74 @@ class AuthActivity : AppCompatActivity() {
     /*
     Funcion que nos permite mostrar el mensaje de error que le pasemos como parametro
      */
-    private fun showAlert(errorMessage:String){
+    private fun showAlert(errorMessage : String){
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
+        builder.setTitle(getString(R.string.simpleErrorMessage))
         builder.setMessage(errorMessage)
-        builder.setPositiveButton("Aceptar", null)
+        builder.setPositiveButton(getString(R.string.acceptMessage), null)
         val dialog : AlertDialog = builder.create()
         dialog.show()
     }
 
 
+    //TODO:Función para verificar que las credenciales sean correctas (criterios mínimos establecido p.e: password >= 8 caracteres)
+    private fun verifyCredentials(email : EditText, password : EditText) : Boolean {
+        if(email.text.isNotEmpty() && password.text.isNotEmpty()){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+
     /*
     A través de el email y password pasado por parametro se registra a este usuario en la database:FirebaseAuth
-     */
+    */
+    private fun register() : Boolean {
 
-    private fun register(email:EditText, password:EditText, database:FirebaseAuth): Boolean {
-
-        if(email.text.isNotEmpty() && password.text.isNotEmpty()){
-
-
+        if(verifyCredentials(email, password)){
             database.createUserWithEmailAndPassword(email.text.toString(),password.text.toString()).addOnCompleteListener {
-
                 if(it.isSuccessful){
-                    R.layout.activity_home
+                    //it.result?.user?.email?: "" --> null safety
+                    goHome(it.result?.user?.email?: "", ProviderType.BASIC)     //Empieza la acticidad de pantalla de Inicio
                 }
                 else{
-                    showAlert("Se ha producido un error autenticando al usuario.")
+                    showAlert(getString(R.string.authErrorMessage))     //Muestra un mensaje de error de autenticación
                 }
             }
-        }else
-        {
-            showAlert("Correo i/o electrónico vacios, porfavor ingrese el texto restante.")
+        }else {
+            showAlert(getString(R.string.emptyCredentialsErrorMessage))
+            return false
         }
-
-
         return true;
+    }
+
+    //Función login usuario con email y contraseña
+    private fun login() : Boolean {
+        if (verifyCredentials(email, password)) {
+            database.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        goHome(it.result?.user?.email?: "", ProviderType.BASIC)     //Empieza la acticidad de pantalla de Inicio
+                    } else {
+                        showAlert(getString(R.string.authErrorMessage))
+                    }
+                }
+        } else {
+            showAlert(getString(R.string.emptyCredentialsErrorMessage))
+            return false
+        }
+        return true;
+    }
+
+
+    //Función para iniciar la actividad de inicio tras registrarse o hacer logIn
+    private fun goHome(email : String, provider : ProviderType){
+
+        val homeIntent = Intent(this, HomeActivity::class.java).apply {     //Intent para iniciar la actividad de Inicio (se pasan por parámetro email + proveedor)
+            putExtra(getString(R.string.intentEmail), email)
+            putExtra(getString(R.string.provider), provider.name)
+        }
+        startActivity(homeIntent)   //Llamada a la actividad de pantalla de Inicio
     }
 }
