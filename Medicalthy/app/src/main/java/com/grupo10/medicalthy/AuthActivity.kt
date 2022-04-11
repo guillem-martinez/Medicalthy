@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_auth.*
 class AuthActivity : AppCompatActivity() {
 
     val database = FirebaseAuth.getInstance()
+    val authObject = Auth()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +88,9 @@ class AuthActivity : AppCompatActivity() {
     */
     private fun register() : Boolean {
 
-        val success = verifyCredentials(email, password)
+        //val success = verifyCredentials(email, password)
+
+        val success = authObject.verifyCredentials(email, password)
 
         if(success[0] as Boolean){
             database.createUserWithEmailAndPassword(email.text.toString(),password.text.toString()).addOnCompleteListener {
