@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : AppCompatActivity() {
@@ -33,10 +32,10 @@ class SignInActivity : AppCompatActivity() {
     //Función login usuario con email y contraseña
     private fun login() : Boolean {
 
-        val success = authObject.verifyCredentials(signUpEmail, signUpPassword)
+        val success = authObject.verifyCredentials(signInEmail, signInPassword)
 
         if (success[0] as Boolean) {
-            database.signInWithEmailAndPassword(signUpEmail.text.toString(), signUpPassword.text.toString())
+            database.signInWithEmailAndPassword(signInEmail.text.toString(), signInPassword.text.toString())
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         goHome(it.result?.user?.email?: "", ProviderType.BASIC)     //Empieza la acticidad de pantalla de Inicio
