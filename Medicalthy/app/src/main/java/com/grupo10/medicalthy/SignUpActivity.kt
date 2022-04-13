@@ -3,34 +3,28 @@ package com.grupo10.medicalthy
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_auth.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class AuthActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
     val database = FirebaseAuth.getInstance()
     val authObject = Auth()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
+        setContentView(R.layout.activity_sign_up)
 
         setUp()
     }
 
     private fun setUp(){
 
-        title = getString(R.string.authTitle)
+        title = getString(R.string.signUpTitle)
 
         signUpButton.setOnClickListener {
             register()
-        }
-
-        loginButton.setOnClickListener {
-            login()
         }
     }
 
@@ -49,51 +43,16 @@ class AuthActivity : AppCompatActivity() {
 
 
     /*
-    Función para verificar que las credenciales sean correctas.
-    Comprobaciones:
-    -Parámetros >= 6 length
-    -Parámetros no vacíos
-
-    Devuelve un Array:
-    Array[0] -> True/False según si són validas las credenciales.
-    Array[1] -> Devuelve un string con el código de error.
-     */
-    private fun verifyCredentials(email : EditText, password : EditText) : Array<Any> {
-
-        val arrayResult = arrayOf<Any>(true,"")
-
-
-        if(email.text.isNotEmpty() && password.text.isNotEmpty()){
-
-            if(password.text.length >= 6){
-
-                return arrayResult
-            }
-            else{
-                arrayResult[0] = false
-                arrayResult[1] = "length"
-                return arrayResult
-            }
-
-        }
-        else{
-            arrayResult[0] = false
-            arrayResult[1] = "empty"
-            return arrayResult
-        }
-    }
-
-    /*
     A través de el email y password pasado por parametro se registra a este usuario en la database:FirebaseAuth
     */
     private fun register() : Boolean {
 
         //val success = verifyCredentials(email, password)
 
-        val success = authObject.verifyCredentials(email, password)
+        val success = authObject.verifyCredentials(signUpEmail, signUpPassword)
 
         if(success[0] as Boolean){
-            database.createUserWithEmailAndPassword(email.text.toString(),password.text.toString()).addOnCompleteListener {
+            database.createUserWithEmailAndPassword(signUpEmail.text.toString(),signUpPassword.text.toString()).addOnCompleteListener {
                 if(it.isSuccessful){
                     //it.result?.user?.email?: "" --> null safety
                     goHome(it.result?.user?.email?: "", ProviderType.BASIC)     //Empieza la acticidad de pantalla de Inicio
@@ -109,31 +68,6 @@ class AuthActivity : AppCompatActivity() {
                 showAlert(getString(R.string.lengthCredentialsErrorMessage))
             }
 
-            return false
-        }
-        return true;
-    }
-
-    //Función login usuario con email y contraseña
-    private fun login() : Boolean {
-
-        val success = verifyCredentials(email, password)
-
-        if (success[0] as Boolean) {
-            database.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        goHome(it.result?.user?.email?: "", ProviderType.BASIC)     //Empieza la acticidad de pantalla de Inicio
-                    } else {
-                        showAlert(getString(R.string.authErrorMessage))
-                    }
-                }
-        } else {
-            if(success[1] == "empty"){
-                showAlert(getString(R.string.emptyCredentialsErrorMessage))
-            }else if(success[1] == "length"){
-                showAlert(getString(R.string.lengthCredentialsErrorMessage))
-            }
             return false
         }
         return true;

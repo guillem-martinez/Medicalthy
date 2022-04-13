@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">Medicalthy</string>
 
-    //Auth Activity
-    <string name="authTitle">Autentificación</string>
+    //Auth Activities (Login - Register)
+    <string name="signUpTitle">Autentificación</string>
+    <string name="signInTitle">Iniciar Sesión</string>
     <string name="signUpButton">Registrar</string>
     <string name="loginButton">Acceder</string>
     <string name="emailHint">Email</string>
     <string name="passwordHint">Contraseña</string>
+    <string name="ageHint">Edad</string>
+    <string name="nameHint">Nombre</string>
+    <string name="surnameHint">Apellidos</string>
 
     //Home Activity
     <string name="homeTitle">Inicio</string>
