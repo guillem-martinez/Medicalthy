@@ -15,6 +15,9 @@
     //Home Activity
     <string name="homeTitle">Inicio</string>
 
+    //Take Picture ACtivity
+    <string name="takePicButton">Take Picture</string>
+
     //Error Messages
     <string name="simpleErrorMessage">Error</string>
     <string name="authErrorMessage">Se ha producido un error autenticando al usuario.\nCompruebe que el email tenga el siguiente estilo: ejemplo@gmail.com</string>
@@ -28,4 +31,5 @@
     //Constants intent IDs
     <string name="intentEmail">IntentEmail</string>
     <string name="provider">Proveedor</string>
+    <string name="hacer_foto">Hacer Foto</string>
 </resources>
