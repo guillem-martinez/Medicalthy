@@ -32,7 +32,7 @@ class SignInActivity : AppCompatActivity() {
     //Función login usuario con email y contraseña
     private fun login() : Boolean {
 
-        val success = authObject.verifyCredentialsSignIn(signInEmail, signInPassword)
+        val success = authObject.verifyCredentialsSignIn(signInEmail.text.toString(), signInPassword.text.toString())
 
         if (success[0] as Boolean) {
             database.signInWithEmailAndPassword(signInEmail.text.toString(), signInPassword.text.toString())

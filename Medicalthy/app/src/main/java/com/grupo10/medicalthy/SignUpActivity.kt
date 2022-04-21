@@ -3,7 +3,6 @@ package com.grupo10.medicalthy
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
@@ -55,7 +54,8 @@ class SignUpActivity : AppCompatActivity() {
         //val success = verifyCredentials(email, password)
 
         //val success = authObject.verifyCredentials(signUpEmail, signUpPassword)
-        val success = authObject.verifyCredentialsSignUp(signUpEmail,signUpPassword,editTextName,editTextSurname,editTextAge)
+        val success = authObject.verifyCredentialsSignUp(signUpEmail.text.toString(),signUpPassword.text.toString(),editTextName.text.toString(),
+                                                         editTextSurname.text.toString(),editTextAge.text.toString().toInt())
 
         if(success[0] as Boolean){
             databaseAuth.createUserWithEmailAndPassword(signUpEmail.text.toString(),signUpPassword.text.toString()).addOnCompleteListener {
