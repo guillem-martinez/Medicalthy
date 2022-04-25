@@ -3,7 +3,6 @@ package com.grupo10.medicalthy
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -62,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
                 if(it.isSuccessful){
                     //it.result?.user?.email?: "" --> null safety
                     databaseFunctions.makeUserDatabase(signUpEmail,editTextName,editTextSurname,editTextAge,cloudFirestore)
-                    goHome(it.result?.user?.email?: "", ProviderType.BASIC)     //Empieza la acticidad de pantalla de Inicio
+                    goHome(it.result?.user?.email?: "", ProviderType.BASIC)     //Empieza la actividad de pantalla de Inicio
                 }
                 else{
                     showAlert(getString(R.string.authErrorMessage))     //Muestra un mensaje de error de autenticación
@@ -89,7 +88,6 @@ class SignUpActivity : AppCompatActivity() {
         }
         return true;
     }
-
 
 
     //Función para iniciar la actividad de inicio tras registrarse o hacer logIn

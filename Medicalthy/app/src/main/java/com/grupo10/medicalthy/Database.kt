@@ -1,6 +1,7 @@
 package com.grupo10.medicalthy
 
 import android.widget.EditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -10,7 +11,9 @@ Clase para todas las funciones que realizen consultas a la base de datos Firebas
  */
 class Database {
 
-
+    companion object{
+        val databaseAuth = FirebaseAuth.getInstance()
+    }
     /*
     Función que permite crear el usuario en la base de datos identificandolo con el email.
 

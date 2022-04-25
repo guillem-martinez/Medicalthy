@@ -4,7 +4,7 @@
     //Auth Activities (Login - Register)
     <string name="signUpTitle">Autentificación</string>
     <string name="signInTitle">Iniciar Sesión</string>
-    <string name="signUpButton">Registrar</string>
+    <string name="signUpButton">Registrarse</string>
     <string name="loginButton">Acceder</string>
     <string name="emailHint">Email</string>
     <string name="passwordHint">Contraseña</string>
