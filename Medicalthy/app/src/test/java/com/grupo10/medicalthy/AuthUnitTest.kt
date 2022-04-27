@@ -17,91 +17,97 @@ class AuthUnitTest {
 
     @Test
     fun testEmptyEmailExpectsFalse(){
-        val result = authObj.verifyCredentialsSignUp("", "123456", "name", "surname", 1)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("", "123456", "name", "surname", "1")[0].toString()
         assertEquals("false", result)
     }
 
     @Test
     fun testEmptyPasswordExpectsFalse(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "", "name", "surname", 1)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "", "name", "surname", "1")[0].toString()
         assertEquals("false", result)
     }
 
     @Test
     fun testEmptyNameExpectsFalse(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "", "surname", 1)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "", "surname", "1")[0].toString()
         assertEquals("false", result)
     }
 
     @Test
     fun testEmptySurnameExpectsFalse(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "", 1)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "", "1")[0].toString()
+        assertEquals("false", result)
+    }
+
+    @Test
+    fun testEmptyAgeExpectsFalse(){
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", "")[0].toString()
         assertEquals("false", result)
     }
 
     @Test
     fun testTooShortPasswordExpectsFalse(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "12345", "name", "surname", 1)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "12345", "name", "surname", "1")[0].toString()
         assertEquals("false", result)
     }
 
     @Test
     fun testMinimumPasswordLengthExpectsTrue(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", 1)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", "1")[0].toString()
         assertEquals("true", result)
     }
 
     @Test
     fun testValidPasswordLengthExpectsTrue(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "1234567", "name", "surname", 1)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "1234567", "name", "surname", "1")[0].toString()
         assertEquals("true", result)
     }
 
     @Test
     fun testAveragePasswordLengthExpectsTrue(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "1234567890", "name", "surname", 1)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "1234567890", "name", "surname", "1")[0].toString()
         assertEquals("true", result)
     }
 
     @Test
     fun testInvalidMinimumAgeExpectsFalse(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", 0)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", "0")[0].toString()
         assertEquals("false", result)
     }
 
     @Test
     fun testMinimumAgeExpectsTrue(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", 1)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", "1")[0].toString()
         assertEquals("true", result)
     }
 
     @Test
     fun testValidMinimumAgeExpectsTrue(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", 2)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", "2")[0].toString()
         assertEquals("true", result)
     }
 
     @Test
     fun testValidAverageAgeExpectsTrue(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", 40)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", "40")[0].toString()
         assertEquals("true", result)
     }
 
     @Test
     fun testValidMaximumAgeExpectsTrue(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", 119)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", "119")[0].toString()
         assertEquals("true", result)
     }
 
     @Test
     fun testMaximumAgeExpectsTrue(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", 120)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", "120")[0].toString()
         assertEquals("true", result)
     }
 
     @Test
     fun testInvalidMaximumAgeExpectsFalse(){
-        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", 121)[0].toString()
+        val result = authObj.verifyCredentialsSignUp("pablo@gmail.com", "123456", "name", "surname", "121")[0].toString()
         assertEquals("false", result)
     }
 
