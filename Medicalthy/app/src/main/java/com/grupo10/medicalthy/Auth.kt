@@ -15,11 +15,13 @@ class Auth {
         Array[0] -> True/False según si són validas las credenciales.
         Array[1] -> Devuelve un string con el código de error.
          */
-    public fun verifyCredentialsSignUp(email : String, password : String, name : String, surname : String, age: Int) : Array<Any> {
+    public fun verifyCredentialsSignUp(email : String, password : String, name : String, surname : String, age: String) : Array<Any> {
 
         val arrayResult = arrayOf<Any>(true,"")
 
-        if(email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && surname.isNotEmpty()){
+        if(email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && surname.isNotEmpty() && age.isNotEmpty()){
+
+            var age = age.toInt()
 
             if(password.length >= 6){
 

@@ -54,7 +54,7 @@ class SignUpActivity : AppCompatActivity() {
 
         //val success = authObject.verifyCredentials(signUpEmail, signUpPassword)
         val success = authObject.verifyCredentialsSignUp(signUpEmail.text.toString(),signUpPassword.text.toString(),editTextName.text.toString(),
-                                                         editTextSurname.text.toString(),editTextAge.text.toString().toInt())
+                                                         editTextSurname.text.toString(),editTextAge.text.toString())
 
         if(success[0] as Boolean){
             databaseAuth.createUserWithEmailAndPassword(signUpEmail.text.toString(),signUpPassword.text.toString()).addOnCompleteListener {
