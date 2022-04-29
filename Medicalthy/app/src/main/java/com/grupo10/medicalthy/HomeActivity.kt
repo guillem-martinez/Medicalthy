@@ -1,6 +1,7 @@
 package com.grupo10.medicalthy
 
 import android.app.*
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -32,6 +33,24 @@ class HomeActivity : AppCompatActivity() {
         notifyButton.setOnClickListener {
             setAlarm{timeInMillis -> notifications.setExactAlarm(timeInMillis) }
         }
+
+        btnAddMedicine.setOnClickListener {
+            goToAddMedicine()
+        }
+
+        btnShowShots.setOnClickListener {
+            goToShowSots()
+        }
+    }
+
+    private fun goToAddMedicine(){
+        val addMedicineIntent = Intent(this, AddMedicineActivity::class.java)
+        startActivity(addMedicineIntent)
+    }
+
+    private fun goToShowSots(){
+        val showShotsInIntent = Intent(this, ShowShotsActivity::class.java)
+        startActivity(showShotsInIntent)
     }
 
     private fun setAlarm(timeInMillis: (Long) -> Unit){

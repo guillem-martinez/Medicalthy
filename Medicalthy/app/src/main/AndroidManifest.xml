@@ -32,6 +32,12 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
+            android:name=".AddMedicineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShowShotsActivity"
+            android:exported="false" />
+        <activity
             android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
