@@ -20,10 +20,11 @@
 
     //Error Messages
     <string name="simpleErrorMessage">Error</string>
-    <string name="authErrorMessage">Se ha producido un error autenticando al usuario.\nCompruebe que el email tenga el siguiente estilo: ejemplo@gmail.com</string>
-    <string name="emptyCredentialsErrorMessage">Correo electrónicos i/o contraseña vacíos, por favor ingrese el texto restante.</string>
-    <string name="lengthCredentialsErrorMessage">El tamaño de el correo electrónico i/o contraseña es demasiado pequeño,por favor ingrese el texto restante .</string>
-    <string name="ageCredentialsErrorMessage">La edad seleccionada no es válida, porfavor escoja una edad entre 1 y 120 .</string>
+    <string name="authErrorMessage">Se ha producido un error al Iniciar Sesion.\nCompruebe que el email tenga el siguiente estilo: ejemplo@gmail.com</string>
+    <string name="emptyCredentialsErrorMessage">Correo electrónico i/o contraseña vacíos. Por favor, ingrese el texto restante.</string>
+    <string name="lengthCredentialsErrorMessage">El tamaño de contraseña es demasiado corto (mínimo 6 caracteres). Por favor, ingrese el texto restante.</string>
+    <string name="ageCredentialsErrorMessage">La edad seleccionada no es válida. Por favor, seleccione una edad entre 1 y 120 .</string>
+    <string name="takePicErrorMessage">El sistema no ha podido reconocer el texto de la imagen. Por favor, repita la foto para intentar reconocer el texto </string>
 
     //Positive button messages
     <string name="acceptMessage">Aceptar</string>
