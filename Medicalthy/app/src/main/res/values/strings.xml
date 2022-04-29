@@ -33,4 +33,9 @@
     <string name="intentEmail">IntentEmail</string>
     <string name="provider">Proveedor</string>
     <string name="hacer_foto">Hacer Foto</string>
+
+    //Notifications
+    <string name="channelName">Medicalthy</string>
+    <string name="channelID">Medicalthy1</string>
+    <string name="channelDescription">Canal de notificaciones básicas</string>
 </resources>
