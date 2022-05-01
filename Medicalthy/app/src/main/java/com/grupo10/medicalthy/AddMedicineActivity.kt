@@ -1,36 +1,39 @@
 package com.grupo10.medicalthy
 
+import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.icu.text.SimpleDateFormat
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.icu.text.SimpleDateFormat
-import android.net.Uri
-import android.os.Environment
-import android.provider.MediaStore
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.util.*
+
 
 class AddMedicineActivity : AppCompatActivity() {
 
     lateinit var selectedImage: ImageView
     lateinit var cameraBtn: Button
     lateinit var currentPhotoPath: String
-
-
+    lateinit var storage : FirebaseStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,28 +61,27 @@ class AddMedicineActivity : AppCompatActivity() {
     }
 
     private fun askCameraPermissions() {
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA) , 101)
-
-
+        if((ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) &&
+            (ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE) , 101)
 
 
         }else {
 
             Toast.makeText(this, "Notificación askCameraPermissions", Toast.LENGTH_SHORT).show()
 
-
-            dispatchTakePictureIntent()
+            openCamera()
+            //dispatchTakePictureIntent()
         }
 
     }
 
-    /*
+
     private fun openCamera() {
         var camera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(camera, 102)
 
-    }*/
+    }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -88,15 +90,18 @@ class AddMedicineActivity : AppCompatActivity() {
 
             Toast.makeText(this, "Notificación onActivtyResult", Toast.LENGTH_SHORT).show()
 
-            /*
+
             val imageBitmap = data?.extras?.get("data") as Bitmap?
             selectedImage.setImageBitmap(imageBitmap)
 
-             */
+            if (imageBitmap != null) {
+                uploadFile(imageBitmap)
+            }
 
+            /*
             val f = File(currentPhotoPath)
             selectedImage.setImageURI(Uri.fromFile(f))
-
+            */
 
         }
 
@@ -115,7 +120,9 @@ class AddMedicineActivity : AppCompatActivity() {
                 Toast.makeText(this, "Notificación onRequestPermissionsResult", Toast.LENGTH_SHORT).show()
                 Log.d("tag", "hola")
 
-                dispatchTakePictureIntent()
+
+                openCamera()
+                //dispatchTakePictureIntent()
 
 
             }else{
@@ -154,11 +161,11 @@ class AddMedicineActivity : AppCompatActivity() {
                     createImageFile()
                 } catch (ex: IOException) {
                     // Error occurred while creating the File
-
                     null
                 }
                 // Continue only if the File was successfully created
                 photoFile?.also {
+                    Log.d("tag","photoFilehere")
                     val photoURI: Uri = FileProvider.getUriForFile(
                         this,
                         "com.grupo10.android.fileprovider",
@@ -183,5 +190,26 @@ class AddMedicineActivity : AppCompatActivity() {
         dialog.show()
     }
 
+
+    fun uploadFile(imageBitmap: Bitmap){
+        val storageRef = storage.reference
+
+
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val imageRef = storageRef.child(timeStamp+".jpg")
+
+        val baos = ByteArrayOutputStream()
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG,100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = imageRef.putBytes(data)
+        uploadTask.addOnFailureListener{
+            // Handle unsuccessful uploads
+
+        }.addOnSuccessListener { taskSnapshot ->
+
+        }
+
+    }
 
 }
