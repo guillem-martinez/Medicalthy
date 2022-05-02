@@ -84,6 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
+                android:drawableStart="@drawable/ic_lock"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="@string/passwordHint"
