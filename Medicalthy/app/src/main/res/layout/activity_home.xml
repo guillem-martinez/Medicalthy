@@ -12,52 +12,66 @@
         android:layout_height="wrap_content"
         android:text="Button" />
 
-    <TableLayout
-        android:layout_width="371dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <Button
+        android:id="@+id/btnAddMedicine"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="Añadir medicamento"
+        app:layout_constraintBottom_toTopOf="@+id/btnPharmacy"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/notifyButton">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <Button
+        android:id="@+id/btnShowShots"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="ver tomas"
+        app:layout_constraintBottom_toTopOf="@+id/btnManagePatient"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <Button
-                android:id="@+id/btnAddMedicine"
-                android:layout_width="175dp"
-                android:layout_height="175dp"
-                android:layout_marginRight="8dp"
-                android:text="Añadir medicamento" />
+    <Button
+        android:id="@+id/btnPharmacy"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="Mapa de farmacias"
+        app:layout_constraintBottom_toTopOf="@+id/btnMedicationHistory"
+        app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
-                android:id="@+id/btnShowShots"
-                android:layout_width="175dp"
-                android:layout_height="175dp"
-                android:layout_marginLeft="8dp"
-                android:text="ver tomas" />
-        </TableRow>
+    <Button
+        android:id="@+id/btnMedicationHistory"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="80dp"
+        android:text="Historial de medicación"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <Button
+        android:id="@+id/btnManagePatient"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="Administrar paciente"
+        app:layout_constraintBottom_toTopOf="@+id/btnShoppingCart"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="175dp"
-                android:layout_height="175dp"
-                android:layout_marginRight="8dp"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="175dp"
-                android:layout_height="175dp"
-                android:layout_marginLeft="8dp"
-                android:text="Button" />
-        </TableRow>
-
-    </TableLayout>
+    <Button
+        android:id="@+id/btnShoppingCart"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
+        android:text="Lista de la compra"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
