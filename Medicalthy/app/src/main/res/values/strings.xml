@@ -39,6 +39,8 @@
 
     //Notifications
     <string name="channelName">Medicalthy</string>
-    <string name="channelID">Medicalthy1</string>
+    <string name="channelID">MedicalthyID</string>
     <string name="channelDescription">Canal de notificaciones básicas</string>
+    <string name="notificationMessage">Ha llegado el momento, es la hora de meterte la pastilla entre pecho y espalda</string>
+    <string name="notificationSubText">Hora de la pastilla</string>
 </resources>

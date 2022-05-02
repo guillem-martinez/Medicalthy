@@ -16,7 +16,7 @@ class NotificationsReceiver : BroadcastReceiver() {
 
         when(intent.action){
             Constants.SET_EXACT_ALARM -> {
-                notifications.generateNotification("Notificación", "Tomese la pastilla o vaya con San Pedro")
+                notifications.generateNotification(context.getString(R.string.app_name), context.getString(R.string.notificationMessage), context.getString(R.string.notificationSubText))
             }
 
             Constants.SET_REPETITIVE_ALARM -> {
@@ -25,7 +25,7 @@ class NotificationsReceiver : BroadcastReceiver() {
                 }
 
                 Notifications(context,ref).setRepetitiveAlarm(calendar.timeInMillis)
-                notifications.generateNotification("Notificación", "La pastilla viejo senil")
+                notifications.generateNotification(context.getString(R.string.app_name), context.getString(R.string.notificationMessage), context.getString(R.string.notificationSubText))
             }
         }
     }

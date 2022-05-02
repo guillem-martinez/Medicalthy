@@ -83,8 +83,9 @@ class HomeActivity : AppCompatActivity() {
                 this.get(Calendar.YEAR),
                 this.get(Calendar.MONTH),
                 this.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            ).apply {
+                datePicker.minDate = (System.currentTimeMillis() - 1000)
+            }.show()
         }
-
     }
 }
