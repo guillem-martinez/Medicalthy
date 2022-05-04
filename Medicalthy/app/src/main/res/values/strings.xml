@@ -28,7 +28,6 @@
     <string name="takePicPermission">Se necesitan los permisos de la cámara para poder hacer la foto </string>
 
 
-
     //Positive button messages
     <string name="acceptMessage">Aceptar</string>
 

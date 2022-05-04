@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
@@ -23,6 +22,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Medicalthy">
+        <activity
+            android:name=".PharmacyMapActivity"
+            android:exported="false" />
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
@@ -54,7 +56,6 @@
             android:name=".TakePictureActivity"
             android:exported="true" />
 
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.grupo10.android.fileprovider"
@@ -62,18 +63,14 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
-
 
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="ocr" />
+
         <receiver android:name=".NotificationsReceiver" />
-
-
-
-
     </application>
 
 </manifest>

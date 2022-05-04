@@ -41,6 +41,10 @@ class HomeActivity : AppCompatActivity() {
         btnShowShots.setOnClickListener {
             goToShowSots()
         }
+
+        btnPharmacy.setOnClickListener {
+            goToPharmacyMap()
+        }
     }
 
     private fun goToAddMedicine(){
@@ -51,6 +55,11 @@ class HomeActivity : AppCompatActivity() {
     private fun goToShowSots(){
         val showShotsInIntent = Intent(this, ShowShotsActivity::class.java)
         startActivity(showShotsInIntent)
+    }
+
+    private fun goToPharmacyMap(){
+        val pharmacyMapIntent = Intent(this, PharmacyMapActivity::class.java)
+        startActivity(pharmacyMapIntent)
     }
 
     private fun setAlarm(timeInMillis: (Long) -> Unit){
