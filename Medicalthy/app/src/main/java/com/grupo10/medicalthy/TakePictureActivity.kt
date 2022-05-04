@@ -10,6 +10,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.mlkit.vision.common.InputImage
@@ -55,6 +56,10 @@ class TakePictureActivity : AppCompatActivity() {
                 println("\n\nSuccess\n\n")
                 val text = recognitions.text
                 val nc = getNC(text)
+                Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
+                val view = StringBuilder()
+                view.append("Formato Codigo Nacional: ").append(nc)
+                textView4.text = view.toString()
                 println(nc)
             }
             result.addOnFailureListener { println("\n\nFailure\n\n") }
