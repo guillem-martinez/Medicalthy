@@ -5,14 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="321dp"
+        android:layout_height="85dp"
+        android:gravity="center"
+        android:text="Haga una foto del medicamento a forma de recordatorio"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="45dp"
+        tools:layout_editor_absoluteY="69dp" />
+
     <ImageView
         android:id="@+id/displayImageView"
-        android:layout_width="217dp"
-        android:layout_height="261dp"
+        android:layout_width="266dp"
+        android:layout_height="259dp"
         android:layout_marginStart="98dp"
-        android:layout_marginTop="109dp"
+        android:layout_marginTop="164dp"
         android:layout_marginEnd="96dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_background" />
@@ -23,11 +36,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="157dp"
         android:layout_marginEnd="156dp"
-        android:text="CAMARA"
+        android:text="@string/hacer_foto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59" />
+        app:layout_constraintVertical_bias="0.664" />
 </androidx.constraintlayout.widget.ConstraintLayout>
