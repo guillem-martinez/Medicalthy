@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Medicalthy</string>
+    <string name="preferencesFile">com.grupo10.medicalthy.PREFERENCE_FILE_KEY</string>
+    <string name="defaultWebClientId">999955772355-2qab3e47qfo3lcnmml4dihpdhpq4q9uv.apps.googleusercontent.com</string>
 
     //Auth Activities (Login - Register)
     <string name="signUpTitle">Autentificación</string>
@@ -11,6 +13,7 @@
     <string name="ageHint">Edad</string>
     <string name="nameHint">Nombre</string>
     <string name="surnameHint">Apellidos</string>
+    <string name="googleButtonText">Iniciar sesión con Google</string>
 
     //Home Activity
     <string name="homeTitle">Inicio</string>
@@ -21,6 +24,7 @@
     //Error Messages
     <string name="simpleErrorMessage">Error</string>
     <string name="authErrorMessage">Se ha producido un error al Iniciar Sesion.\nCompruebe que el email tenga el siguiente estilo: ejemplo@gmail.com</string>
+    <string name="googleAuthErrorMessage">Se ha producido un error al Iniciar Sesion con Google.\n</string>
     <string name="emptyCredentialsErrorMessage">Correo electrónico i/o contraseña vacíos. Por favor, ingrese el texto restante.</string>
     <string name="lengthCredentialsErrorMessage">El tamaño de contraseña es demasiado corto (mínimo 6 caracteres). Por favor, ingrese el texto restante.</string>
     <string name="ageCredentialsErrorMessage">La edad seleccionada no es válida. Por favor, seleccione una edad entre 1 y 120 .</string>

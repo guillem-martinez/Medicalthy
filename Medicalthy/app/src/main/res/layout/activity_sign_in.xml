@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ic_field"
             android:drawableStart="@drawable/ic_email"
-            android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="10dp"
             android:ems="10"
             android:hint="@string/emailHint"
@@ -48,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_field"
                 android:drawableStart="@drawable/ic_lock"
-                android:drawableLeft="@drawable/ic_lock"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="@string/passwordHint"
@@ -80,5 +78,16 @@
                 android:background="@drawable/ic_field"
                 android:text="@string/loginButton" />
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <Button
+            android:id="@+id/googleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/googleButtonText" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

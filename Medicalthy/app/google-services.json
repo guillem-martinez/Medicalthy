@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "999955772355",
+    "firebase_url": "https://medicalthy-4eb89-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "medicalthy-4eb89",
     "storage_bucket": "medicalthy-4eb89.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "999955772355-6q6g3ror65igss9evi5qur58q6v7q1ks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grupo10.medicalthy",
+            "certificate_hash": "5273c2084127d31b9aac2331e17c55eb06484a1a"
+          }
+        },
         {
           "client_id": "999955772355-2qab3e47qfo3lcnmml4dihpdhpq4q9uv.apps.googleusercontent.com",
           "client_type": 3
