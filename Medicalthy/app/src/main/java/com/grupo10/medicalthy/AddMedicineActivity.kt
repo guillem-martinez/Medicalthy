@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Bundle
@@ -19,10 +20,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
+import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.activity_add_medicine.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
+import java.lang.Exception
 import java.util.*
 
 
@@ -37,6 +44,7 @@ class AddMedicineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_medicine)
 
+        storage = Firebase.storage
 
         setup()
     }
@@ -47,6 +55,7 @@ class AddMedicineActivity : AppCompatActivity() {
         selectedImage = findViewById(R.id.displayImageView)
         cameraBtn = findViewById(R.id.cameraBtn)
 
+
         cameraBtn.setOnClickListener(View.OnClickListener { view ->
 
             //.makeText(this, "Notificación corta", Toast.LENGTH_SHORT).show()
@@ -54,6 +63,8 @@ class AddMedicineActivity : AppCompatActivity() {
 
 
         })
+
+
 
 
     }
@@ -91,6 +102,11 @@ class AddMedicineActivity : AppCompatActivity() {
 
             val imageBitmap = data?.extras?.get("data") as Bitmap?
             selectedImage.setImageBitmap(imageBitmap)
+
+
+
+
+
 
             if (imageBitmap != null) {
                 uploadFile(imageBitmap)
@@ -188,23 +204,65 @@ class AddMedicineActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    internal inner class MyFailureListener : OnFailureListener{
+        override fun onFailure(exception: Exception) {
+            val errorCode = (exception as StorageException).errorCode
+            val errorMessage = exception.message
 
-    fun uploadFile(imageBitmap: Bitmap){
+
+
+
+        }
+
+
+    }
+
+
+    fun uploadFile(imageBitmap : Bitmap){
+
+
         val storageRef = storage.reference
+
+
+
 
 
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageRef = storageRef.child(timeStamp+".jpg")
+
+        """var imageRef = storageRef.child("images")
+        val filename = "$timeStamp.jpg"
+
+        var spaceRef = imageRef.child(filename)
+
+        val path = spaceRef.path
+
+        val name = spaceRef.name
+
+        imageRef = spaceRef.parent!!"""
+
+
+
+
 
         val baos = ByteArrayOutputStream()
         imageBitmap.compress(Bitmap.CompressFormat.JPEG,100, baos)
         val data = baos.toByteArray()
 
         var uploadTask = imageRef.putBytes(data)
+
+
+
+
         uploadTask.addOnFailureListener{
+
+
             // Handle unsuccessful uploads
+            MyFailureListener()
 
         }.addOnSuccessListener { taskSnapshot ->
+
+            Toast.makeText(this, "HOLAAAAAAAAAAA onActivtyResult", Toast.LENGTH_SHORT).show()
 
         }
 
