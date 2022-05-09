@@ -46,4 +46,7 @@
     <string name="channelDescription">Canal de notificaciones básicas</string>
     <string name="notificationMessage">Ha llegado el momento, es la hora de meterte la pastilla entre pecho y espalda</string>
     <string name="notificationSubText">Hora de la pastilla</string>
+
+    //Alerta de consumo responsable
+    <string name="consumo_responsable">El tiempo entre toma y toma del medicamento está por debajo del tiempo recomendado.\n La aplicación no se hace responsable del posible mal consumo por parte del paciente.</string>
 </resources>
