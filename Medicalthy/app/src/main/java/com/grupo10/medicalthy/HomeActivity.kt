@@ -48,6 +48,10 @@ class HomeActivity : AppCompatActivity() {
             goToPharmacyMap()
         }
 
+        btnMedicationHistory.setOnClickListener {
+            goToMedicationHistory()
+        }
+
         //Recuperar extras del intent de SignIn/SignUp Activity
         val bundle = intent.extras
         val email = bundle?.get(getString(R.string.intentEmail))
@@ -73,6 +77,11 @@ class HomeActivity : AppCompatActivity() {
     private fun goToPharmacyMap(){
         val pharmacyMapIntent = Intent(this, PharmacyMapActivity::class.java)
         startActivity(pharmacyMapIntent)
+    }
+
+    private fun goToMedicationHistory(){
+        val medicationHistoryIntent = Intent(this, ShowMedicineActivity::class.java)
+        startActivity(medicationHistoryIntent)
     }
 
     private fun setAlarm(timeInMillis: (Long) -> Unit){
