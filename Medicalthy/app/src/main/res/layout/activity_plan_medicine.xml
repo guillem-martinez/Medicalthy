@@ -125,8 +125,8 @@
         android:id="@+id/textView7"
         android:layout_width="139dp"
         android:layout_height="31dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
         android:text="Toma X:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
