@@ -45,7 +45,8 @@
             android:exported="false" />
         <activity
             android:name=".StartActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.TTS_SERVICE" />

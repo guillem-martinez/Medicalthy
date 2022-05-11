@@ -9,6 +9,9 @@ import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        setTheme(R.style.Theme_Medicalthy)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
 

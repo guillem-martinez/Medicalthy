@@ -4,11 +4,9 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_sign_in.*
 import java.util.*
 
 //Enum con los distintos proveedores de autenticación
