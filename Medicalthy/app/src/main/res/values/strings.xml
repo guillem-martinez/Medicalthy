@@ -17,6 +17,8 @@
 
     //Home Activity
     <string name="homeTitle">Inicio</string>
+    <string name="onBackDialogTitle">Salir de Medicalthy</string>
+    <string name="onBackDialogMessage">¿Seguro que quieres salir de Medicalthy?</string>
 
     //Take Picture ACtivity
     <string name="takePicButton">Take Picture</string>
@@ -34,6 +36,10 @@
 
     //Positive button messages
     <string name="acceptMessage">Aceptar</string>
+    <string name="yesMessage">Sí</string>
+
+    //Positive button messages
+    <string name="noMessage">No</string>
 
     //Constants intent IDs
     <string name="intentEmail">IntentEmail</string>

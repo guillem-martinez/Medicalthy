@@ -4,6 +4,7 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -90,7 +91,7 @@ class HomeActivity : AppCompatActivity() {
             this.set(Calendar.MILLISECOND, 0)
             DatePickerDialog(
                 this@HomeActivity,
-                DialogFragment.STYLE_NO_INPUT, // Otra opción para elegir es 0.
+                0,//DialogFragment.STYLE_NO_INPUT, // Otra opción para elegir es 0.
                 //Valores del año,mes y dia que eligirá el usuario
                 { _, year, month, day ->
                     this.set(Calendar.YEAR, year)
@@ -118,5 +119,22 @@ class HomeActivity : AppCompatActivity() {
                 datePicker.minDate = (System.currentTimeMillis() - 1000)
             }.show()
         }
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this).apply {
+            setTitle(getString(R.string.onBackDialogTitle))
+            setMessage(getString(R.string.onBackDialogMessage))
+
+            setPositiveButton(getString(R.string.yesMessage)) { _, _ ->
+                // Si pulsan si se cierra la app, LOCURA
+                finishAffinity()
+            }
+
+            setNegativeButton(getString(R.string.noMessage)){_, _ ->
+            }
+
+            setCancelable(true)
+        }.create().show()
     }
 }
