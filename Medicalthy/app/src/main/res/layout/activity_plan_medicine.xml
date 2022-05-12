@@ -114,7 +114,7 @@
         tools:layout_editor_absoluteY="536dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/addHour"
         android:layout_width="140dp"
         android:layout_height="38dp"
         android:text="Añadir Hora"

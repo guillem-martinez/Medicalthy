@@ -23,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Medicalthy">
         <activity
+            android:name=".PlanMedicineActivity"
+            android:exported="false" />
+        <activity
             android:name=".PharmacyMapActivity"
             android:exported="false" />
         <activity

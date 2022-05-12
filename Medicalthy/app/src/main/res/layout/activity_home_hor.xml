@@ -7,16 +7,6 @@
     tools:context=".HomeActivity">
 
     <Button
-        android:id="@+id/notifyButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddMedicine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/btnAddMedicine"
         android:layout_width="400dp"
         android:layout_height="90dp"
@@ -26,14 +16,14 @@
         android:layout_marginBottom="10dp"
         android:text="Añadir medicamento"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnShowShotsHor"
+        app:layout_constraintBottom_toTopOf="@+id/btnShowShots"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnPharmacyMapHor"
+        android:id="@+id/btnPharmacy"
         android:layout_width="400dp"
         android:layout_height="90dp"
         android:layout_marginStart="6dp"
@@ -42,14 +32,14 @@
         android:layout_marginBottom="10dp"
         android:text="mapa de farmacias"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAdminPersonHor"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdminPerson"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnShowShotsHor" />
+        app:layout_constraintTop_toBottomOf="@id/btnShowShots" />
 
     <Button
-        android:id="@+id/btnAdminPersonHor"
+        android:id="@+id/btnAdminPerson"
         android:layout_width="400dp"
         android:layout_height="90dp"
         android:layout_marginStart="6dp"
@@ -58,14 +48,14 @@
         android:layout_marginBottom="10dp"
         android:text="administrar paciente"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnMedicalHistoricalHor"
+        app:layout_constraintBottom_toTopOf="@+id/btnMedicationHistory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPharmacyMapHor" />
+        app:layout_constraintTop_toBottomOf="@+id/btnPharmacy" />
 
     <Button
-        android:id="@+id/btnMedicalHistoricalHor"
+        android:id="@+id/btnMedicationHistory"
         android:layout_width="400dp"
         android:layout_height="90dp"
         android:layout_marginStart="6dp"
@@ -73,14 +63,14 @@
         android:layout_marginEnd="6dp"
         android:text="historial medicacion"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnMedicalListHor"
+        app:layout_constraintBottom_toTopOf="@+id/btnShoppingCart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdminPersonHor" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAdminPerson" />
 
     <Button
-        android:id="@+id/btnMedicalListHor"
+        android:id="@+id/btnShoppingCart"
         android:layout_width="400dp"
         android:layout_height="90dp"
         android:layout_marginStart="6dp"
@@ -93,10 +83,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMedicalHistoricalHor" />
+        app:layout_constraintTop_toBottomOf="@+id/btnMedicationHistory" />
 
     <Button
-        android:id="@+id/btnShowShotsHor"
+        android:id="@+id/btnShowShots"
         android:layout_width="400dp"
         android:layout_height="90dp"
         android:layout_marginStart="6dp"
@@ -105,7 +95,7 @@
         android:layout_marginBottom="10dp"
         android:text="ver tomas"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnPharmacyMapHor"
+        app:layout_constraintBottom_toTopOf="@+id/btnPharmacy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
