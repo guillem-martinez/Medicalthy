@@ -29,9 +29,4 @@ class NotificationsReceiver : BroadcastReceiver() {
             }
         }
     }
-
-    /*private fun dateFormatter(timeInMillis: Long): String =
-        android.text.format.DateFormat.format("dd/MM/yyyy hh:mm:ss", timeInMillis).toString()*/
-
-
 }

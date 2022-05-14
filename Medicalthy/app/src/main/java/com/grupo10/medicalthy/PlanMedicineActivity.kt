@@ -2,9 +2,12 @@ package com.grupo10.medicalthy
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import java.util.*
@@ -13,12 +16,17 @@ class PlanMedicineActivity : AppCompatActivity() {
 
     lateinit var notifications: Notifications
     var calendar: Calendar = Calendar.getInstance()
+    private var timeMillis: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_medicine)
 
         setup()
+    }
+
+    private fun setMillis(timeInMillis : Long){
+        this.timeMillis = timeInMillis
     }
 
     private fun setup() {
@@ -32,10 +40,19 @@ class PlanMedicineActivity : AppCompatActivity() {
         }
 
         addHour.setOnClickListener {
-            chooseInitialHour { timeInMillis -> notifications.setExactAlarm(timeInMillis) }
-            resetCalendar()
+            chooseInitialHour { timeInMillis -> setMillis(timeInMillis) }
         }
 
+        hoursAtDay.setOnClickListener {
+            responsibleConsumption()
+        }
+
+        saveButton.setOnClickListener {
+            notifications.setExactAlarm(timeMillis)
+            Toast.makeText(this, RandomUtils.dateFormatter(timeMillis), Toast.LENGTH_LONG).show()
+            resetCalendar()
+            goHome()
+        }
     }
 
     private fun chooseInitialDate(){
@@ -82,5 +99,25 @@ class PlanMedicineActivity : AppCompatActivity() {
 
     private fun resetCalendar() {
         calendar = Calendar.getInstance()
+    }
+
+    private fun goHome(){
+        val homeIntent = Intent(this, HomeActivity::class.java)
+        startActivity(homeIntent)
+    }
+
+    private fun responsibleConsumption() {
+        if(hoursAtDay.text.toString().toInt() < 4 && hoursAtDay.text != null) {
+            showAlert(getString(R.string.consumoResponsable))
+        }
+    }
+
+    private fun showAlert(errorMessage : String){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.responsibleConsumption))
+        builder.setMessage(errorMessage)
+        builder.setPositiveButton(getString(R.string.acceptMessage), null)
+        val dialog : AlertDialog = builder.create()
+        dialog.show()
     }
 }

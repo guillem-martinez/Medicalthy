@@ -34,6 +34,7 @@
     <string name="takePicPermission">Se necesitan los permisos de la cámara para poder hacer la foto </string>
 
 
+
     //Positive button messages
     <string name="acceptMessage">Aceptar</string>
     <string name="yesMessage">Sí</string>
@@ -57,5 +58,6 @@
     <string name="planMedicineTitle">Planificar Toma</string>
 
     //Alerta de consumo responsable
-    <string name="consumo_responsable">El tiempo entre toma y toma del medicamento está por debajo del tiempo recomendado.\n La aplicación no se hace responsable del posible mal consumo por parte del paciente.</string>
+    <string name="responsibleConsumption"> Consumo Responsable</string>
+    <string name="consumoResponsable">El tiempo entre toma y toma del medicamento está por debajo del tiempo recomendado.\n La aplicación no se hace responsable del posible mal consumo por parte del paciente.</string>
 </resources>
