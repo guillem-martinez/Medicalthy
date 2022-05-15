@@ -9,14 +9,17 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import java.util.*
 
 class PlanMedicineActivity : AppCompatActivity() {
 
+    val db = FirebaseFirestore.getInstance()
     lateinit var notifications: Notifications
     var calendar: Calendar = Calendar.getInstance()
     private var timeMillis: Long = 0
+    private var nc = "658257.2"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,9 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         notifications = Notifications(this, Constants.ActivityRef.ShowShotsActivity.ordinal)
         notifications.createNotificationChannel() //Canal de notificaciones creado
+
+        MedicineName.setText("El nombre del medicamento es: " +getMedicineName(nc))
+        CodigoNacional.setText("El codigo nacional es: $nc")
 
         addDate.setOnClickListener {
             chooseInitialDate()
@@ -53,6 +59,21 @@ class PlanMedicineActivity : AppCompatActivity() {
             resetCalendar()
             goHome()
         }
+    }
+
+    private fun getMedicineName(nationalCode: String): String? {
+        var name : String? = ""
+
+        db.collection("medicamentos").document(nationalCode).get().addOnSuccessListener { document ->
+            if(document.exists()) {
+                //Devuelve el nombre
+                name = document.getString("Nombre")
+            } else {
+                //No existe el medicamento
+            }
+        }
+
+        return name
     }
 
     private fun chooseInitialDate(){

@@ -24,7 +24,7 @@
         android:theme="@style/Theme.Medicalthy">
         <activity
             android:name=".PlanMedicineActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".PharmacyMapActivity"
             android:exported="false" />
