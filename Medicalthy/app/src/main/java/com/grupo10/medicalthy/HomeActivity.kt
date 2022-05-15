@@ -56,7 +56,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun goToAddMedicine(){
-        val addMedicineIntent = Intent(this, AddMedicineActivity::class.java)
+        val addMedicineIntent = Intent(this, TakePictureActivity::class.java)
         startActivity(addMedicineIntent)
     }
 

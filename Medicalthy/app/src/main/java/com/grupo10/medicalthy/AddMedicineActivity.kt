@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Bundle
@@ -29,7 +28,6 @@ import kotlinx.android.synthetic.main.activity_add_medicine.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
-import java.lang.Exception
 import java.util.*
 
 
@@ -40,11 +38,17 @@ class AddMedicineActivity : AppCompatActivity() {
     lateinit var currentPhotoPath: String
     lateinit var storage : FirebaseStorage
 
+    lateinit var nc : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_medicine)
 
         storage = Firebase.storage
+
+
+        val nc = intent.getStringExtra("nc")
+
 
         setup()
     }
@@ -110,7 +114,10 @@ class AddMedicineActivity : AppCompatActivity() {
 
             if (imageBitmap != null) {
                 uploadFile(imageBitmap)
+                goToPlanMedicineActivity(imageBitmap)
             }
+
+
 
             /*
             val f = File(currentPhotoPath)
@@ -265,6 +272,32 @@ class AddMedicineActivity : AppCompatActivity() {
             Toast.makeText(this, "HOLAAAAAAAAAAA onActivtyResult", Toast.LENGTH_SHORT).show()
 
         }
+
+    }
+
+    private fun goToPlanMedicineActivity(bmp : Bitmap ){
+
+            val stream = ByteArrayOutputStream()
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            val byteArray = stream.toByteArray()
+
+
+
+            //Pop intent
+            val in1 = Intent(this, PlanMedicineActivity::class.java).also{
+
+                val extras = Bundle()
+                extras.putByteArray("image", byteArray)
+                extras.putString("nc", nc)
+
+                startActivity(it)
+
+            }
+
+
+
+
+
 
     }
 

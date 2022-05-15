@@ -56,11 +56,13 @@ class TakePictureActivity : AppCompatActivity() {
                 println("\n\nSuccess\n\n")
                 val text = recognitions.text
                 val nc = getNC(text)
-                Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
                 val view = StringBuilder()
                 view.append("Formato Codigo Nacional: ").append(nc)
                 textView4.text = view.toString()
                 println(nc)
+
+                goToAddMedicine(nc)
             }
             result.addOnFailureListener { println("\n\nFailure\n\n") }
             print(result)
@@ -70,6 +72,9 @@ class TakePictureActivity : AppCompatActivity() {
     fun Context.drawableToUri(drawable: Int):Uri{
         return Uri.parse("android.resource://$packageName/$drawable")
     }
+
+
+
 
     fun getNC(text: String): String {
         val text_parts = text.split("\n")
@@ -100,5 +105,15 @@ class TakePictureActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun goToAddMedicine(nc : String){
+        val addMedicineIntent = Intent(this, AddMedicineActivity::class.java).also{
+            it.putExtra("nc",nc)
+            startActivity(it)
+        }
+
+    }
+
+
 
 }

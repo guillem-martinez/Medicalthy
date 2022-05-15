@@ -3,15 +3,16 @@ package com.grupo10.medicalthy
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import java.util.*
+
 
 class PlanMedicineActivity : AppCompatActivity() {
 
@@ -24,6 +25,20 @@ class PlanMedicineActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_medicine)
+
+        var extras = intent.extras
+        var filename = ""
+
+        if (extras != null) {
+            val byteArray = intent.getByteArrayExtra("image")
+            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
+        }
+
+        if (extras != null) {
+            nc = extras.getString("nc").toString()
+        }
+
+
 
         setup()
     }
@@ -38,7 +53,8 @@ class PlanMedicineActivity : AppCompatActivity() {
         notifications = Notifications(this, Constants.ActivityRef.ShowShotsActivity.ordinal)
         notifications.createNotificationChannel() //Canal de notificaciones creado
 
-        MedicineName.setText("El nombre del medicamento es: " +getMedicineName(nc))
+        getMedicineName(nc)
+
         CodigoNacional.setText("El codigo nacional es: $nc")
 
         addDate.setOnClickListener {
@@ -64,16 +80,18 @@ class PlanMedicineActivity : AppCompatActivity() {
     private fun getMedicineName(nationalCode: String): String? {
         var name : String? = ""
 
-        db.collection("medicamentos").document(nationalCode).get().addOnSuccessListener { document ->
-            if(document.exists()) {
-                //Devuelve el nombre
-                name = document.getString("Nombre")
-            } else {
-                //No existe el medicamento
-            }
+        db.collection("medicamentos").document(nationalCode).get().addOnSuccessListener {
+
+
+            MedicineName.setText("El nombre del medicamento es: " + name)
+
+
         }
 
+
+
         return name
+
     }
 
     private fun chooseInitialDate(){
