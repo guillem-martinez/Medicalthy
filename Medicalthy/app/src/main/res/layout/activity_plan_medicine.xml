@@ -10,21 +10,26 @@
         android:layout_width="316dp"
         android:layout_height="29dp"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
+        android:layout_marginBottom="21dp"
         android:text="Nombre del medicamento recuperado de OCR"
+        app:layout_constraintBottom_toTopOf="@+id/CodigoNacional"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="320dp" />
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <TextView
         android:id="@+id/CodigoNacional"
         android:layout_width="316dp"
         android:layout_height="30dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
         android:text="Codigo Nacional recuperado de OCR"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +112,9 @@
         android:layout_height="31dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="7dp"
         android:text="Horarios:"
+        app:layout_constraintEnd_toStartOf="@+id/addHour"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -117,10 +124,11 @@
         android:layout_height="40dp"
         android:layout_marginStart="116dp"
         android:layout_marginEnd="116dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="24dp"
         android:text="Guardar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -142,7 +150,7 @@
         android:layout_width="334dp"
         android:layout_height="178dp"
         android:layout_marginStart="110dp"
-        android:layout_marginTop="103dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="110dp"
         android:layout_marginBottom="109dp"
         app:layout_constraintBottom_toTopOf="@+id/MedicineName"
@@ -160,7 +168,7 @@
         android:layout_marginStart="110dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="110dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="10dp"
         android:text="Hacer foto recordatorio"
         app:layout_constraintBottom_toTopOf="@+id/MedicineName"
         app:layout_constraintEnd_toEndOf="parent"
