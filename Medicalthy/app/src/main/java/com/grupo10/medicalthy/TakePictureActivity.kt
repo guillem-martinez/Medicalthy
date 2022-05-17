@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_take_pic.*
 class TakePictureActivity : AppCompatActivity() {
 
     val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_take_pic)
@@ -37,7 +36,6 @@ class TakePictureActivity : AppCompatActivity() {
         button.setOnClickListener {
             var intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(intent, 101)
-
         }
     }
 
@@ -58,10 +56,8 @@ class TakePictureActivity : AppCompatActivity() {
                 val nc = getNC(text)
                 //Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
                 val view = StringBuilder()
-                view.append("Formato Codigo Nacional: ").append(nc)
+                view.append("Còdigo encontrado: ").append(nc)
                 textView4.text = view.toString()
-                println(nc)
-
                 goToAddMedicine(nc)
             }
             result.addOnFailureListener { println("\n\nFailure\n\n") }
@@ -72,9 +68,6 @@ class TakePictureActivity : AppCompatActivity() {
     fun Context.drawableToUri(drawable: Int):Uri{
         return Uri.parse("android.resource://$packageName/$drawable")
     }
-
-
-
 
     fun getNC(text: String): String {
         val text_parts = text.split("\n")
@@ -107,11 +100,10 @@ class TakePictureActivity : AppCompatActivity() {
     }
 
     private fun goToAddMedicine(nc : String){
-        val addMedicineIntent = Intent(this, AddMedicineActivity::class.java).also{
+        val addMedicineIntent = Intent(this, AddMedicineActivity::class.java).also {
             it.putExtra("nc",nc)
             startActivity(it)
         }
-
     }
 
 

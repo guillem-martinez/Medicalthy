@@ -12,7 +12,5 @@ class UserUnitTest {
     @Test
     fun testEmptyNameExpectsError(){
         usertest.añadirMedicamentos("", "123456789", 30, 2)
-
     }
-
 }
