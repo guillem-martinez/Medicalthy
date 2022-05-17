@@ -1,9 +1,10 @@
 package com.grupo10.medicalthy
 
 object Constants {
-    val SET_EXACT_ALARM = "SET_EXACT_ALARM"
-    val SET_REPETITIVE_ALARM = "SET_REPETITIVE_ALARM"
-    val EXACT_ALARM_TIME = "EXACT_ALARM_TIME"
+    const val SET_EXACT_ALARM = "SET_EXACT_ALARM"
+    const val SET_REPETITIVE_ALARM = "SET_REPETITIVE_ALARM"
+    const val EXACT_ALARM_TIME = "EXACT_ALARM_TIME"
+    const val NUM_DAYS = "NUM_DAYS"
 
     val CLASS_REF = "CLASS_REF"
     val HOME_REF = HomeActivity::class.java

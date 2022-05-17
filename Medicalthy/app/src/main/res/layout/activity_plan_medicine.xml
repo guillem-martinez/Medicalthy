@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/numDays"
         android:layout_width="126dp"
         android:layout_height="28dp"
         android:layout_marginStart="5dp"

@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ class PlanMedicineActivity : AppCompatActivity() {
     lateinit var notifications: Notifications
     var calendar: Calendar = Calendar.getInstance()
     private var timeMillis: Long = 0
+    private var timeInMillisList: MutableList<Long> = arrayListOf()
     private var nc = "658257.2"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +47,7 @@ class PlanMedicineActivity : AppCompatActivity() {
 
     private fun setMillis(timeInMillis : Long){
         this.timeMillis = timeInMillis
+        timeInMillisList.add(timeInMillis)
     }
 
     private fun setup() {
@@ -62,16 +65,28 @@ class PlanMedicineActivity : AppCompatActivity() {
         }
 
         addHour.setOnClickListener {
-            chooseInitialHour { timeInMillis -> setMillis(timeInMillis) }
+            chooseInitialHour { timeInMillis -> timeInMillisList.add(timeInMillis) }
         }
 
-        hoursAtDay.setOnClickListener {
-            responsibleConsumption()
-        }
+//        hoursAtDay.setOnClickListener {
+//            responsibleConsumption()
+//        }
 
         saveButton.setOnClickListener {
-            notifications.setExactAlarm(timeMillis)
-            Toast.makeText(this, RandomUtils.dateFormatter(timeMillis), Toast.LENGTH_LONG).show()
+            val numDays = numDays.text.toString().toInt()
+
+            timeInMillisList.forEach {
+                Log.d("Timer", "La lista de timeInMillis es: $it")
+
+                if(numDays > 1) {
+                    notifications.setRepetitiveAlarm(it, numDays)
+                    Toast.makeText(this, RandomUtils.dateFormatter(it), Toast.LENGTH_LONG).show()
+                }else {
+                    notifications.setExactAlarm(it)
+                    Toast.makeText(this, RandomUtils.dateFormatter(it), Toast.LENGTH_LONG).show()
+                }
+            }
+
             resetCalendar()
             goHome()
         }
@@ -88,12 +103,10 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         }
 
-
-
         return name
-
     }
 
+    //Funcion que muestra el calendario para elegir el dia
     private fun chooseInitialDate(){
         calendar.apply {
             this.set(Calendar.SECOND, 0)
@@ -112,11 +125,14 @@ class PlanMedicineActivity : AppCompatActivity() {
                 this.get(Calendar.MONTH),
                 this.get(Calendar.DAY_OF_MONTH)
             ).apply {
+                //La fecha minima para elegir es la del dia actual
                 datePicker.minDate = (System.currentTimeMillis() - 1000)
             }.show()
         }
     }
 
+    //Selección de hora y devuelve por lambda el tiempo en milisegundos
+    //Tiempo en milisegundos (Dia + hora)
     private fun chooseInitialHour(timeInMillis: (Long) -> Unit) {
         calendar.apply {
             this.set(Calendar.SECOND, 0)
@@ -145,11 +161,11 @@ class PlanMedicineActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 
-    private fun responsibleConsumption() {
-        if(hoursAtDay.text.toString().toInt() < 4 && hoursAtDay.text != null) {
-            showAlert(getString(R.string.consumoResponsable))
-        }
-    }
+//    private fun responsibleConsumption() {
+//        if(hoursAtDay.text.toString().toInt() < 4 && hoursAtDay.text != null) {
+//            showAlert(getString(R.string.consumoResponsable))
+//        }
+//    }
 
     private fun showAlert(errorMessage : String){
         val builder = AlertDialog.Builder(this)

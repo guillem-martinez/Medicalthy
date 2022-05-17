@@ -20,12 +20,18 @@ class NotificationsReceiver : BroadcastReceiver() {
             }
 
             Constants.SET_REPETITIVE_ALARM -> {
+                var numDays = intent.getIntExtra(Constants.NUM_DAYS, 0)
+
                 val calendar = Calendar.getInstance().apply {
-                    this.timeInMillis = timeInMillis + TimeUnit.DAYS.toMillis(7)
+                    this.timeInMillis = timeInMillis + TimeUnit.DAYS.toMillis(1)
                 }
 
-                Notifications(context,ref).setRepetitiveAlarm(calendar.timeInMillis)
-                notifications.generateNotification(context.getString(R.string.app_name), context.getString(R.string.notificationMessage), context.getString(R.string.notificationSubText))
+                if (numDays != 0) {
+
+                    numDays--
+                    Notifications(context, ref).setRepetitiveAlarm(calendar.timeInMillis, numDays)
+                    notifications.generateNotification(context.getString(R.string.app_name), context.getString(R.string.notificationMessage), context.getString(R.string.notificationSubText))
+                }
             }
         }
     }

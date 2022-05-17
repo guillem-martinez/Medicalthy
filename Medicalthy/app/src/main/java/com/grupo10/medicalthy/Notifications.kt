@@ -85,13 +85,14 @@ class Notifications(private val context: Context, private val ref: Int) {
     }
 
     //Alarma para un dia y hora exacta - X veces
-    fun setRepetitiveAlarm(timeInMillis: Long){
+    fun setRepetitiveAlarm(timeInMillis: Long, numDays: Int){
         setAlarm(
             timeInMillis,
             getPendingIntent(getIntent().apply {
                 action = Constants.SET_REPETITIVE_ALARM
                 putExtra(Constants.EXACT_ALARM_TIME, timeInMillis)
                 putExtra(Constants.CLASS_REF, ref)
+                putExtra(Constants.NUM_DAYS, numDays)
             })
         )
     }
