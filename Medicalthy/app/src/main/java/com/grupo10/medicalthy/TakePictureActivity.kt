@@ -13,16 +13,21 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.activity_take_pic.*
 
 
 class TakePictureActivity : AppCompatActivity() {
 
+    val db = FirebaseAuth.getInstance()
     val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_take_pic)
@@ -49,19 +54,32 @@ class TakePictureActivity : AppCompatActivity() {
             val image = InputImage.fromBitmap(bitmap, 0)
             // imageView.setImageBitmap(data.extras?.get("data") as Bitmap)
             // val image = InputImage.fromBitmap(data.extras?.get("data") as Bitmap, 0)
+            var nc = "";
             val result = recognizer.process(image)
             result.addOnSuccessListener { recognitions ->
-                println("\n\nSuccess\n\n")
                 val text = recognitions.text
-                val nc = getNC(text)
-                //Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
-                val view = StringBuilder()
-                view.append("Còdigo encontrado: ").append(nc)
-                textView4.text = view.toString()
-                goToAddMedicine(nc)
+                nc = getNC(text)
+                Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
             }
-            result.addOnFailureListener { println("\n\nFailure\n\n") }
-            print(result)
+            result.addOnFailureListener {
+                val view = StringBuilder()
+                view.append("Ha ocurrido un error")
+                textView4.text = view.toString()
+            }
+            
+            /*val view = StringBuilder()
+            if (nc == "ERROR") {
+                view.append("ERROR, no se ha leido bien la imagen ")
+                textView4.text = view.toString()
+            } else {
+                view.append("Código encontrado: ").append(nc)
+                textView4.text = view.toString()
+                val name = db.collection("medicamentos").document(nc).get().addOnSuccessListener {
+                    MedicineName.setText("El nombre del medicamento es: " + name)
+                }
+                goToAddMedicine(nc)
+            }*/
+
         }
     }
 
