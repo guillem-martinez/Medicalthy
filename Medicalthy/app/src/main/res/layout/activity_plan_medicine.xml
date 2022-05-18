@@ -5,155 +5,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/MedicineName"
-        android:layout_width="316dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="50dp"
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="21dp"
-        android:text="Nombre del medicamento recuperado de OCR"
-        app:layout_constraintBottom_toTopOf="@+id/CodigoNacional"
+        android:layout_marginEnd="40dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/button2">
 
-    <TextView
-        android:id="@+id/CodigoNacional"
-        android:layout_width="316dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="20dp"
-        android:text="Codigo Nacional recuperado de OCR"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MedicineName" />
+        <TextView
+            android:id="@+id/MedicineName"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Nombre del medicamento"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
-        android:paddingVertical="3dp"
-        android:text="Inicio del plan de medicacion"
-        android:textAlignment="viewStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CodigoNacional" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
-    <Button
-        android:id="@+id/addDate"
-        android:layout_width="116dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="44dp"
-        android:text="añadir Fecha"
-        android:textSize="8sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/CodigoNacional" />
+        <TextView
+            android:id="@+id/CodigoNacional"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Codigo Nacional "
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="140dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
-        android:paddingVertical="3dp"
-        android:text="Cuantos dias?"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
-    <EditText
-        android:id="@+id/numDays"
-        android:layout_width="126dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="39dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@id/textView8" />
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Inicio del plan de medicacion"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/addHour"
-        android:layout_width="112dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="100dp"
-        android:text="Añadir Hora"
-        android:textSize="8sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        <Button
+            android:id="@+id/addDate"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="añadir Fecha"
+            android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="139dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="7dp"
-        android:text="Horarios:"
-        app:layout_constraintEnd_toStartOf="@+id/addHour"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="179dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="24dp"
-        android:text="Guardar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingVertical="3dp"
+            android:text="Cuantos dias?"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="300dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginBottom="29dp"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.523" />
+        <EditText
+            android:id="@+id/numDays"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="number" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="334dp"
         android:layout_height="178dp"
         android:layout_marginStart="110dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="110dp"
-        android:layout_marginBottom="109dp"
-        app:layout_constraintBottom_toTopOf="@+id/MedicineName"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -164,17 +99,82 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="271dp"
-        android:layout_height="38dp"
+        android:layout_height="50dp"
         android:layout_marginStart="110dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="110dp"
         android:layout_marginBottom="10dp"
         android:text="Hacer foto recordatorio"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/MedicineName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/addHour"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="163dp"
+        android:text="Añadir Hora"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="70dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:paddingVertical="5dp"
+        android:text="Horarios:"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="13dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addHour">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="133dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="179dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="116dp"
+        android:text="Guardar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
