@@ -14,6 +14,30 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import java.util.*
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.icu.text.SimpleDateFormat
+import android.net.Uri
+import android.os.Environment
+import android.provider.MediaStore
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
+import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.activity_add_medicine.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.IOException
+import java.util.*
+
 
 class PlanMedicineActivity : AppCompatActivity() {
 
@@ -22,23 +46,14 @@ class PlanMedicineActivity : AppCompatActivity() {
     var calendar: Calendar = Calendar.getInstance()
     private var timeMillis: Long = 0
     private var timeInMillisList: MutableList<Long> = arrayListOf()
-    private var nc = "658257.2"
-
+    private var nc : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_medicine)
 
-        var extras = intent.extras
-        var filename = ""
 
-        if (extras != null) {
-            val byteArray = intent.getByteArrayExtra("image")
-            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray!!.size)
-        }
 
-        if (extras != null) {
-            nc = extras.getString("nc").toString()
-        }
+        nc = intent.getStringExtra("nc")
 
 
 
@@ -56,7 +71,7 @@ class PlanMedicineActivity : AppCompatActivity() {
         notifications = Notifications(this, Constants.ActivityRef.ShowShotsActivity.ordinal)
         notifications.createNotificationChannel() //Canal de notificaciones creado
 
-        getMedicineName(nc)
+        nc?.let { getMedicineName(it) }
 
         CodigoNacional.setText("El codigo nacional es: $nc")
 
