@@ -100,7 +100,7 @@ class TakePictureActivity : AppCompatActivity() {
     }
 
     private fun goToAddMedicine(nc : String){
-        val addMedicineIntent = Intent(this, AddMedicineActivity::class.java).also {
+        val addMedicineIntent = Intent(this, PlanMedicineActivity::class.java).also {
             it.putExtra("nc",nc)
             startActivity(it)
         }

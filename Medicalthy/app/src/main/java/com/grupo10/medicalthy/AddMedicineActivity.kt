@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.google.android.gms.tasks.OnFailureListener
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageException
@@ -38,7 +39,6 @@ class AddMedicineActivity : AppCompatActivity() {
     lateinit var currentPhotoPath: String
     lateinit var storage : FirebaseStorage
 
-    lateinit var nc : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,6 @@ class AddMedicineActivity : AppCompatActivity() {
         storage = Firebase.storage
 
 
-        val nc = intent.getStringExtra("nc")
 
 
         setup()
@@ -114,7 +113,7 @@ class AddMedicineActivity : AppCompatActivity() {
 
             if (imageBitmap != null) {
                 uploadFile(imageBitmap)
-                goToPlanMedicineActivity(imageBitmap)
+               // goToPlanMedicineActivity(imageBitmap)
             }
 
 
@@ -264,41 +263,37 @@ class AddMedicineActivity : AppCompatActivity() {
         uploadTask.addOnFailureListener{
 
 
+
             // Handle unsuccessful uploads
             MyFailureListener()
 
         }.addOnSuccessListener { taskSnapshot ->
 
+
+            uploadReference(timeStamp)
             Toast.makeText(this, "HOLAAAAAAAAAAA onActivtyResult", Toast.LENGTH_SHORT).show()
 
         }
 
     }
 
-    private fun goToPlanMedicineActivity(bmp : Bitmap ){
+    private fun uploadReference(ref : String){
+        val cloudFirestore = FirebaseFirestore.getInstance()
 
-            val stream = ByteArrayOutputStream()
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            val byteArray = stream.toByteArray()
+        var url = ref + ".jpg"
+
+        cloudFirestore.collection("users").document("testeo").set( hashMapOf("url" to url)
 
 
 
-            //Pop intent
-            val in1 = Intent(this, PlanMedicineActivity::class.java).also{
-
-                val extras = Bundle()
-                extras.putByteArray("image", byteArray)
-                extras.putString("nc", nc)
-
-                startActivity(it)
-
-            }
-
+            )
 
 
 
 
 
     }
+
+
 
 }
