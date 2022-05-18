@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import java.util.*
 
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.icu.text.SimpleDateFormat
@@ -50,12 +51,8 @@ class PlanMedicineActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_medicine)
-
-
-
+        
         nc = intent.getStringExtra("nc")
-
-
 
         setup()
     }
@@ -88,6 +85,19 @@ class PlanMedicineActivity : AppCompatActivity() {
 //        }
 
         saveButton.setOnClickListener {
+            val data = hashMapOf(
+                "nombre" to "Paracetamol",
+                "codigo" to "989624.9"
+            )
+
+            db.collection("users").document("a123456@gmail.com").collection("Plan Prueba").document("Paracetamol").set(data)
+                .addOnSuccessListener { documentReference ->
+                    Log.d(TAG, "Document written")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "error adding document", e)
+                }
+
             val numDays = numDays.text.toString().toInt()
 
             timeInMillisList.forEach {
@@ -108,14 +118,10 @@ class PlanMedicineActivity : AppCompatActivity() {
     }
 
     private fun getMedicineName(nationalCode: String): String? {
-        var name : String? = ""
+        val name : String? = ""
 
         db.collection("medicamentos").document(nationalCode).get().addOnSuccessListener {
-
-
             MedicineName.setText("El nombre del medicamento es: " + name)
-
-
         }
 
         return name
