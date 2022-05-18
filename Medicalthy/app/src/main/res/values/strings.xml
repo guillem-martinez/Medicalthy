@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Medicalthy</string>
     <string name="preferencesFile">com.grupo10.medicalthy.PREFERENCE_FILE_KEY</string>
-    <string name="defaultWebClientId" templateMergeStrategy="preserve" translatable="false">999955772355-2qab3e47qfo3lcnmml4dihpdhpq4q9uv.apps.googleusercontent.com</string>
+
+
 
     //Auth Activities (Login - Register)
     <string name="signUpTitle">Autentificación</string>

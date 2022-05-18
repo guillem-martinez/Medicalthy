@@ -35,7 +35,7 @@ class SignInActivity : AppCompatActivity() {
         googleButton.setOnClickListener {
             //Configuración
             val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.defaultWebClientId))
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build()
 
@@ -117,7 +117,8 @@ class SignInActivity : AppCompatActivity() {
                     }
                 }
             }catch (e: ApiException){
-                showAlert(getString(R.string.simpleErrorMessage))
+                //showAlert(getString(R.string.simpleErrorMessage))
+                showAlert("MENSAJE" + e.message)
             }
 
         }

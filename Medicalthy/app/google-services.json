@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "999955772355-h59qlgeorbjm5vslr25927rfbgmf3j8n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grupo10.medicalthy",
+            "certificate_hash": "480ab2dbce6e58cb7729c5d082ac951c0f2d7824"
+          }
+        },
+        {
           "client_id": "999955772355-2qab3e47qfo3lcnmml4dihpdhpq4q9uv.apps.googleusercontent.com",
           "client_type": 3
         }
