@@ -3,7 +3,6 @@ package com.grupo10.medicalthy
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -13,31 +12,8 @@ import androidx.fragment.app.DialogFragment
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import java.util.*
-
-import android.Manifest
 import android.content.ContentValues.TAG
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.icu.text.SimpleDateFormat
-import android.net.Uri
-import android.os.Environment
-import android.provider.MediaStore
-import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageException
-import com.google.firebase.storage.ktx.storage
-import kotlinx.android.synthetic.main.activity_add_medicine.*
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.IOException
-import java.util.*
+import kotlin.math.abs
 
 
 class PlanMedicineActivity : AppCompatActivity() {
@@ -46,6 +22,7 @@ class PlanMedicineActivity : AppCompatActivity() {
     lateinit var notifications: Notifications
     var calendar: Calendar = Calendar.getInstance()
     private var timeMillis: Long = 0
+    private var initialDate: Long = 0
     private var timeInMillisList: MutableList<Long> = arrayListOf()
     private var nc : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,17 +51,23 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         addDate.setOnClickListener {
             chooseInitialDate()
+            Toast.makeText(this, RandomUtils.dateFormatter(initialDate), Toast.LENGTH_LONG).show()
         }
 
         addHour.setOnClickListener {
             chooseInitialHour { timeInMillis -> timeInMillisList.add(timeInMillis) }
         }
 
-//        hoursAtDay.setOnClickListener {
-//            responsibleConsumption()
-//        }
 
         saveButton.setOnClickListener {
+            checkFieldsAreFilled()
+            if(timeInMillisList.size > 1){
+                val check = responsibleConsumption()
+
+                if (!check && numDays.text.isNotEmpty()) {
+                    onSavePressed()
+                }
+            }
             val data = hashMapOf(
                 "nombre" to "Paracetamol",
                 "codigo" to "989624.9"
@@ -97,23 +80,6 @@ class PlanMedicineActivity : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     Log.w(TAG, "error adding document", e)
                 }
-
-            val numDays = numDays.text.toString().toInt()
-
-            timeInMillisList.forEach {
-                Log.d("Timer", "La lista de timeInMillis es: $it")
-
-                if(numDays > 1) {
-                    notifications.setRepetitiveAlarm(it, numDays)
-                    Toast.makeText(this, RandomUtils.dateFormatter(it), Toast.LENGTH_LONG).show()
-                }else {
-                    notifications.setExactAlarm(it)
-                    Toast.makeText(this, RandomUtils.dateFormatter(it), Toast.LENGTH_LONG).show()
-                }
-            }
-
-            resetCalendar()
-            goHome()
         }
     }
 
@@ -140,6 +106,7 @@ class PlanMedicineActivity : AppCompatActivity() {
                     this.set(Calendar.YEAR, year)
                     this.set(Calendar.MONTH, month)
                     this.set(Calendar.DAY_OF_MONTH, day)
+                    initialDate = this.timeInMillis
                 },
                 //Valores del año,mes y dia actual que tomará por defecto el date picker
                 this.get(Calendar.YEAR),
@@ -182,11 +149,34 @@ class PlanMedicineActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 
-//    private fun responsibleConsumption() {
-//        if(hoursAtDay.text.toString().toInt() < 4 && hoursAtDay.text != null) {
-//            showAlert(getString(R.string.consumoResponsable))
-//        }
-//    }
+    private fun setAlarms() {
+            val nDays = numDays.text.toString().toInt()
+            timeInMillisList.forEach {
+                Log.d("Timer", "La lista de timeInMillis es: $it")
+
+                if(nDays > 1) {
+                    notifications.setRepetitiveAlarm(it, nDays)
+                    Toast.makeText(this, RandomUtils.dateFormatter(it), Toast.LENGTH_LONG).show()
+                }else {
+                    notifications.setExactAlarm(it)
+                    Toast.makeText(this, RandomUtils.dateFormatter(it), Toast.LENGTH_LONG).show()
+                }
+            }
+    }
+
+    private fun responsibleConsumption(): Boolean {
+        val numList = timeInMillisList.size
+        for (index in 0 until numList-1) {
+            val hour = android.text.format.DateFormat.format("HH", timeInMillisList[index]).toString().toInt()
+            val nextHour = android.text.format.DateFormat.format("HH", timeInMillisList[index+1]).toString().toInt()
+
+            val result = (hour - nextHour)
+            if(abs(result) < 5){
+              return false
+            }
+        }
+        return true
+    }
 
     private fun showAlert(errorMessage : String){
         val builder = AlertDialog.Builder(this)
@@ -195,5 +185,30 @@ class PlanMedicineActivity : AppCompatActivity() {
         builder.setPositiveButton(getString(R.string.acceptMessage), null)
         val dialog : AlertDialog = builder.create()
         dialog.show()
+    }
+
+    private fun onSavePressed() {
+        android.app.AlertDialog.Builder(this).apply {
+            setTitle(getString(R.string.responsibleConsumption))
+            setMessage(getString(R.string.consumoResponsable))
+
+            setPositiveButton(getString(R.string.yesMessage)) { _, _ ->
+                setAlarms()
+                resetCalendar()
+                goHome()
+            }
+
+            setNegativeButton(getString(R.string.noMessage)){_, _ ->
+            }
+
+            setCancelable(true)
+        }.create().show()
+    }
+
+    private fun checkFieldsAreFilled() {
+        //TODO: Comprobar que la lista de horas y el inicio del plan de toma no estén vacíos
+        if(numDays.text.isEmpty()) {
+            showAlert(getString(R.string.NotificationNumDays))
+        }
     }
 }
