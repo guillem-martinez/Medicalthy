@@ -49,6 +49,7 @@
             android:exported="false" />
         <activity
             android:name=".ShowShotsActivity"
+            android:parentActivityName=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".ShowMedicineActivity"

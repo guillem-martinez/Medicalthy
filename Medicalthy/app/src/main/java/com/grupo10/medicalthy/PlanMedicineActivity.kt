@@ -61,11 +61,18 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         saveButton.setOnClickListener {
             checkFieldsAreFilled()
-            if(timeInMillisList.size > 1){
+            if(timeInMillisList.size >= 1){
                 val check = responsibleConsumption()
 
                 if (!check && numDays.text.isNotEmpty()) {
                     onSavePressed()
+                }
+                else {
+                    if(check && numDays.text.isNotEmpty()) {
+                        setAlarms()
+                        resetCalendar()
+                        goHome()
+                    }
                 }
             }
             val data = hashMapOf(
@@ -166,15 +173,19 @@ class PlanMedicineActivity : AppCompatActivity() {
 
     private fun responsibleConsumption(): Boolean {
         val numList = timeInMillisList.size
-        for (index in 0 until numList-1) {
-            val hour = android.text.format.DateFormat.format("HH", timeInMillisList[index]).toString().toInt()
-            val nextHour = android.text.format.DateFormat.format("HH", timeInMillisList[index+1]).toString().toInt()
+            for (index in 0 until numList - 1) {
+                val hour =
+                    android.text.format.DateFormat.format("HH", timeInMillisList[index]).toString()
+                        .toInt()
+                val nextHour =
+                    android.text.format.DateFormat.format("HH", timeInMillisList[index + 1])
+                        .toString().toInt()
 
-            val result = (hour - nextHour)
-            if(abs(result) < 5){
-              return false
+                val result = (hour - nextHour)
+                if (abs(result) < 5) {
+                    return false
+                }
             }
-        }
         return true
     }
 
