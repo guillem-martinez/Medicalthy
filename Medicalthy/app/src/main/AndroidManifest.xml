@@ -50,7 +50,7 @@
         <activity
             android:name=".ShowShotsActivity"
             android:parentActivityName=".HomeActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ShowMedicineActivity"
             android:exported="false" />

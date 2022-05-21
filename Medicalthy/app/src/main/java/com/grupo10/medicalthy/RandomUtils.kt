@@ -23,4 +23,14 @@ object RandomUtils {
             }
         }
     }
+
+    fun getMedicineDescription(cn: String, cback: (String)->Unit){
+        FirebaseFirestore.getInstance().collection("medicamentos").document(cn).get().addOnSuccessListener { med ->
+            if (med != null) {
+                cback(med.get("Descripcion").toString())
+            } else {
+                cback("Error")
+            }
+        }
+    }
 }

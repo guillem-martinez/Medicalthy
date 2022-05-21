@@ -1,5 +1,6 @@
 package com.grupo10.medicalthy
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import java.util.*
 
 class ShowShotsActivity : AppCompatActivity() {
     var x : Int = 0
+    var email = "usuario1@gmail.com"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +23,6 @@ class ShowShotsActivity : AppCompatActivity() {
 
         setup()
 
-        var email = "usuario1@gmail.com"
 
         setPlanButtons(email)
     }
@@ -44,7 +45,10 @@ class ShowShotsActivity : AppCompatActivity() {
         txt_view.setBackgroundColor(Color.parseColor(c))
 
         txt_view.setOnClickListener{
-            txt_view.text = txt_view.getTag().toString()
+            val showMedicineIntent = Intent(this, ShowMedicineActivity::class.java)
+            showMedicineIntent.putExtra("cn", txt_view.getTag().toString())
+            showMedicineIntent.putExtra("user", email)
+            startActivity(showMedicineIntent)
         }
         return txt_view
     }
