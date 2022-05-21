@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-mlkit-text-recognition-common:17.0.0'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
     implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.0'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.1.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
