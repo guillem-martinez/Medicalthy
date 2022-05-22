@@ -75,7 +75,7 @@ class ShowMedicineActivity : AppCompatActivity() {
     private fun setTextViewInfo(name: String, description: String, hours: String){
         lblTitle.text = if(name != "") name else "Nombre no encontrado"
         lblDescription.text = if(description != "") description else "Descripción no encontrada"
-        lblShotsList.text = "    * TOMA X [ 0 P ]"
+        lblShotsList.text = "    * TOMA X [ 0 P ]✅ ❌"
     }
 
     override fun onDestroy() {
