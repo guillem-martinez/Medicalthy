@@ -20,6 +20,7 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import kotlinx.android.synthetic.main.activity_start.*
 import com.grupo10.medicalthy.RandomUtils.getMedicineName
+import com.grupo10.medicalthy.RandomUtils.getNCFromString
 import kotlinx.android.synthetic.main.activity_take_pic.*
 
 
@@ -58,7 +59,7 @@ class TakePictureActivity : AppCompatActivity() {
             val result = recognizer.process(image)
             result.addOnSuccessListener { recognitions ->
                 val text = recognitions.text
-                nc = getNC(text)
+                nc = getNCFromString(text)
                 Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
             }
             result.addOnFailureListener {
@@ -90,23 +91,6 @@ class TakePictureActivity : AppCompatActivity() {
 
     fun Context.drawableToUri(drawable: Int):Uri{
         return Uri.parse("android.resource://$packageName/$drawable")
-    }
-
-    fun getNC(text: String): String {
-        val text_parts = text.split("\n")
-        for (i in text_parts) {
-            val prueba = i.filter { it.isDigit() }
-            if (prueba.length == 7) {
-                val nc = StringBuilder()
-                nc.append(prueba[0]).append(prueba[1]).append(prueba[2]).append(prueba[3]).append(prueba[4])
-                    .append(prueba[5]).append('.').append(prueba[6])
-                return nc.toString()
-            }
-            if (prueba.length == 6) {
-                return prueba
-            }
-        }
-        return "ERROR"
     }
 
     override fun onRequestPermissionsResult(

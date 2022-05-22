@@ -33,4 +33,21 @@ object RandomUtils {
             }
         }
     }
+
+    fun getNCFromString(text: String): String {
+        val text_parts = text.split("\n")
+        for (i in text_parts) {
+            val prueba = i.filter { it.isDigit() }
+            if (prueba.length == 7) {
+                val nc = StringBuilder()
+                nc.append(prueba[0]).append(prueba[1]).append(prueba[2]).append(prueba[3]).append(prueba[4])
+                    .append(prueba[5]).append('.').append(prueba[6])
+                return nc.toString()
+            }
+            if (prueba.length == 6) {
+                return prueba
+            }
+        }
+        return "ERROR"
+    }
 }
