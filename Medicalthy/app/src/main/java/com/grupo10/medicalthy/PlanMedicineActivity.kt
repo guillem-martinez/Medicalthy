@@ -1,5 +1,6 @@
 package com.grupo10.medicalthy
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -13,6 +14,19 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import java.util.*
 import android.content.ContentValues.TAG
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.icu.text.SimpleDateFormat
+import android.provider.MediaStore
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
 import kotlin.math.abs
 
 
@@ -25,11 +39,20 @@ class PlanMedicineActivity : AppCompatActivity() {
     private var initialDate: Long = 0
     private var timeInMillisList: MutableList<Long> = arrayListOf()
     private var nc : String? = null
+    //Variables para añadir imagen:
+    lateinit var selectedImage: ImageView
+    lateinit var cameraBtn: Button
+    lateinit var currentPhotoPath: String
+    lateinit var storage : FirebaseStorage
+    lateinit var imageBitmap : Bitmap
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_medicine)
         
         nc = intent.getStringExtra("nc")
+        storage = Firebase.storage
+
 
         setup()
     }
@@ -48,6 +71,18 @@ class PlanMedicineActivity : AppCompatActivity() {
         nc?.let { getMedicineName(it) }
 
         CodigoNacional.setText("El codigo nacional es: $nc")
+
+
+        selectedImage = findViewById(R.id.imageView4)
+        cameraBtn = findViewById(R.id.button2)
+
+        //Botón para tomar la foto, donde se le piden los permisos al usuario.
+        cameraBtn.setOnClickListener(View.OnClickListener { view ->
+
+            askCameraPermissions()
+
+
+        })
 
         addDate.setOnClickListener {
             chooseInitialDate()
@@ -75,10 +110,25 @@ class PlanMedicineActivity : AppCompatActivity() {
                     }
                 }
             }
-            val data = hashMapOf(
+
+            var data = hashMapOf(
                 "nombre" to "Paracetamol",
-                "codigo" to "989624.9"
+                "codigo" to "989624.9",
             )
+            if(imageBitmap != null){
+                val urlImage = uploadFile(imageBitmap)
+                data = hashMapOf(
+                    "nombre" to "Paracetamol",
+                    "codigo" to "989624.9",
+                    "url" to urlImage
+                )
+            }
+
+
+
+
+
+
 
             db.collection("users").document("a123456@gmail.com").collection("Plan Prueba").document("Paracetamol").set(data)
                 .addOnSuccessListener { documentReference ->
@@ -222,4 +272,118 @@ class PlanMedicineActivity : AppCompatActivity() {
             showAlert(getString(R.string.NotificationNumDays))
         }
     }
+
+
+    private fun askCameraPermissions() {
+        if((ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) &&
+            (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE) , 101)
+
+
+        }else {
+
+            //Toast.makeText(this, "Notificación askCameraPermissions", Toast.LENGTH_SHORT).show()
+
+            openCamera()
+            //dispatchTakePictureIntent()
+        }
+
+    }
+
+    private fun openCamera() {
+        var camera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(camera, 102)
+
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 102 ){
+            //Toast.makeText(this, "Notificación onActivtyResult", Toast.LENGTH_SHORT).show()
+            imageBitmap = (data?.extras?.get("data") as Bitmap?)!!
+            selectedImage.setImageBitmap(imageBitmap)
+
+
+
+            //Comentado para poder decidir subir la foto conjuntamente con los datos del medicamento.
+            /*
+            if (imageBitmap != null) {
+                uploadFile(imageBitmap)
+                // goToPlanMedicineActivity(imageBitmap)
+            }
+            */
+
+        }
+
+    }
+
+override fun onRequestPermissionsResult(
+    requestCode: Int,
+    permissions: Array<out String>,
+    grantResults: IntArray
+) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    if(requestCode == 101){
+        if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+            Toast.makeText(this, "Notificación onRequestPermissionsResult", Toast.LENGTH_SHORT).show()
+            Log.d("tag", "hola")
+
+
+            openCamera()
+            //dispatchTakePictureIntent()
+
+
+        }else{
+
+            showAlert(getString(R.string.takePicPermission))
+
+        }
+    }
+
+}
+    fun uploadFile(imageBitmap : Bitmap) : String{
+
+
+        val storageRef = storage.reference
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val imageRef = storageRef.child(timeStamp+".jpg")
+        val baos = ByteArrayOutputStream()
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG,100, baos)
+        val data = baos.toByteArray()
+        var uploadTask = imageRef.putBytes(data)
+        uploadTask.addOnFailureListener{
+            // Handle unsuccessful uploads
+
+        }.addOnSuccessListener { taskSnapshot ->
+
+            //uploadReference(timeStamp)
+            //Toast.makeText(this, "HOLAAAAAAAAAAA onActivtyResult", Toast.LENGTH_SHORT).show()
+
+        }
+        return "$timeStamp.jpg"
+
+    }
+    private fun uploadReference(ref : String){
+        val cloudFirestore = FirebaseFirestore.getInstance()
+
+        var url = ref
+
+        cloudFirestore.collection("users").document("testeo").set( hashMapOf("url" to url))
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
 }
