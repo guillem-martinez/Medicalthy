@@ -23,13 +23,14 @@ class ShowShotsActivity : AppCompatActivity() {
 
         setup()
 
-
         setPlanButtons(email)
     }
+
 
     private fun setup() {
         title = getString(R.string.app_name)
     }
+
 
     private fun makeNewTextView(text: String, tag: String) : TextView{
         var txt_view = TextView(this)
@@ -46,7 +47,7 @@ class ShowShotsActivity : AppCompatActivity() {
 
         txt_view.setOnClickListener{
             val showMedicineIntent = Intent(this, ShowMedicineActivity::class.java)
-            showMedicineIntent.putExtra("cn", txt_view.getTag().toString())
+            showMedicineIntent.putExtra("cn_plan", txt_view.getTag().toString())
             showMedicineIntent.putExtra("user", email)
             startActivity(showMedicineIntent)
         }
@@ -70,13 +71,14 @@ class ShowShotsActivity : AppCompatActivity() {
                         val hour : String = SimpleDateFormat("HH:mm").format(Date(str_seconds.toLong() * 1000))
 
                         getMedicineName(plan.get("CN").toString()){ name ->
-                            vertical_layout.addView(makeNewTextView("$name -> $hour", plan.get("CN").toString()))
+                            val cn = plan.get("CN").toString()
+                            vertical_layout.addView(makeNewTextView("$name -> $hour", cn + "," + plan.id))
                         }
                     }
                 }
             }
             if(planes.isEmpty){
-                vertical_layout.addView(makeNewTextView("No se ha encontrado ningún plan en tu usuario", "0"))
+                vertical_layout.addView(makeNewTextView("No se ha encontrado ningún plan en tu usuario", "0, 0"))
             }
         }
     }
