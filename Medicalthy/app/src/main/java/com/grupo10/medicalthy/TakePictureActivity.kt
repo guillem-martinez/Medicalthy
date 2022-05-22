@@ -13,19 +13,19 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import kotlinx.android.synthetic.main.activity_start.*
+import com.grupo10.medicalthy.RandomUtils.getMedicineName
 import kotlinx.android.synthetic.main.activity_take_pic.*
 
 
 class TakePictureActivity : AppCompatActivity() {
 
-    val db = FirebaseAuth.getInstance()
+    val db = FirebaseFirestore.getInstance()
     val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,19 +66,24 @@ class TakePictureActivity : AppCompatActivity() {
                 view.append("Ha ocurrido un error")
                 textView4.text = view.toString()
             }
-            
-            /*val view = StringBuilder()
+
+            val view = StringBuilder()
             if (nc == "ERROR") {
                 view.append("ERROR, no se ha leido bien la imagen ")
                 textView4.text = view.toString()
             } else {
                 view.append("Código encontrado: ").append(nc)
                 textView4.text = view.toString()
-                val name = db.collection("medicamentos").document(nc).get().addOnSuccessListener {
-                    MedicineName.setText("El nombre del medicamento es: " + name)
+                var nombre_bd = ""
+                getMedicineName(nc){ name ->
+                    nombre_bd = name
                 }
-                goToAddMedicine(nc)
-            }*/
+                if (nombre_bd != "Error") {
+                    goToAddMedicine(nc)
+                } else {
+                    goToAddMedicine("")
+                }
+            }
 
         }
     }
