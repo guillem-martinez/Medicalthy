@@ -55,6 +55,9 @@
             android:name=".ShowMedicineActivity"
             android:exported="false" />
         <activity
+            android:name=".AddPatientActivity"
+            android:exported="true" />
+        <activity
             android:name=".StartActivity"
             android:exported="true"
             android:theme="@style/splashTheme">

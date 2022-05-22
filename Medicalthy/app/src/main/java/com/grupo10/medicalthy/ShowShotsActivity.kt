@@ -31,7 +31,6 @@ class ShowShotsActivity : AppCompatActivity() {
         title = getString(R.string.app_name)
     }
 
-
     private fun makeNewTextView(text: String, tag: String) : TextView{
         var txt_view = TextView(this)
         txt_view.text = text
@@ -45,11 +44,13 @@ class ShowShotsActivity : AppCompatActivity() {
         val c : String = if((x % 2) == 0) "#FF7C70" else "#FF9E8F"
         txt_view.setBackgroundColor(Color.parseColor(c))
 
-        txt_view.setOnClickListener{
-            val showMedicineIntent = Intent(this, ShowMedicineActivity::class.java)
-            showMedicineIntent.putExtra("cn_plan", txt_view.getTag().toString())
-            showMedicineIntent.putExtra("user", email)
-            startActivity(showMedicineIntent)
+        if(tag != "0,0") {
+            txt_view.setOnClickListener {
+                val showMedicineIntent = Intent(this, ShowMedicineActivity::class.java)
+                showMedicineIntent.putExtra("cn_plan", txt_view.getTag().toString())
+                showMedicineIntent.putExtra("user", email)
+                startActivity(showMedicineIntent)
+            }
         }
         return txt_view
     }
@@ -78,7 +79,7 @@ class ShowShotsActivity : AppCompatActivity() {
                 }
             }
             if(planes.isEmpty){
-                vertical_layout.addView(makeNewTextView("No se ha encontrado ningún plan en tu usuario", "0, 0"))
+                vertical_layout.addView(makeNewTextView("No se ha encontrado ningún plan en tu usuario", "0,0"))
             }
         }
     }
