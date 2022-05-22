@@ -5,13 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.activity_home_cuidador.*
-//import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_home_hor.*
-import kotlinx.android.synthetic.main.activity_home_hor.btnMedicationHistory
-import kotlinx.android.synthetic.main.activity_home_hor.btnShowShots
-import java.util.*
+
 
 //Enum con los distintos proveedores de autenticación
 enum class ProviderTypeCuidador {

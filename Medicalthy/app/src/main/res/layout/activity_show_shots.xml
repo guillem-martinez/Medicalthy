@@ -5,53 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="372dp"
+        android:layout_height="632dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/vertical_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
     <TextView
-        android:id="@+id/Grupo_Horario"
-        android:layout_width="198dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="73dp"
-        android:layout_marginEnd="165dp"
-        android:text="10:00"
-        android:textAlignment="textStart"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"
-        android:textStyle="bold"
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Tu medicación"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:layout_width="315dp"
-        android:layout_height="281dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="106dp">
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="Paracetamol Kern Pharma 1 comprimido"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="Omeprazol 1 comprimido"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="AERO-RED 1 comprimido"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
