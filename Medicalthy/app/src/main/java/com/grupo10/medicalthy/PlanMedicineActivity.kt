@@ -50,6 +50,7 @@ class PlanMedicineActivity : AppCompatActivity() {
     lateinit var storage : FirebaseStorage
     private var imageBitmap : Bitmap? = null
     private var planToken : String = ""
+    lateinit var email : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +58,7 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         val bundle = intent.extras
 
-        val email = bundle?.get(getString(R.string.intentEmail))
+        email = bundle?.get(getString(R.string.intentEmail)).toString()
         nc = bundle?.get("nc").toString()
         //nc = intent.getStringExtra("nc")
         storage = Firebase.storage
@@ -90,9 +91,6 @@ class PlanMedicineActivity : AppCompatActivity() {
 
     private fun setup() {
         title = getString(R.string.planMedicineTitle)
-
-        notifications = Notifications(this, Constants.ActivityRef.ShowMedicineActivity.ordinal)
-        notifications.createNotificationChannel() //Canal de notificaciones creado
 
         var nombreFinal = ""
         nc?.let { getMedicineName(it) { name ->
@@ -149,29 +147,16 @@ class PlanMedicineActivity : AppCompatActivity() {
                 .addOnSuccessListener { documentReference ->
 
                     planToken = documentReference.id
+                    val cnPlan = ("$nc,$planToken")
+                    notifications = Notifications(this, Constants.ActivityRef.ShowMedicineActivity.ordinal, cnPlan, email)
+                    notifications.createNotificationChannel() //Canal de notificaciones creado
+                    sendAlarms()
 
                     Log.d(TAG, "Document written")
                 }
                 .addOnFailureListener { e ->
                     Log.w(TAG, "error adding document", e)
                 }
-
-            checkFieldsAreFilled()
-            if(timeInMillisList.size >= 1){
-                val check = responsibleConsumption()
-
-                if (!check && numDays.text.isNotEmpty()) {
-                    onSavePressed()
-                }
-                else {
-                    if(check && numDays.text.isNotEmpty()) {
-                        setAlarms()
-                        resetCalendar()
-                        goHome()
-                    }
-                }
-            }
-
 
             Log.d("TEST", planToken)
 
@@ -422,6 +407,24 @@ override fun onRequestPermissionsResult(
 
 
 
+    }
+
+    private fun sendAlarms() {
+        checkFieldsAreFilled()
+        if(timeInMillisList.size >= 1){
+            val check = responsibleConsumption()
+
+            if (!check && numDays.text.isNotEmpty()) {
+                onSavePressed()
+            }
+            else {
+                if(check && numDays.text.isNotEmpty()) {
+                    setAlarms()
+                    resetCalendar()
+                    goHome()
+                }
+            }
+        }
     }
 
     private fun refreshList() {

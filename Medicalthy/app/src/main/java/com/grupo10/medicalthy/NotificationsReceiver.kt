@@ -10,7 +10,10 @@ import java.util.concurrent.TimeUnit
 class NotificationsReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val ref = intent.getIntExtra(Constants.CLASS_REF, 0)
-        val notifications = Notifications(context,ref)
+        val cnPlan = intent.getStringExtra("cn_plan").toString()
+        val user = intent.getStringExtra("user").toString()
+
+        val notifications = Notifications(context,ref,cnPlan,user)
 
         val timeInMillis = intent.getLongExtra(Constants.EXACT_ALARM_TIME, 0L)
 
@@ -29,7 +32,7 @@ class NotificationsReceiver : BroadcastReceiver() {
                 if (numDays != 0) {
 
                     numDays--
-                    Notifications(context, ref).setRepetitiveAlarm(calendar.timeInMillis, numDays)
+                    notifications.setRepetitiveAlarm(calendar.timeInMillis, numDays)
                     notifications.generateNotification(context.getString(R.string.app_name), context.getString(R.string.notificationMessage), context.getString(R.string.notificationSubText))
                 }
             }

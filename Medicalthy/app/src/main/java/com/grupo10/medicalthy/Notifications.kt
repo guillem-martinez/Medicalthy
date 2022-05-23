@@ -13,7 +13,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.os.bundleOf
 
 
-class Notifications(private val context: Context, private val ref: Int) {
+class Notifications(private val context: Context, private val ref: Int, private val cnPlan: String, private val user: String ) {
 
     //Crear y construir el canal de notificaciones
     private val channelName = context.getString(R.string.channelName)
@@ -119,6 +119,8 @@ class Notifications(private val context: Context, private val ref: Int) {
                     "message" to message
                 )
             )
+            putExtra("cn_plan", cnPlan)
+            putExtra("users", user)
         }
         return contentIntent
     }
@@ -135,7 +137,10 @@ class Notifications(private val context: Context, private val ref: Int) {
     private fun getPendingIntent(intent: Intent) = PendingIntent.getBroadcast(
         context,
         RandomUtils.getRandomInt(),
-        intent,
+        intent.apply {
+            putExtra("cn_plan", cnPlan)
+            putExtra("users", user)
+                     },
         PendingIntent.FLAG_UPDATE_CURRENT
     )
 
