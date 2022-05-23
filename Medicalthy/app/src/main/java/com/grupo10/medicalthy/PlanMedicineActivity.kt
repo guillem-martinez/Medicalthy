@@ -49,6 +49,7 @@ class PlanMedicineActivity : AppCompatActivity() {
     lateinit var currentPhotoPath: String
     lateinit var storage : FirebaseStorage
     private var imageBitmap : Bitmap? = null
+    private var planToken : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,6 +127,31 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         saveButton.setOnClickListener {
 
+
+            var data = hashMapOf(
+                "nombre" to nombreFinal,
+                "codigo" to codigoN,
+            )
+            if(imageBitmap != null){
+                val urlImage = uploadFile(imageBitmap!!)
+                data = hashMapOf(
+                    "nombre" to nombreFinal,
+                    "codigo" to codigoN,
+                    "url" to urlImage
+                )
+            }
+
+            db.collection("users").document("a123456@gmail.com").collection("Planes").add(data)
+                .addOnSuccessListener { documentReference ->
+
+                    planToken = documentReference.id
+
+                    Log.d(TAG, "Document written")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "error adding document", e)
+                }
+
             checkFieldsAreFilled()
             if(timeInMillisList.size >= 1){
                 val check = responsibleConsumption()
@@ -143,26 +169,9 @@ class PlanMedicineActivity : AppCompatActivity() {
             }
 
 
-            var data = hashMapOf(
-                "nombre" to nombreFinal,
-                "codigo" to codigoN,
-            )
-            if(imageBitmap != null){
-                val urlImage = uploadFile(imageBitmap!!)
-                data = hashMapOf(
-                    "nombre" to nombreFinal,
-                    "codigo" to codigoN,
-                    "url" to urlImage
-                )
-            }
+            Log.d("TEST", planToken)
 
-            db.collection("users").document("a123456@gmail.com").collection("Plan").document(nombreFinal).set(data)
-                .addOnSuccessListener { documentReference ->
-                    Log.d(TAG, "Document written")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "error adding document", e)
-                }
+
         }
     }
 
