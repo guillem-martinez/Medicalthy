@@ -16,6 +16,9 @@ object RandomUtils {
     fun hourFormatter(timeInMillis: Long): String =
         android.text.format.DateFormat.format("HH:mm", timeInMillis).toString()
 
+    fun dayFormatter(timeInMillis: Long): String =
+        android.text.format.DateFormat.format("dd/MM/yyyy", timeInMillis).toString()
+
 
     fun getMedicineName(cn: String, cback: (String)->Unit){
         FirebaseFirestore.getInstance().collection("medicamentos").document(cn).get().addOnSuccessListener { med ->
