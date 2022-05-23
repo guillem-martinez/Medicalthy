@@ -11,12 +11,14 @@ object Constants {
     val SIGNUP_REF = SignUpActivity::class.java
     val PLAN_MEDICINE = PlanMedicineActivity::class.java
     val SHOW_SHOTS = ShowShotsActivity::class.java
+    val SHOW_MEDICINE = ShowMedicineActivity::class.java
 
     enum class ActivityRef{
         HomeActivity,
         SignUpActivity,
         ShowShotsActivity,
-        PlanMedicineActivity
+        PlanMedicineActivity,
+        ShowMedicineActivity
     }
 
     //Mapa con clave ordinal(enum ActivityRef) 0-n y valor Class<*> ejemplo: classRefMap[0] = HomeActivity::class.java
@@ -24,6 +26,7 @@ object Constants {
         ActivityRef.HomeActivity.ordinal to HOME_REF,
         ActivityRef.SignUpActivity.ordinal to SIGNUP_REF,
         ActivityRef.ShowShotsActivity.ordinal to SHOW_SHOTS,
-        ActivityRef.PlanMedicineActivity.ordinal to PLAN_MEDICINE
+        ActivityRef.PlanMedicineActivity.ordinal to PLAN_MEDICINE,
+        ActivityRef.ShowMedicineActivity to SHOW_MEDICINE
     )
 }
