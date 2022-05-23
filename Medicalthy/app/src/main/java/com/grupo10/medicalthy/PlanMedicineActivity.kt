@@ -89,12 +89,17 @@ class PlanMedicineActivity : AppCompatActivity() {
         notifications = Notifications(this, Constants.ActivityRef.ShowShotsActivity.ordinal)
         notifications.createNotificationChannel() //Canal de notificaciones creado
 
-        nc?.let { getMedicineName(it) }
-        val codigoN = "658257.2"
         var nombreFinal = ""
+        nc?.let { getMedicineName(it) { name ->
+            nombreFinal = name
+        } }
+        val codigoN = "658257.2"
+        /*
         getMedicineName(codigoN) { name ->
             nombreFinal = name
         }
+
+         */
         CodigoNacional.setText("El codigo nacional es: $nc")
 
 
