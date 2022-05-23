@@ -14,10 +14,15 @@ enum class ProviderTypeCuidador {
     GOOGLE
 }
 class HomeActivityCuidador: AppCompatActivity() {
+    var email: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_cuidador)
+
+        val intent_obj: Intent = intent
+        email = intent_obj.getStringExtra("email").toString()
+
         setup()
     }
 
@@ -30,7 +35,7 @@ class HomeActivityCuidador: AppCompatActivity() {
         }
 
         btnShowShotsCuidador.setOnClickListener {
-            goToShowSots()
+            goToShowSots(email)
         }
 
         btnMedicationHistoryCuidador.setOnClickListener {
@@ -50,12 +55,16 @@ class HomeActivityCuidador: AppCompatActivity() {
     }
 
     private fun goToAddMedicine(){
-        val addMedicineIntent = Intent(this, TakePictureActivity::class.java)
+        val addMedicineIntent = Intent(this, TakePictureActivity::class.java).apply{
+            putExtra(getString(R.string.intentEmail), email)
+        }
         startActivity(addMedicineIntent)
     }
 
-    private fun goToShowSots(){
-        val showShotsInIntent = Intent(this, ShowShotsActivity::class.java)
+    private fun goToShowSots(email : String){
+        val showShotsInIntent = Intent(this, ShowShotsActivity::class.java).apply{
+            putExtra(getString(R.string.intentEmail), email)
+        }
         startActivity(showShotsInIntent)
     }
 
