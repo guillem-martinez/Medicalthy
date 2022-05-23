@@ -17,6 +17,8 @@ class ShowMedicineActivity : AppCompatActivity() {
     private var user: String = ""
     private var cn: String = ""
     private var plan: String = ""
+    private var n_pills: Int = 0 //TODO:Cargar el número de pastillas de la base de datos para ese plan
+    private val PILLS_THRESHOLD: Int = 10 //Por debajo de 10 pastillas salta el aviso de fin de existencias
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +50,7 @@ class ShowMedicineActivity : AppCompatActivity() {
             tts.speak("Escúchame una cosa viejo demente, o te tomas la pastilla o te vas con San Pedro.")
         }
 
-        btnOk.setOnClickListener{ btnOkPressed() }
+        btnOk.setOnClickListener{ btnOkPressed() } //TODO: n_pills - 1 y actualizar BD
         btnNoOk.setOnClickListener{ btnNoOkPressed() }
     }
 
@@ -76,6 +78,14 @@ class ShowMedicineActivity : AppCompatActivity() {
         lblTitle.text = if(name != "") name else "Nombre no encontrado"
         lblDescription.text = if(description != "") description else "Descripción no encontrada"
         lblShotsList.text = "    * TOMA X [ 0 P ]✅ ❌"
+    }
+
+    private fun enOfStock() {
+        if(n_pills < PILLS_THRESHOLD) {
+            //Si salta aviso de fin de existencias mostrar mensaje de si quiere añadirlo a la lista de la compra
+            //si pulsa si se añade el producto a la lista de la compra, recoger nombre medicamento
+            //si pulsa no no se hace nada
+        }
     }
 
     override fun onDestroy() {
