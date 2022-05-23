@@ -64,6 +64,12 @@ class PlanMedicineActivity : AppCompatActivity() {
         //nc = intent.getStringExtra("nc")
         storage = Firebase.storage
 
+        //Esto es para test, si uno de los dos elementos no viene seteado (inicias PlanMedicine directamente)
+        //se setea a un valor por defecto. De esta forma, no hay que ir cambiando directamente en el código
+        if(nc == "" || nc == "null")
+            nc = "658257.2"
+        if(email == "" || email == "null")
+            email = "email@gmail.com"
 
         setup()
     }
@@ -130,11 +136,11 @@ class PlanMedicineActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
-
-
             var data = hashMapOf(
-                "nombre" to nombreFinal,
-                "codigo" to codigoN,
+                "CN" to codigoN,
+                "Finish" to "Implementar (PlanMedicineActivity)",
+                "Start" to "Implementar (PlanMedicineActivity)",
+                "n_pastillas" to 50,
             )
             if(imageBitmap != null){
                 val urlImage = uploadFile(imageBitmap!!)
@@ -145,9 +151,15 @@ class PlanMedicineActivity : AppCompatActivity() {
                 )
             }
 
-            db.collection("users").document("a123456@gmail.com").collection("Planes").add(data)
+            //TODO: Falta crear la colección de horas (ver usuario1@gmail.com -> Planes -> Plan0 -> Tomas)
+            //                                                                             ^ A partir de ahora es un token
+            db.collection("users").document(email).collection("Planes").add(data)
                 .addOnSuccessListener { documentReference ->
 
+                    timeInMillisList.forEach{
+                        documentReference.collection("Tomas").document(it.toString()).set(mapOf("n_pastillas" to 1))
+                        //n_pastillas = 1 por defecto
+                    }
                     planToken = documentReference.id
                     val cnPlan = ("$nc,$planToken")
                     notifications = Notifications(this, Constants.ActivityRef.ShowMedicineActivity.ordinal, cnPlan, email)
@@ -161,8 +173,6 @@ class PlanMedicineActivity : AppCompatActivity() {
                 }
 
             Log.d("TEST", planToken)
-
-
         }
     }
 
@@ -384,19 +394,14 @@ override fun onRequestPermissionsResult(
 
         }
         return "$timeStamp.jpg"
-
     }
+
     private fun uploadReference(ref : String){
         val cloudFirestore = FirebaseFirestore.getInstance()
 
         var url = ref
 
         cloudFirestore.collection("users").document("testeo").set( hashMapOf("url" to url))
-
-
-
-
-
     }
 
     private fun sendAlarms() {
