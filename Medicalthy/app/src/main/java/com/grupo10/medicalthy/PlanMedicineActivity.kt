@@ -16,11 +16,14 @@ import java.util.*
 import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.provider.MediaStore
+import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.ktx.Firebase
@@ -39,6 +42,7 @@ class PlanMedicineActivity : AppCompatActivity() {
     private var initialDate: Long = 0
     private var timeInMillisList: MutableList<Long> = arrayListOf()
     private var nc : String? = null
+    private var i : Int = 0
     //Variables para añadir imagen:
     lateinit var selectedImage: ImageView
     lateinit var cameraBtn: Button
@@ -60,6 +64,23 @@ class PlanMedicineActivity : AppCompatActivity() {
     private fun setMillis(timeInMillis : Long){
         this.timeMillis = timeInMillis
         timeInMillisList.add(timeInMillis)
+    }
+
+    private fun makeNewTextView(text: String, tag: String) : TextView {
+        var txt_view = TextView(this)
+        txt_view.text = text
+        txt_view.tag = tag
+        txt_view.height = 100
+        txt_view.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        txt_view.gravity = Gravity.CENTER
+
+        i++
+
+        val c: String = if ((i % 2) == 0) "#FFFFFF" else "#E4E3DF"
+        txt_view.setBackgroundColor(Color.parseColor(c))
+
+        return txt_view
+
     }
 
     private fun setup() {
@@ -91,6 +112,8 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         addHour.setOnClickListener {
             chooseInitialHour { timeInMillis -> timeInMillisList.add(timeInMillis) }
+            //TODO: HACER QUE NO PETE ESTA VAINA
+            //linearLayout6.addView(makeNewTextView((timeInMillisList[i]*1000).toString(), i.toString()))
         }
 
 
