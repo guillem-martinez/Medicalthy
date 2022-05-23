@@ -11,7 +11,10 @@ object RandomUtils {
     fun getRandomInt() = randomInt.getAndIncrement() + System.currentTimeMillis().toInt()
 
     fun dateFormatter(timeInMillis: Long): String =
-        android.text.format.DateFormat.format("dd/MM/yyyy hh:mm:ss", timeInMillis).toString()
+        android.text.format.DateFormat.format("dd/MM/yyyy HH:mm:ss", timeInMillis).toString()
+
+    fun hourFormatter(timeInMillis: Long): String =
+        android.text.format.DateFormat.format("HH:mm", timeInMillis).toString()
 
 
     fun getMedicineName(cn: String, cback: (String)->Unit){

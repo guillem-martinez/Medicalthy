@@ -86,7 +86,7 @@ class PlanMedicineActivity : AppCompatActivity() {
     private fun setup() {
         title = getString(R.string.planMedicineTitle)
 
-        notifications = Notifications(this, Constants.ActivityRef.ShowShotsActivity.ordinal)
+        notifications = Notifications(this, Constants.ActivityRef.ShowMedicineActivity.ordinal)
         notifications.createNotificationChannel() //Canal de notificaciones creado
 
         var nombreFinal = ""
@@ -122,9 +122,7 @@ class PlanMedicineActivity : AppCompatActivity() {
         addHour.setOnClickListener {
             chooseInitialHour { timeInMillis -> timeInMillisList.add(timeInMillis) }
             //TODO: HACER QUE NO PETE ESTA VAINA
-            //linearLayout6.addView(makeNewTextView((timeInMillisList[i]*1000).toString(), i.toString()))
         }
-
 
         saveButton.setOnClickListener {
 
@@ -219,6 +217,7 @@ class PlanMedicineActivity : AppCompatActivity() {
                     this.set(Calendar.HOUR_OF_DAY, hour)
                     this.set(Calendar.MINUTE, min)
                     timeInMillis(this.timeInMillis)
+                    refreshList()
                 },
                 this.get(Calendar.HOUR_OF_DAY),
                 this.get(Calendar.MINUTE),
@@ -253,6 +252,8 @@ class PlanMedicineActivity : AppCompatActivity() {
 
     private fun responsibleConsumption(): Boolean {
         val numList = timeInMillisList.size
+        timeInMillisList.sort()
+
             for (index in 0 until numList - 1) {
                 val hour =
                     android.text.format.DateFormat.format("HH", timeInMillisList[index]).toString()
@@ -409,7 +410,10 @@ override fun onRequestPermissionsResult(
 
     }
 
-
+    private fun refreshList() {
+        if(timeInMillisList.size > 0)
+            linearLayout6.addView(makeNewTextView(RandomUtils.hourFormatter(timeInMillisList[i]), i.toString()))
+    }
 
 
 
