@@ -142,38 +142,40 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         app:layout_constraintVertical_bias="0.0" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout6"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="13dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        android:layout_height="100dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="26dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addHour">
+        app:layout_constraintTop_toTopOf="@id/addHour">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="133dp"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="13dp"
+            android:orientation="vertical" />
+    </ScrollView>
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="179dp"
         android:layout_height="40dp"
         android:layout_marginStart="116dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="19dp"
         android:layout_marginEnd="116dp"
+        android:layout_marginBottom="26dp"
         android:text="Guardar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
