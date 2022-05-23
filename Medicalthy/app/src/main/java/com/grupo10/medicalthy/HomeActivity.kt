@@ -37,7 +37,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         btnShowShots.setOnClickListener {
-            goToShowSots()
+            goToShowSots(email.toString())
         }
 
         btnPharmacy.setOnClickListener {
@@ -67,8 +67,10 @@ class HomeActivity : AppCompatActivity() {
         startActivity(addMedicineIntent)
     }
 
-    private fun goToShowSots(){
-        val showShotsInIntent = Intent(this, ShowShotsActivity::class.java)
+    private fun goToShowSots(email : String){
+        val showShotsInIntent = Intent(this, ShowShotsActivity::class.java).apply{
+            putExtra(getString(R.string.intentEmail), email)
+        }
         startActivity(showShotsInIntent)
     }
 
