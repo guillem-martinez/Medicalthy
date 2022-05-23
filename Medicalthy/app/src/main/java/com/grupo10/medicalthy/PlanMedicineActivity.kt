@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.grupo10.medicalthy.RandomUtils.getMedicineName
 import java.io.ByteArrayOutputStream
 import kotlin.math.abs
 
@@ -41,7 +42,7 @@ class PlanMedicineActivity : AppCompatActivity() {
     private var timeMillis: Long = 0
     private var initialDate: Long = 0
     private var timeInMillisList: MutableList<Long> = arrayListOf()
-    private var nc : String? = null
+    private var nc : String = ""
     private var i : Int = 0
     //Variables para añadir imagen:
     lateinit var selectedImage: ImageView
@@ -94,6 +95,7 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         var nombreFinal = ""
         nc?.let { getMedicineName(it) { name ->
+            MedicineName.setText("El nombre del medicamento es: " + name)
             nombreFinal = name
         } }
         val codigoN = "658257.2"
@@ -161,18 +163,6 @@ class PlanMedicineActivity : AppCompatActivity() {
             Log.d("TEST", planToken)
 
 
-        }
-    }
-
-    // Recupera el nombre del medicamente dependiendo del codigo nacional, y lo imprime por pantalla
-    private fun getMedicineName(nationalCode: String, cback: (String)->Unit) {
-        db.collection("medicamentos").document(nationalCode).get().addOnSuccessListener { med ->
-            if (med != null) {
-                MedicineName.setText("El nombre del medicamento es: " + med.get("Nombre").toString())
-                cback(med.get("Nombre").toString())
-            } else {
-                cback("Error")
-            }
         }
     }
 
