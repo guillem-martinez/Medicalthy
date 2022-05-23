@@ -27,6 +27,6 @@ object Constants {
         ActivityRef.SignUpActivity.ordinal to SIGNUP_REF,
         ActivityRef.ShowShotsActivity.ordinal to SHOW_SHOTS,
         ActivityRef.PlanMedicineActivity.ordinal to PLAN_MEDICINE,
-        ActivityRef.ShowMedicineActivity to SHOW_MEDICINE
+        ActivityRef.ShowMedicineActivity.ordinal to SHOW_MEDICINE
     )
 }
