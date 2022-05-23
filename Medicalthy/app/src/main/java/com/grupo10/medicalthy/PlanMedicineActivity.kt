@@ -171,8 +171,6 @@ class PlanMedicineActivity : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     Log.w(TAG, "error adding document", e)
                 }
-
-            Log.d("TEST", planToken)
         }
     }
 

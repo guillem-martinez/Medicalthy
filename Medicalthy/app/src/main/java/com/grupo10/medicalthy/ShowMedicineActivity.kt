@@ -14,7 +14,7 @@ import kotlin.reflect.typeOf
 class ShowMedicineActivity : AppCompatActivity() {
 
     private var tts = TextToSpeechClass(this)
-    private var user: String = ""
+    private var email: String = ""
     private var cn: String = ""
     private var plan: String = ""
     private var n_pills: Int = 0 //TODO:Cargar el número de pastillas de la base de datos para ese plan
@@ -36,7 +36,7 @@ class ShowMedicineActivity : AppCompatActivity() {
 
         cn = cn_plan.split(",")[0].toString()
         plan = cn_plan.split(",")[1].toString()
-        user = intent_obj.getStringExtra("user").toString()
+        email = intent_obj.getStringExtra("email").toString()
 
         if(cn != null){
             getMedicineName(cn){ name ->
@@ -57,7 +57,7 @@ class ShowMedicineActivity : AppCompatActivity() {
     private fun btnOkPressed(){
         var result = FirebaseFirestore.getInstance()
             .collection("users")
-            .document(user)
+            .document(email)
             .collection("Planes")
             .document(plan)
             .collection("Historial")
@@ -67,7 +67,7 @@ class ShowMedicineActivity : AppCompatActivity() {
     private fun btnNoOkPressed(){
         var result = FirebaseFirestore.getInstance()
             .collection("users")
-            .document(user)
+            .document(email)
             .collection("Planes")
             .document(plan)
             .collection("Historial")

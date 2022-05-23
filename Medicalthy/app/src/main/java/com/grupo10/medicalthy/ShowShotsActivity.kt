@@ -56,7 +56,7 @@ class ShowShotsActivity : AppCompatActivity() {
             txt_view.setOnClickListener {
                 val showMedicineIntent = Intent(this, ShowMedicineActivity::class.java)
                 showMedicineIntent.putExtra("cn_plan", txt_view.getTag().toString())
-                showMedicineIntent.putExtra("user", email)
+                showMedicineIntent.putExtra("email", email)
                 startActivity(showMedicineIntent)
             }
         }
@@ -77,7 +77,6 @@ class ShowShotsActivity : AppCompatActivity() {
                 for(plan in planes){
                     usuario.collection("Planes").document(plan.id).collection("Tomas").get().addOnSuccessListener { time_stamp_list ->
                         for(time_stamp in time_stamp_list){
-                            Log.d("times_stamp.id --> ", time_stamp.id.toString())
                             val hour: String = SimpleDateFormat("HH:mm").format(Date(time_stamp.id.toLong()))
                             getMedicineName(plan.get("CN").toString()) { name ->
                                 val cn = plan.get("CN").toString()
