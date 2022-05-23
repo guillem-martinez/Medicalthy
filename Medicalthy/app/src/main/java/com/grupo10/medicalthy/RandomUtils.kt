@@ -21,12 +21,18 @@ object RandomUtils {
 
 
     fun getMedicineName(cn: String, cback: (String)->Unit){
-        FirebaseFirestore.getInstance().collection("medicamentos").document(cn).get().addOnSuccessListener { med ->
-            if (med != null) {
-                cback(med.get("Nombre").toString())
-            } else {
-                cback("Error")
-            }
+        if(cn != "") {
+            FirebaseFirestore.getInstance().collection("medicamentos").document(cn).get()
+                .addOnSuccessListener { med ->
+                    if (med != null) {
+                        cback(med.get("Nombre").toString())
+                    } else {
+                        cback("Error")
+                    }
+                }
+        }
+        else{
+            cback("Error")
         }
     }
 
