@@ -121,7 +121,7 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         addHour.setOnClickListener {
             chooseInitialHour { timeInMillis -> timeInMillisList.add(timeInMillis) }
-            //TODO: HACER QUE NO PETE ESTA VAINA
+
         }
 
         saveButton.setOnClickListener {
@@ -192,6 +192,7 @@ class PlanMedicineActivity : AppCompatActivity() {
                     this.set(Calendar.MONTH, month)
                     this.set(Calendar.DAY_OF_MONTH, day)
                     initialDate = this.timeInMillis
+                    refreshDate()
                 },
                 //Valores del año,mes y dia actual que tomará por defecto el date picker
                 this.get(Calendar.YEAR),
@@ -413,6 +414,12 @@ override fun onRequestPermissionsResult(
     private fun refreshList() {
         if(timeInMillisList.size > 0)
             linearLayout6.addView(makeNewTextView(RandomUtils.hourFormatter(timeInMillisList[i]), i.toString()))
+    }
+
+    private fun refreshDate() {
+        if (initialDate != null){
+            textView8.text = "El dia de inicio es:  " + RandomUtils.dayFormatter(initialDate);
+        }
     }
 
 
