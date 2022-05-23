@@ -48,7 +48,7 @@ class PlanMedicineActivity : AppCompatActivity() {
     lateinit var cameraBtn: Button
     lateinit var currentPhotoPath: String
     lateinit var storage : FirebaseStorage
-    lateinit var imageBitmap : Bitmap
+    private var imageBitmap : Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -150,7 +150,7 @@ class PlanMedicineActivity : AppCompatActivity() {
                 "codigo" to codigoN,
             )
             if(imageBitmap != null){
-                val urlImage = uploadFile(imageBitmap)
+                val urlImage = uploadFile(imageBitmap!!)
                 data = hashMapOf(
                     "nombre" to nombreFinal,
                     "codigo" to codigoN,
