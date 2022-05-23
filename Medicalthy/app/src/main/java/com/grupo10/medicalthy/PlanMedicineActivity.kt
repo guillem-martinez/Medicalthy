@@ -67,7 +67,7 @@ class PlanMedicineActivity : AppCompatActivity() {
     }
 
     private fun makeNewTextView(text: String, tag: String) : TextView {
-        var txt_view = TextView(this)
+        val txt_view = TextView(this)
         txt_view.text = text
         txt_view.tag = tag
         txt_view.height = 100
@@ -90,7 +90,11 @@ class PlanMedicineActivity : AppCompatActivity() {
         notifications.createNotificationChannel() //Canal de notificaciones creado
 
         nc?.let { getMedicineName(it) }
-
+        val codigoN = "658257.2"
+        var nombreFinal = ""
+        getMedicineName(codigoN) { name ->
+            nombreFinal = name
+        }
         CodigoNacional.setText("El codigo nacional es: $nc")
 
 
@@ -118,6 +122,7 @@ class PlanMedicineActivity : AppCompatActivity() {
 
 
         saveButton.setOnClickListener {
+
             checkFieldsAreFilled()
             if(timeInMillisList.size >= 1){
                 val check = responsibleConsumption()
@@ -134,26 +139,21 @@ class PlanMedicineActivity : AppCompatActivity() {
                 }
             }
 
+
             var data = hashMapOf(
-                "nombre" to "Paracetamol",
-                "codigo" to "989624.9",
+                "nombre" to nombreFinal,
+                "codigo" to codigoN,
             )
             if(imageBitmap != null){
                 val urlImage = uploadFile(imageBitmap)
                 data = hashMapOf(
-                    "nombre" to "Paracetamol",
-                    "codigo" to "989624.9",
+                    "nombre" to nombreFinal,
+                    "codigo" to codigoN,
                     "url" to urlImage
                 )
             }
 
-
-
-
-
-
-
-            db.collection("users").document("a123456@gmail.com").collection("Plan Prueba").document("Paracetamol").set(data)
+            db.collection("users").document("a123456@gmail.com").collection("Plan").document(nombreFinal).set(data)
                 .addOnSuccessListener { documentReference ->
                     Log.d(TAG, "Document written")
                 }
@@ -163,14 +163,16 @@ class PlanMedicineActivity : AppCompatActivity() {
         }
     }
 
-    private fun getMedicineName(nationalCode: String): String? {
-        val name : String? = ""
-
-        db.collection("medicamentos").document(nationalCode).get().addOnSuccessListener {
-            MedicineName.setText("El nombre del medicamento es: " + name)
+    // Recupera el nombre del medicamente dependiendo del codigo nacional, y lo imprime por pantalla
+    private fun getMedicineName(nationalCode: String, cback: (String)->Unit) {
+        db.collection("medicamentos").document(nationalCode).get().addOnSuccessListener { med ->
+            if (med != null) {
+                MedicineName.setText("El nombre del medicamento es: " + med.get("Nombre").toString())
+                cback(med.get("Nombre").toString())
+            } else {
+                cback("Error")
+            }
         }
-
-        return name
     }
 
     //Funcion que muestra el calendario para elegir el dia
