@@ -107,10 +107,17 @@ class TakePictureActivity : AppCompatActivity() {
     }
 
     private fun goToAddMedicine(nc : String){
-        val addMedicineIntent = Intent(this, PlanMedicineActivity::class.java).also {
-            it.putExtra("nc",nc)
-            startActivity(it)
+
+        val bundle = intent.extras
+        val email = bundle?.get(getString(R.string.intentEmail))
+
+        val addMedicineIntent = Intent(this, PlanMedicineActivity::class.java).apply {
+            putExtra("nc",nc)
+            putExtra(getString(R.string.intentEmail)   , email.toString())
+
         }
+
+        startActivity(addMedicineIntent)
     }
 
 

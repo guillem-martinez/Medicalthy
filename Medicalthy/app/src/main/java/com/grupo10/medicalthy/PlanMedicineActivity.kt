@@ -54,8 +54,12 @@ class PlanMedicineActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_medicine)
-        
-        nc = intent.getStringExtra("nc")
+
+        val bundle = intent.extras
+
+        val email = bundle?.get(getString(R.string.intentEmail))
+        nc = bundle?.get("nc").toString()
+        //nc = intent.getStringExtra("nc")
         storage = Firebase.storage
 
 

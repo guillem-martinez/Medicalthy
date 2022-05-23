@@ -27,8 +27,13 @@ class HomeActivity : AppCompatActivity() {
 
         title = getString(R.string.homeTitle)
 
+        //Recuperar extras del intent de SignIn/SignUp Activity
+        val bundle = intent.extras
+        val email = bundle?.get(getString(R.string.intentEmail))
+        val provider = bundle?.get(getString(R.string.provider))
+
         btnAddMedicine.setOnClickListener {
-            goToAddMedicine()
+            goToAddMedicine(email.toString())
         }
 
         btnShowShots.setOnClickListener {
@@ -43,10 +48,7 @@ class HomeActivity : AppCompatActivity() {
             goToMedicationHistory()
         }
 
-        //Recuperar extras del intent de SignIn/SignUp Activity
-        val bundle = intent.extras
-        val email = bundle?.get(getString(R.string.intentEmail))
-        val provider = bundle?.get(getString(R.string.provider))
+
 
         //Guardar el estado de la app
         val preferences = getSharedPreferences(getString(R.string.preferencesFile), Context.MODE_PRIVATE).edit()
@@ -55,8 +57,13 @@ class HomeActivity : AppCompatActivity() {
         preferences.apply()
     }
 
-    private fun goToAddMedicine(){
-        val addMedicineIntent = Intent(this, TakePictureActivity::class.java)
+    private fun goToAddMedicine(email : String){
+
+        val addMedicineIntent = Intent(this, TakePictureActivity::class.java).apply{
+            putExtra(getString(R.string.intentEmail), email)
+        }
+
+
         startActivity(addMedicineIntent)
     }
 
