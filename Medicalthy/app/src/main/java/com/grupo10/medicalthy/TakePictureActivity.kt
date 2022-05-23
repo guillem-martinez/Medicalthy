@@ -60,7 +60,27 @@ class TakePictureActivity : AppCompatActivity() {
             result.addOnSuccessListener { recognitions ->
                 val text = recognitions.text
                 nc = getNCFromString(text)
-                Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
+
+
+                val view = StringBuilder()
+                if (nc == "ERROR") {
+                    view.append("ERROR, no se ha leido bien la imagen ")
+                    textView4.text = view.toString()
+                } else {
+                    Toast.makeText(this, nc, Toast.LENGTH_SHORT).show()
+                    view.append("Código encontrado: ").append(nc)
+                    textView4.text = view.toString()
+                    var nombre_bd = ""
+                    getMedicineName(nc){ name ->
+                        nombre_bd = name
+                    }
+                    if (nombre_bd != "Error") {
+                        goToAddMedicine(nc)
+                    } else {
+                        goToAddMedicine("")
+                    }
+                }
             }
             result.addOnFailureListener {
                 val view = StringBuilder()
@@ -68,23 +88,7 @@ class TakePictureActivity : AppCompatActivity() {
                 textView4.text = view.toString()
             }
 
-            val view = StringBuilder()
-            if (nc == "ERROR") {
-                view.append("ERROR, no se ha leido bien la imagen ")
-                textView4.text = view.toString()
-            } else {
-                view.append("Código encontrado: ").append(nc)
-                textView4.text = view.toString()
-                var nombre_bd = ""
-                getMedicineName(nc){ name ->
-                    nombre_bd = name
-                }
-                if (nombre_bd != "Error") {
-                    goToAddMedicine(nc)
-                } else {
-                    goToAddMedicine("")
-                }
-            }
+
 
         }
     }
