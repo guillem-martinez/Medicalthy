@@ -31,6 +31,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.grupo10.medicalthy.RandomUtils.getMedicineName
 import java.io.ByteArrayOutputStream
+import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
 
@@ -136,10 +137,18 @@ class PlanMedicineActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
+
+
+
+            //Pasamos los numeros de dias a Milisegundos y lo sumamos con la fecha de inicio:
+            
+            var daysInMilis = TimeUnit.DAYS.toMillis(numDays.text.toString().toLong())
+            daysInMilis += initialDate
+
             var data = hashMapOf(
                 "CN" to codigoN,
-                "Finish" to "Implementar (PlanMedicineActivity)",
-                "Start" to "Implementar (PlanMedicineActivity)",
+                "Finish" to RandomUtils.dayFormatter(daysInMilis),
+                "Start" to RandomUtils.dayFormatter(initialDate),
                 "n_pastillas" to 50,
             )
             if(imageBitmap != null){
