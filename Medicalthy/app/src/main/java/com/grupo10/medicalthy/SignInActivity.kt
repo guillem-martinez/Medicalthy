@@ -117,7 +117,7 @@ class SignInActivity : AppCompatActivity() {
             .document(email)
             .collection("responsable")
             .get().addOnSuccessListener {
-                cback(it != null)
+                cback(!it.documents.isEmpty())
             }
     }
 
