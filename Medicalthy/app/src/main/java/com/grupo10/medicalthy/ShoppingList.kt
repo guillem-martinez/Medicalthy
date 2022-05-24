@@ -73,7 +73,7 @@ class ShoppingList : AppCompatActivity() {
 
     }
 
-    private fun refreshView(prod: String) {
+    fun refreshView(prod: String) {
         linearLayoutList.addView(makeNewTextView(prod, i.toString()))
     }
 
