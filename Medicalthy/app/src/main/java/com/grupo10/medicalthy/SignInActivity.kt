@@ -88,6 +88,7 @@ class SignInActivity : AppCompatActivity() {
     //Función para iniciar la actividad de inicio tras registrarse o hacer logIn
     private fun goHome(email : String, provider : ProviderType){
 
+        //TODO: Si tiene la colección responsable debe mostrar HomePatientActivit (solo "Ver Tomas")
         val homeIntent = Intent(this, HomeActivity::class.java).apply {     //Intent para iniciar la actividad de Inicio (se pasan por parámetro email + proveedor)
             putExtra(getString(R.string.intentEmail), email)
             putExtra(getString(R.string.provider), provider.name)
