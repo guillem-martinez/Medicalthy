@@ -72,4 +72,53 @@ object RandomUtils {
         }
         return "ERROR"
     }
+
+    public fun deleteResponsable(email: String, email_persona_cuidada: String, cback: (Boolean) -> Unit){
+        cback(false)
+        //Quien es su responsable (email)
+        FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(email_persona_cuidada)
+            .collection("responsable")
+            .get().addOnSuccessListener {
+                for(e in it){
+                    if(e.id == email){
+                        FirebaseFirestore.getInstance()
+                            .collection("users")
+                            .document(email_persona_cuidada)
+                            .collection("responsable")
+                            .document(e.id).delete().addOnSuccessListener {
+                                Log.d("RandomUtils::deleteResponsable -> ", true.toString())
+                                cback(true)
+                            }
+                        break;
+                    }//if(e.id == email)
+                }//for(e in it)
+            }//FirebaseFirestore.getInstance()...
+    }//public fun deleteResponsable
+
+
+    public fun deleteCuidaA(email: String, email_persona_cuidada: String, cback: (Boolean) -> Unit){
+        cback(false)
+        //Encargado de cuidar a signInEmailPatient
+        FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(email)
+            .collection("cuida_a")
+            .get().addOnSuccessListener {
+                for(e in it){
+                    if(e.id == email_persona_cuidada){
+                        FirebaseFirestore.getInstance()
+                            .collection("users")
+                            .document(email)
+                            .collection("cuida_a")
+                            .document(e.id).delete().addOnSuccessListener {
+                                Log.d("RandomUtils::deleteCuidaA -> ", true.toString())
+                                cback(true);
+                            }
+                        break;
+                    }//if(e.id == email)
+                }//for(e in it)
+            }//FirebaseFirestore.getInstance
+    }//public fun deleteCuidaA
 }
