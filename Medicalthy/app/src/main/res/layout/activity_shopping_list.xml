@@ -68,6 +68,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="137dp"
         android:text="Vaciar Lista"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAnadirProducto" />
