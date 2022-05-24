@@ -60,6 +60,12 @@ class SignInPatientActivity : AppCompatActivity() {
                             } else {
                                 showAlert(getString(R.string.authErrorMessage))
                             }
+
+                            val addPatientActivity = Intent(this, AddPatientActivity::class.java).apply{
+                                putExtra(getString(R.string.intentEmail), email)
+                            }
+
+                            startActivity(addPatientActivity)
                         }
                 }//if(success[0] as Boolean)
             }
