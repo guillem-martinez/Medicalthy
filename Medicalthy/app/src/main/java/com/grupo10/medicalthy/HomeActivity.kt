@@ -47,6 +47,9 @@ class HomeActivity : AppCompatActivity() {
         btnMedicationHistory.setOnClickListener {
             goToMedicationHistory()
         }
+        btnShoppingCart.setOnClickListener {
+            goToShoppingList()
+        }
 
 
 
@@ -83,6 +86,12 @@ class HomeActivity : AppCompatActivity() {
         val medicationHistoryIntent = Intent(this, PlanMedicineActivity::class.java)
         startActivity(medicationHistoryIntent)
     }
+
+    private fun goToShoppingList(){
+        val shoppingListIntent = Intent(this, ShoppingList::class.java)
+        startActivity(shoppingListIntent)
+    }
+
 
     override fun onBackPressed() {
         AlertDialog.Builder(this).apply {

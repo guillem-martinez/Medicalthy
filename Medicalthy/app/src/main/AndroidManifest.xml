@@ -25,10 +25,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Medicalthy">
+        <activity
+            android:name=".ShoppingList"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+            android:value="@string/google_maps_key" />
+
         <activity
             android:name=".PlanMedicineActivity"
             android:exported="true" />
@@ -49,8 +53,8 @@
             android:exported="false" />
         <activity
             android:name=".ShowShotsActivity"
-            android:parentActivityName=".HomeActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".ShowMedicineActivity"
             android:exported="false" />
