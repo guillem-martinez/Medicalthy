@@ -18,6 +18,7 @@ class ShoppingList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_list)
         addProduct()
+        deleteAllProducts()
     }
 
     private var i: Int = 0
@@ -74,6 +75,16 @@ class ShoppingList : AppCompatActivity() {
 
     private fun refreshView(prod: String) {
         linearLayoutList.addView(makeNewTextView(prod, i.toString()))
+    }
+
+    private fun deleteView(){
+        linearLayoutList.removeAllViewsInLayout()
+    }
+
+    private fun deleteAllProducts(){
+        btnEmptyList.setOnClickListener{
+            deleteView()
+        }
     }
 
 
