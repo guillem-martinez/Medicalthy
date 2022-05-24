@@ -9,7 +9,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import java.util.*
 
 class SignInActivity : AppCompatActivity() {
 
@@ -88,13 +90,37 @@ class SignInActivity : AppCompatActivity() {
     //Función para iniciar la actividad de inicio tras registrarse o hacer logIn
     private fun goHome(email : String, provider : ProviderType){
 
-        //TODO: Si tiene la colección responsable debe mostrar HomePatientActivit (solo "Ver Tomas")
-        val homeIntent = Intent(this, HomeActivity::class.java).apply {     //Intent para iniciar la actividad de Inicio (se pasan por parámetro email + proveedor)
-            putExtra(getString(R.string.intentEmail), email)
-            putExtra(getString(R.string.provider), provider.name)
+
+        isPatient(email){
+            val homeIntent: Intent
+            if(it){
+                homeIntent = Intent(this, HomeActivityPatient::class.java).apply{
+                    putExtra(getString(R.string.intentEmail), email)
+                    putExtra(getString(R.string.provider), provider.name)
+                }
+            }
+            else{
+                homeIntent = Intent(this, HomeActivity::class.java).apply{
+                    putExtra(getString(R.string.intentEmail), email)
+                    putExtra(getString(R.string.provider), provider.name)
+                }
+            }
+
+            startActivity(homeIntent)   //Llamada a la actividad de pantalla de Inicio
         }
-        startActivity(homeIntent)   //Llamada a la actividad de pantalla de Inicio
     }
+
+    private fun isPatient(email: String, cback: (Boolean)->Unit) {
+        var r: Boolean = false
+        var result = FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(email)
+            .collection("responsable")
+            .get().addOnSuccessListener {
+                cback(it != null)
+            }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
