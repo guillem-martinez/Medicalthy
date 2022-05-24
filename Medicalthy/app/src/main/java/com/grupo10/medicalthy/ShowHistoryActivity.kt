@@ -1,18 +1,15 @@
 package com.grupo10.medicalthy
 
-import android.content.Intent
+
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.*
+import androidx.core.view.isEmpty
 import com.google.firebase.firestore.FirebaseFirestore
-import com.grupo10.medicalthy.RandomUtils.getMedicineName
-import kotlinx.android.synthetic.main.activity_show_shots.*
-import java.text.SimpleDateFormat
-import java.util.*
+import kotlinx.android.synthetic.main.activity_show_shots.vertical_layout
 
 class ShowHistoryActivity : AppCompatActivity() {
     var x : Int = 0
@@ -46,25 +43,14 @@ class ShowHistoryActivity : AppCompatActivity() {
             if(planes != null){
                 for(plan in planes){
                     usuario.collection("Planes").document(plan.id).collection("Historial").get().addOnSuccessListener { history_element_list ->
-                        if(!history_element_list.isEmpty){
-                            for(history_element in history_element_list) {
-                                vertical_layout.addView(
-                                    makeNewTextView(
-                                        history_element.id + " -> " + history_element["tomado"].toString(),
-                                        "null"
-                                    )
-                                )
-                            }//for(history_element in history_element_list)
-                        }
-                        else{
+                        for(history_element in history_element_list) {
                             vertical_layout.addView(
                                 makeNewTextView(
-                                    "El plan todavía no tienes un historial de medicación",
+                                    history_element.id + " -> " + history_element["tomado"].toString(),
                                     "null"
                                 )
                             )
-                        }
-
+                        }//for(history_element in history_element_list)
                     }//usuario.collection("Planes") ... (time_stamp_list)
                 }//for(plan in planes)
             }//if(planes != null)

@@ -32,7 +32,7 @@ class HomeActivityCuidador: AppCompatActivity() {
 
     private fun setup(){
 
-        title = getString(R.string.homeTitle)
+        title = getString(R.string.homeTitle) + " ($email)"
 
         btnAddMedicineCuidador.setOnClickListener {
             goToAddMedicine()
@@ -83,12 +83,12 @@ class HomeActivityCuidador: AppCompatActivity() {
     //TODO ADRIAN: volver a pantalla principal con las credenciales correctas
     override fun onBackPressed() {
         AlertDialog.Builder(this).apply {
-            setTitle(getString(R.string.onBackDialogTitle))
-            setMessage(getString(R.string.onBackDialogMessage))
+            setTitle(getString(R.string.onBackDialogTitle_backToMyUser))
+            setMessage(getString(R.string.onBackDialogMessage_backToMyUser))
 
             setPositiveButton(getString(R.string.yesMessage)) { _, _ ->
                 // Si pulsan si se cierra la app, LOCURA
-                finishAffinity()
+                super.onBackPressed()
             }
 
             setNegativeButton(getString(R.string.noMessage)){_, _ ->
