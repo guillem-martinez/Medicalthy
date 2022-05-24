@@ -70,9 +70,10 @@ class HomeActivityCuidador: AppCompatActivity() {
     }
 
     private fun goToMedicationHistory(){
-        val medicationHistoryIntent = Intent(this, PlanMedicineActivity::class.java)
+        val medicationHistoryIntent = Intent(this, ShowHistoryActivity::class.java)
         startActivity(medicationHistoryIntent)
     }
+
     //TODO ADRIAN: volver a pantalla principal con las credenciales correctas
     override fun onBackPressed() {
         AlertDialog.Builder(this).apply {

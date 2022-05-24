@@ -66,7 +66,6 @@ class HomeActivity : AppCompatActivity() {
             putExtra(getString(R.string.intentEmail), email)
         }
 
-
         startActivity(addMedicineIntent)
     }
 
@@ -83,7 +82,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun goToMedicationHistory(){
-        val medicationHistoryIntent = Intent(this, PlanMedicineActivity::class.java)
+        val medicationHistoryIntent = Intent(this, ShowHistoryActivity::class.java)
         startActivity(medicationHistoryIntent)
     }
 
