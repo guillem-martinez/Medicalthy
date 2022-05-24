@@ -51,6 +51,9 @@ class HomeActivity : AppCompatActivity() {
         btnShoppingCart.setOnClickListener {
             goToShoppingList()
         }
+        btnAdminPerson.setOnClickListener {
+            goToAdminPatients(email.toString())
+        }
 
 
 
@@ -59,6 +62,16 @@ class HomeActivity : AppCompatActivity() {
         preferences.putString(getString(R.string.intentEmail), email.toString())
         preferences.putString(getString(R.string.provider), provider.toString())
         preferences.apply()
+    }
+
+    private fun goToAdminPatients(email: String){
+        //R.string.intentEmail)
+        val adminPatientsIntent = Intent(this, AddPatientActivity::class.java).apply{
+            putExtra(getString(R.string.intentEmail), email)
+        }
+
+        startActivity(adminPatientsIntent)
+
     }
 
     private fun goToAddMedicine(email : String){
