@@ -1,8 +1,8 @@
 package com.grupo10.medicalthy
 
 import com.grupo10.medicalthy.RandomUtils.getNCFromString
-import org.junit.Test
-import org.junit.Assert.*
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions.*
 
 class TakePicTest {
 
