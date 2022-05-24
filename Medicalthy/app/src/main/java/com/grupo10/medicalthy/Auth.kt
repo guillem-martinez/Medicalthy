@@ -16,38 +16,27 @@ class Auth {
         Array[1] -> Devuelve un string con el código de error.
          */
     public fun verifyCredentialsSignUp(email : String, password : String, name : String, surname : String, age: String) : Array<Any> {
-
         val arrayResult = arrayOf<Any>(true,"")
 
-        if(email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && surname.isNotEmpty() && age.isNotEmpty()){
-
+        if(email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && surname.isNotEmpty() && age.isNotEmpty()) {
             var age = age.toInt()
-
             if(password.length >= 6){
-
-
-                if(age in 1..120)
-                {
+                if(age in 1..120) {
                     return arrayResult
-
                 }
-                else{
+                else {
                     arrayResult[0] = false
                     arrayResult[1] = "age"
                     return arrayResult
-
                 }
-
             }
-            else{
+            else {
                 arrayResult[0] = false
                 arrayResult[1] = "length"
                 return arrayResult
             }
-
-
         }
-        else{
+        else {
             arrayResult[0] = false
             arrayResult[1] = "empty"
             return arrayResult
@@ -56,29 +45,22 @@ class Auth {
 
 
     public fun verifyCredentialsSignIn(email : String, password : String) : Array<Any> {
-
         val arrayResult = arrayOf<Any>(true,"")
 
-        if(email.isNotEmpty() && password.isNotEmpty()){
-
-            if(password.length >= 6){
-
+        if(email.isNotEmpty() && password.isNotEmpty()) {
+            if(password.length >= 6) {
                 return arrayResult
             }
-            else{
+            else {
                 arrayResult[0] = false
                 arrayResult[1] = "length"
                 return arrayResult
             }
-
         }
-        else{
+        else {
             arrayResult[0] = false
             arrayResult[1] = "empty"
             return arrayResult
         }
     }
-
-
-
 }
