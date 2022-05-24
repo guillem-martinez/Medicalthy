@@ -71,6 +71,9 @@
             android:name=".HomeActivityCuidador"
             android:exported="false" />
         <activity
+            android:name=".HomeActivityPatient"
+            android:exported="false" />
+        <activity
             android:name=".StartActivity"
             android:exported="true"
             android:theme="@style/splashTheme">
