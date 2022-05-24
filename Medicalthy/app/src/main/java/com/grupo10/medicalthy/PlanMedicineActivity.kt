@@ -143,46 +143,54 @@ class PlanMedicineActivity : AppCompatActivity() {
 
             //Pasamos los numeros de dias a Milisegundos y lo sumamos con la fecha de inicio:
 
-            var daysInMilis = TimeUnit.DAYS.toMillis(numDays.text.toString().toLong())
-            var finalDate = daysInMilis +  initialDate
 
-            var startDate = Timestamp(Date(initialDate))
-            var finishDate = Timestamp(Date(finalDate))
-            var data = hashMapOf(
-                "CN" to codigoN,
-                "Finish" to finishDate,
-                "Start" to startDate,
-                "n_pastillas" to 50,
-            )
-            if(imageBitmap != null){
-                val urlImage = uploadFile(imageBitmap!!)
-                data = hashMapOf(
-                    "nombre" to nombreFinal,
-                    "codigo" to codigoN,
-                    "url" to urlImage
+            if(numDays.text.isNotEmpty()){
+                val daysInMilis = TimeUnit.DAYS.toMillis(numDays.text.toString().toLong())
+                val finalDate = daysInMilis +  initialDate
+
+                val startDate = Timestamp(Date(initialDate))
+                val finishDate = Timestamp(Date(finalDate))
+
+                var data = hashMapOf(
+                    "CN" to codigoN,
+                    "Finish" to finishDate,
+                    "Start" to startDate,
+                    "n_pastillas" to 50,
                 )
+
+                if(imageBitmap != null){
+                    val urlImage = uploadFile(imageBitmap!!)
+                    data = hashMapOf(
+                        "nombre" to nombreFinal,
+                        "codigo" to codigoN,
+                        "url" to urlImage
+                    )
+                }
+
+                //TODO: Falta crear la colección de horas (ver usuario1@gmail.com -> Planes -> Plan0 -> Tomas)
+                //                                                                             ^ A partir de ahora es un token
+                db.collection("users").document(email).collection("Planes").add(data)
+                    .addOnSuccessListener { documentReference ->
+
+                        timeInMillisList.forEach{
+                            documentReference.collection("Tomas").document(it.toString()).set(mapOf("n_pastillas" to 1))
+                            //n_pastillas = 1 por defecto
+                        }
+                        planToken = documentReference.id
+                        val cnPlan = ("$nc,$planToken")
+                        notifications = Notifications(this, Constants.ActivityRef.ShowMedicineActivity.ordinal, cnPlan, email)
+                        notifications.createNotificationChannel() //Canal de notificaciones creado
+                        sendAlarms()
+
+                        Log.d(TAG, "Document written")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "error adding document", e)
+                    }
+            }else{
+                checkFieldsAreFilled()
             }
 
-            //TODO: Falta crear la colección de horas (ver usuario1@gmail.com -> Planes -> Plan0 -> Tomas)
-            //                                                                             ^ A partir de ahora es un token
-            db.collection("users").document(email).collection("Planes").add(data)
-                .addOnSuccessListener { documentReference ->
-
-                    timeInMillisList.forEach{
-                        documentReference.collection("Tomas").document(it.toString()).set(mapOf("n_pastillas" to 1))
-                        //n_pastillas = 1 por defecto
-                    }
-                    planToken = documentReference.id
-                    val cnPlan = ("$nc,$planToken")
-                    notifications = Notifications(this, Constants.ActivityRef.ShowMedicineActivity.ordinal, cnPlan, email)
-                    notifications.createNotificationChannel() //Canal de notificaciones creado
-                    sendAlarms()
-
-                    Log.d(TAG, "Document written")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "error adding document", e)
-                }
         }
     }
 
@@ -205,7 +213,7 @@ class PlanMedicineActivity : AppCompatActivity() {
                 //Valores del año,mes y dia actual que tomará por defecto el date picker
                 this.get(Calendar.YEAR),
                 this.get(Calendar.MONTH),
-                this.get(Calendar.DAY_OF_MONTH)
+                this.get(Calendar.DAY_OF_MONTH),
             ).apply {
                 //La fecha minima para elegir es la del dia actual
                 datePicker.minDate = (System.currentTimeMillis() - 1000)
