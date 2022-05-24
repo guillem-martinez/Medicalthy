@@ -9,18 +9,18 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import com.grupo10.medicalthy.RandomUtils.deleteCuidaA
+import com.grupo10.medicalthy.RandomUtils.deleteResponsable
 import kotlinx.android.synthetic.main.activity_add_patient.*
 
 
 class AddPatientActivity : AppCompatActivity() {
     var x: Int = 0
-    var email = "usuario1@gmail.com"
+    var email: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_patient)
-
-        setPatientButtons(email)
 
         setup()
     }
@@ -29,6 +29,15 @@ class AddPatientActivity : AppCompatActivity() {
         title = getString(R.string.app_name)
 
 
+        val bundle = intent.extras
+        email = bundle?.get(getString(R.string.intentEmail)).toString()
+        val provider = bundle?.get(getString(R.string.provider))
+
+        if(email == null || email == "" ||email == "null"){
+            email = "usuario1@gmail.com"
+        }
+
+        setPatientButtons(email)
 
         anadirPaciente.setOnClickListener {
             var signInPatientIntent = Intent(this, SignInPatientActivity::class.java)
@@ -67,6 +76,23 @@ class AddPatientActivity : AppCompatActivity() {
                 homeActivityCuidadorIntent.putExtra("email", txt_view.getTag().toString())
                 startActivity(homeActivityCuidadorIntent)
             }
+
+            txt_view.setOnLongClickListener {
+                deleteResponsable(email, txt_view.getTag().toString()) {
+                    if(it){
+                        deleteCuidaA(email, txt_view.getTag().toString()) { it2 ->
+                            if (it2) {
+                                x = 0   //Reinicia el contador para que empiece con el color 0
+                                vertical_layout.removeAllViews()
+                                setPatientButtons(email)
+                            }
+                        }//deleteCuidaA(...)
+                    }//if(it)
+                }//deleteResponsable(...)
+
+                //TODO: Al hacer todo esto, debería mostrar un mensaje "Se ha eliminado conexión con paciente" o similar
+                return@setOnLongClickListener true
+            }//txt_view.setOnLongClickListener
         }
         return txt_view
     }
