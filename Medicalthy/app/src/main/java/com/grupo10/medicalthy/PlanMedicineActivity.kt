@@ -21,16 +21,19 @@ import android.icu.text.SimpleDateFormat
 import android.provider.MediaStore
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.updateLayoutParams
 import com.google.firebase.Timestamp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.grupo10.medicalthy.RandomUtils.getMedicineName
+import kotlinx.android.synthetic.main.activity_shopping_list.*
 import java.io.ByteArrayOutputStream
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
@@ -135,6 +138,10 @@ class PlanMedicineActivity : AppCompatActivity() {
         addHour.setOnClickListener {
             chooseInitialHour { timeInMillis -> timeInMillisList.add(timeInMillis) }
 
+        }
+
+        btnCleanHours.setOnClickListener {
+            deleteView()
         }
 
         saveButton.setOnClickListener {
@@ -465,6 +472,12 @@ override fun onRequestPermissionsResult(
         if (initialDate != null){
             textView8.text = "El dia de inicio es:  " + RandomUtils.dayFormatter(initialDate);
         }
+    }
+
+    private fun deleteView(){
+        linearLayout6.removeAllViewsInLayout()
+        //linearLayout6.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        linearLayout6.updateLayoutParams { height = ViewGroup.LayoutParams.WRAP_CONTENT }
     }
 
 
