@@ -26,6 +26,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.Timestamp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -141,14 +142,16 @@ class PlanMedicineActivity : AppCompatActivity() {
 
 
             //Pasamos los numeros de dias a Milisegundos y lo sumamos con la fecha de inicio:
-            
-            var daysInMilis = TimeUnit.DAYS.toMillis(numDays.text.toString().toLong())
-            daysInMilis += initialDate
 
+            var daysInMilis = TimeUnit.DAYS.toMillis(numDays.text.toString().toLong())
+            var finalDate = daysInMilis +  initialDate
+
+            var startDate = Timestamp(Date(initialDate))
+            var finishDate = Timestamp(Date(finalDate))
             var data = hashMapOf(
                 "CN" to codigoN,
-                "Finish" to RandomUtils.dayFormatter(daysInMilis),
-                "Start" to RandomUtils.dayFormatter(initialDate),
+                "Finish" to finishDate,
+                "Start" to startDate,
                 "n_pastillas" to 50,
             )
             if(imageBitmap != null){
