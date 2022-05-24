@@ -62,6 +62,9 @@
             android:name=".AddPatientActivity"
             android:exported="true" />
         <activity
+            android:name=".ShowHistoryActivity"
+            android:exported="true" />
+        <activity
             android:name=".HomeActivityCuidador"
             android:exported="false" />
         <activity
