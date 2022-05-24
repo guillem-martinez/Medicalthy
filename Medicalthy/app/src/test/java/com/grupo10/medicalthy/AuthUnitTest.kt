@@ -14,7 +14,7 @@ class AuthUnitTest {
 
     //  SingUp Tests
 
-    @Test
+    /*@Test
     fun testEmptyEmailExpectsFalse(){
         val result = authObj.verifyCredentialsSignUp("", "123456", "name", "surname", "1")[0].toString()
         assertEquals("false", result)
@@ -151,7 +151,7 @@ class AuthUnitTest {
 
 
 
-
+*/
 
 
 }
