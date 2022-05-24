@@ -104,7 +104,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/editTextNumber"
+                        android:id="@+id/nComprimidos"
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

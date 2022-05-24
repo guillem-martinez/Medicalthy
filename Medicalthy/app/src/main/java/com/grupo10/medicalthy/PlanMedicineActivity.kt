@@ -144,7 +144,8 @@ class PlanMedicineActivity : AppCompatActivity() {
             //Pasamos los numeros de dias a Milisegundos y lo sumamos con la fecha de inicio:
 
 
-            if(numDays.text.isNotEmpty()){
+            if(numDays.text.isNotEmpty() && nComprimidos.text.isNotEmpty()){
+                val nPastillas = nComprimidos.text.toString()
                 val daysInMilis = TimeUnit.DAYS.toMillis(numDays.text.toString().toLong())
                 val finalDate = daysInMilis +  initialDate
 
@@ -155,7 +156,7 @@ class PlanMedicineActivity : AppCompatActivity() {
                     "CN" to codigoN,
                     "Finish" to finishDate,
                     "Start" to startDate,
-                    "n_pastillas" to 50,
+                    "n_pastillas" to nPastillas,
                 )
 
                 if(imageBitmap != null){
