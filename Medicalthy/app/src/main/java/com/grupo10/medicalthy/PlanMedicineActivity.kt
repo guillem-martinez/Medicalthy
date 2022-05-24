@@ -248,8 +248,23 @@ class PlanMedicineActivity : AppCompatActivity() {
     }
 
     private fun goHome(){
-        val homeIntent = Intent(this, HomeActivity::class.java)
-        startActivity(homeIntent)
+        //Como se puede llamar desde dos HomeActivity distintos, es necesario comprobar primero desde cual ha sido llamado
+        //Para evitar inconsistencias, el caso por defecto es siempre HomeActivity, pero HomeActivityCuidador
+        //siempre enviará su nombre
+        var home: String = intent.getStringExtra("home").toString()
+
+        Log.d("TEST====================", home);
+
+        if(home == "HomeActivityCuidador"){
+            val homeCuidadorIntent = Intent(this, HomeActivityCuidador::class.java)
+            startActivity(homeCuidadorIntent)
+        }
+        else{
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
+        }
+
+
     }
 
     private fun setAlarms() {

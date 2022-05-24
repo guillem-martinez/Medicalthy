@@ -119,11 +119,11 @@ class TakePictureActivity : AppCompatActivity() {
             putExtra("nc",nc)
             putExtra(getString(R.string.intentEmail)   , email.toString())
 
+            //Lo pasa el home, identifica si debe volver a HomeActivity o bien a HomeActivityCuidador
+            val bundle = intent.extras
+            putExtra("home", bundle?.get("home").toString())
         }
 
         startActivity(addMedicineIntent)
     }
-
-
-
 }

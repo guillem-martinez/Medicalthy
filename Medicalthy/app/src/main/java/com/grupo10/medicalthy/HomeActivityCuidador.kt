@@ -57,6 +57,7 @@ class HomeActivityCuidador: AppCompatActivity() {
     private fun goToAddMedicine(){
         val addMedicineIntent = Intent(this, TakePictureActivity::class.java).apply{
             putExtra(getString(R.string.intentEmail), email)
+            putExtra("home", "HomeActivityCuidador")
         }
         startActivity(addMedicineIntent)
     }
