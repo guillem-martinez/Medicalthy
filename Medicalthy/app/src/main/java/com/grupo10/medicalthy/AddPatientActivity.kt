@@ -28,15 +28,20 @@ class AddPatientActivity : AppCompatActivity() {
     private fun setup() {
         title = getString(R.string.app_name)
 
+
+
+        anadirPaciente.setOnClickListener {
+            var signInPatientIntent = Intent(this, SignInPatientActivity::class.java)
+            signInPatientIntent.putExtra("email", email)
+            startActivity(signInPatientIntent)
+        }
     }
 
     private fun setPatientButtons(email: String){
         val usuario = FirebaseFirestore.getInstance().collection("users").document(email)
         usuario.collection("cuida_a").get().addOnSuccessListener { patients->
             for(patient in patients){
-                Log.d("Patient-email -> ", patient.id.toString())
                 FirebaseFirestore.getInstance().collection("users").document(patient.id).get().addOnSuccessListener {
-                    Log.d("Pantent --> ", it.id)
                     vertical_layout.addView(makeNewTextView(it["Surnames"].toString() + ", "+ it["Name"].toString(), patient.id))
                 }
             }
