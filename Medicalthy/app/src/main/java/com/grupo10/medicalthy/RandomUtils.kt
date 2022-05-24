@@ -46,6 +46,16 @@ object RandomUtils {
         }
     }
 
+    fun getNPills(plan: String, email: String, cback: (Int)->Unit){
+        FirebaseFirestore.getInstance().collection("users").document(email).collection("Planes").document(plan).get().addOnSuccessListener { pl ->
+            if (pl != null) {
+                cback(pl.get("n_pastillas").toString().toInt())
+            } else {
+                cback(-1)
+            }
+        }
+    }
+
     fun getNCFromString(text: String): String {
         val text_parts = text.split("\n")
         for (i in text_parts) {

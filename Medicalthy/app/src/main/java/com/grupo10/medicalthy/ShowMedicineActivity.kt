@@ -7,6 +7,7 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.grupo10.medicalthy.RandomUtils.getMedicineDescription
 import com.grupo10.medicalthy.RandomUtils.getMedicineName
+import com.grupo10.medicalthy.RandomUtils.getNPills
 import kotlinx.android.synthetic.main.activity_show_medicine.*
 import java.util.*
 import kotlin.reflect.typeOf
@@ -47,10 +48,17 @@ class ShowMedicineActivity : AppCompatActivity() {
         }
 
         btnSpeak.setOnClickListener {
-            tts.speak("Escúchame una cosa viejo demente, o te tomas la pastilla o te vas con San Pedro.")
+            getMedicineName(cn) { name ->
+                getMedicineDescription(cn) { desc ->
+                    tts.speak("$name + un comprimido")
+                }
+            }
         }
 
-        btnOk.setOnClickListener{ btnOkPressed() } //TODO: n_pills - 1 y actualizar BD
+        btnOk.setOnClickListener{
+            btnOkPressed()
+            enOfStock()
+        } //TODO: n_pills - 1 y actualizar BD
         btnNoOk.setOnClickListener{ btnNoOkPressed() }
     }
 
@@ -81,10 +89,27 @@ class ShowMedicineActivity : AppCompatActivity() {
     }
 
     private fun enOfStock() {
-        if(n_pills < PILLS_THRESHOLD) {
-            //Si salta aviso de fin de existencias mostrar mensaje de si quiere añadirlo a la lista de la compra
-            //si pulsa si se añade el producto a la lista de la compra, recoger nombre medicamento
-            //si pulsa no no se hace nada
+        getNPills(plan, email) { pills ->
+            if(pills < PILLS_THRESHOLD) {
+                //Si salta aviso de fin de existencias mostrar mensaje de si quiere añadirlo a la lista de la compra
+                //si pulsa si se añade el producto a la lista de la compra, recoger nombre medicamento
+                //si pulsa no no se hace nada
+                android.app.AlertDialog.Builder(this).apply {
+                    setTitle("Fin existencias")
+                    setMessage("Te quedaste sin pastis mi bro")
+
+                    setPositiveButton(getString(R.string.yesMessage)) { _, _ ->
+                        getMedicineName(cn){ name ->
+                            ShoppingList().refreshView(name)
+                        }
+                    }
+
+                    setNegativeButton(getString(R.string.noMessage)){_, _ ->
+                    }
+
+                    setCancelable(true)
+                }.create().show()
+            }
         }
     }
 

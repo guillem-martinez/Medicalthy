@@ -33,7 +33,7 @@
     <string name="ageCredentialsErrorMessage">La edad seleccionada no es válida. Por favor, seleccione una edad entre 1 y 120 .</string>
     <string name="takePicErrorMessage">El sistema no ha podido reconocer el texto de la imagen. Por favor, repita la foto para intentar reconocer el texto </string>
     <string name="takePicPermission">Se necesitan los permisos de la cámara para poder hacer la foto </string>
-    <string name="NotificationNumDays">Por favor viejo hijo de la gran puta, mete un puto número eres imbécil o que te pasa, mas muerto que vivo </string>
+    <string name="NotificationNumDays">Por favor introduzca un número </string>
 
 
     //Positive button messages
@@ -52,7 +52,7 @@
     <string name="channelName">Medicalthy</string>
     <string name="channelID">MedicalthyID</string>
     <string name="channelDescription">Canal de notificaciones básicas</string>
-    <string name="notificationMessage">Ha llegado el momento, es la hora de meterte la pastilla entre pecho y espalda</string>
+    <string name="notificationMessage">Es el momento de tomar la medicación</string>
     <string name="notificationSubText">Hora de la pastilla</string>
 
     //PlanMedicineActivity
