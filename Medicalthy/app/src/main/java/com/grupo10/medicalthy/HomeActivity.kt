@@ -4,6 +4,7 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 //import kotlinx.android.synthetic.main.activity_home.*
@@ -45,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         btnMedicationHistory.setOnClickListener {
-            goToMedicationHistory()
+            goToMedicationHistory(email.toString())
         }
         btnShoppingCart.setOnClickListener {
             goToShoppingList()
@@ -81,8 +82,10 @@ class HomeActivity : AppCompatActivity() {
         startActivity(pharmacyMapIntent)
     }
 
-    private fun goToMedicationHistory(){
-        val medicationHistoryIntent = Intent(this, ShowHistoryActivity::class.java)
+    private fun goToMedicationHistory(email: String){
+        val medicationHistoryIntent = Intent(this, ShowHistoryActivity::class.java).apply{
+            putExtra("email", email)
+        }
         startActivity(medicationHistoryIntent)
     }
 

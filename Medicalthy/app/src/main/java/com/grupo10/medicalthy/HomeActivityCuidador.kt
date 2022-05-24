@@ -23,6 +23,10 @@ class HomeActivityCuidador: AppCompatActivity() {
         val intent_obj: Intent = intent
         email = intent_obj.getStringExtra("email").toString()
 
+        if(email == null || email == "null"){
+            email = "usuario1@gmail.com"
+        }
+
         setup()
     }
 
@@ -70,7 +74,9 @@ class HomeActivityCuidador: AppCompatActivity() {
     }
 
     private fun goToMedicationHistory(){
-        val medicationHistoryIntent = Intent(this, ShowHistoryActivity::class.java)
+        val medicationHistoryIntent = Intent(this, ShowHistoryActivity::class.java).apply {
+            putExtra("email", email)
+        }
         startActivity(medicationHistoryIntent)
     }
 
