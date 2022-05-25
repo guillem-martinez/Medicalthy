@@ -69,4 +69,8 @@
     //HomeActivityCuidador
     <string name="onBackDialogTitle_backToMyUser">Volver a tu página</string>
     <string name="onBackDialogMessage_backToMyUser">¿Seguro que quieres salir de esta persona cuidada?</string>
+
+    //ShowMedicine
+    <string name="finExistenciasTitle">¡Fin de existencias!</string>
+    <string name="finExistenciasMessage">Se está quedando sin existencias del medicamento.\n ¿Quiere añadirlo a la lista de la compra?</string>
 </resources>

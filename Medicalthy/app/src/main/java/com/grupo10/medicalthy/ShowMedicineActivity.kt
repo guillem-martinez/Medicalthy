@@ -110,14 +110,13 @@ class ShowMedicineActivity : AppCompatActivity() {
                 //si pulsa si se añade el producto a la lista de la compra, recoger nombre medicamento
                 //si pulsa no no se hace nada
                 android.app.AlertDialog.Builder(this).apply {
-                    setTitle("Fin existencias")
-                    setMessage("Te quedaste sin pastis mi bro")
+                    setTitle(getString(R.string.finExistenciasTitle))
+                    setMessage(getString(R.string.finExistenciasMessage))
 
                     setPositiveButton(getString(R.string.yesMessage)) { _, _ ->
                         addToShoppingList()
                         if(pills != 0)
                             updateNPills()
-                        //goHome()
                     }
 
                     setNegativeButton(getString(R.string.noMessage)){_, _ ->
