@@ -76,7 +76,8 @@
                 android:layout_marginHorizontal="72dp"
                 android:layout_weight="1"
                 android:background="@drawable/ic_field"
-                android:text="@string/loginButton" />
+                android:text="@string/loginButton"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <Space
@@ -87,7 +88,8 @@
             android:id="@+id/googleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/googleButtonText" />
+            android:text="@string/googleButtonText"
+            android:textSize="20sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

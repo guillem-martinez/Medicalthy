@@ -44,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="60dp"
             android:background="@drawable/ic_field"
-            android:text="@string/signInTitle" />
+            android:text="@string/signInTitle"
+            android:textSize="20sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -68,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="60dp"
             android:background="@drawable/ic_field"
-            android:text="@string/signUpButton" />
+            android:text="@string/signUpButton"
+            android:textSize="20sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
