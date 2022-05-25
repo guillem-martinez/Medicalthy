@@ -61,7 +61,6 @@
         <activity
             android:name=".ShowShotsActivity"
             android:exported="true"
-            android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ShowMedicineActivity"
