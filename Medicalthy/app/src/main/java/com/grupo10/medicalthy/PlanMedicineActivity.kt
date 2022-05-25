@@ -109,7 +109,7 @@ class PlanMedicineActivity : AppCompatActivity() {
             MedicineName.setText(name)
             nombreFinal = name
         } }
-        val codigoN = "658257.2"
+        val codigoN = nc
         /*
         getMedicineName(codigoN) { name ->
             nombreFinal = name
@@ -174,7 +174,6 @@ class PlanMedicineActivity : AppCompatActivity() {
                         "Start" to startDate,
                         "n_pastillas" to nPastillas,
                         "nombre" to nombreFinal,
-                        "codigo" to codigoN,
                         "url" to urlImage
                     )
                 }
