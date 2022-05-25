@@ -12,4 +12,8 @@ class User(val username: String,
         var newProduct = Product(name, cnn, nComprimidos, frecuency)
         productList.add(newProduct)
     }
+
+    fun getProducts() : MutableList<Product> {
+        return this.productList
+    }
 }

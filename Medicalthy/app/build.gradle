@@ -52,7 +52,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
     implementation 'com.google.android.gms:play-services-location:19.0.1'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.0'
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
     testImplementation "org.junit.jupiter:junit-jupiter-params:5.8.2"
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }
