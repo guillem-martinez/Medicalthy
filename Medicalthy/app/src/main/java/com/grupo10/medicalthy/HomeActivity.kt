@@ -3,6 +3,7 @@ package com.grupo10.medicalthy
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -91,8 +92,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun goToPharmacyMap(){
+        /*
         val pharmacyMapIntent = Intent(this, PharmacyMapActivity::class.java)
         startActivity(pharmacyMapIntent)
+         */
+        val gmmIntentUri = Uri.parse("geo:0,0?q=farmacia")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        mapIntent.resolveActivity(packageManager)?.let {
+            startActivity(mapIntent)
+        }
     }
 
     private fun goToMedicationHistory(email: String){

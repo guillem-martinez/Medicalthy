@@ -106,7 +106,7 @@ class PlanMedicineActivity : AppCompatActivity() {
 
         var nombreFinal = ""
         nc?.let { getMedicineName(it) { name ->
-            MedicineName.setText("El nombre del medicamento es: " + name)
+            MedicineName.setText(name)
             nombreFinal = name
         } }
         val codigoN = "658257.2"
