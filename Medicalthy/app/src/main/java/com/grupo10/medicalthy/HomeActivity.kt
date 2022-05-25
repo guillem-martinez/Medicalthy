@@ -104,7 +104,7 @@ class HomeActivity : AppCompatActivity() {
         val pharmacyMapIntent = Intent(this, PharmacyMapActivity::class.java)
         startActivity(pharmacyMapIntent)
          */
-        val gmmIntentUri = Uri.parse("geo:0,0?q=farmacia")
+        val gmmIntentUri = Uri.parse("geo:0,0?q=farmacia abierta")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
         mapIntent.resolveActivity(packageManager)?.let {
