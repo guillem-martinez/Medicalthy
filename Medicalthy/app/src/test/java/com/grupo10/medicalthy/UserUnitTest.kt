@@ -33,9 +33,9 @@ class UserUnitTest {
         assertEquals(first_product.frecuency, ibu[3])
     }
 
-    /*@Test
+    @Test
     fun test_añadirVariosMedicamentos() {
-        for (i in 0..medicines.size) {
+        for (i in 0..medicines.size - 1) {
             val medicine = medicines[i]
             usertest.añadirMedicamentos(medicine[0] as String, medicine[1] as String, medicine[2] as Int, medicine[3] as Int)
         }
@@ -45,7 +45,7 @@ class UserUnitTest {
 
     @Test
     fun test_variosProductosAñadidos() {
-        for (i in 0..medicines.size) {
+        for (i in 0..medicines.size - 1) {
             val medicine = medicines[i]
             usertest.añadirMedicamentos(medicine[0] as String, medicine[1] as String, medicine[2] as Int, medicine[3] as Int)
         }
@@ -56,5 +56,5 @@ class UserUnitTest {
             assertEquals(user_products[i].nComprimidos, medicines[i][2])
             assertEquals(user_products[i].frecuency, medicines[i][3])
         }
-    }*/
+    }
 }
