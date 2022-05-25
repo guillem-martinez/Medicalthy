@@ -1,10 +1,16 @@
 package com.grupo10.medicalthy
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.grupo10.medicalthy.RandomUtils.getMedicineDescription
 import com.grupo10.medicalthy.RandomUtils.getMedicineName
 import com.grupo10.medicalthy.RandomUtils.getNPills
@@ -20,10 +26,18 @@ class ShowMedicineActivity : AppCompatActivity() {
     private var plan: String = ""
     private var n_pills: Int = 0 //TODO:Cargar el número de pastillas de la base de datos para ese plan
     private val PILLS_THRESHOLD: Int = 10 //Por debajo de 10 pastillas salta el aviso de fin de existencias
+    lateinit var selectedImage: ImageView
+    lateinit var storage : FirebaseStorage
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_medicine)
+
+        selectedImage = findViewById(R.id.imageView2)
+        storage = Firebase.storage
 
         tts.configurationSettings()
         setup()
@@ -43,6 +57,7 @@ class ShowMedicineActivity : AppCompatActivity() {
             getMedicineName(cn){ name ->
                 getMedicineDescription(cn) { desc ->
                     setTextViewInfo(name, desc, "")
+                    updateImage()
                 }
             }
         }
@@ -111,6 +126,43 @@ class ShowMedicineActivity : AppCompatActivity() {
                 }.create().show()
             }
         }
+    }
+
+    private fun updateImage(){
+        var result = FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(email)
+            .collection("Planes")
+            .document(plan).get().addOnSuccessListener { med ->
+                if (med.get("url") != null){
+
+                    val url = med.get("url")
+                    val storageRef = storage.reference
+
+                    var islandRef = storageRef.child(url as String)
+
+                    val ONE_MEGABYTE: Long = 1024 * 1024
+
+                    islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                        var bmp = BitmapFactory.decodeByteArray(it, 0, it.size)
+
+                        selectedImage.setImageBitmap(bmp)
+
+
+                        // Data for "images/island.jpg" is returned, use this as needed
+                    }.addOnFailureListener {
+                        // Handle any errors
+                    }
+
+
+
+                    //selectedImage.setImageBitmap(imageBitmap)
+
+
+                }
+
+            }
+
     }
 
     override fun onDestroy() {

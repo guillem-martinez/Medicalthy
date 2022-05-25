@@ -32,4 +32,14 @@ class Database {
 
     }
 
+    public fun makeUserDatabaseGoogle(email : String, cloudFirestore : FirebaseFirestore){
+        cloudFirestore.collection("users").document(email).set(
+            hashMapOf(
+                "Email" to email
+
+            )
+        )
+
+    }
+
 }

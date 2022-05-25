@@ -29,6 +29,9 @@ class ShowShotsActivity : AppCompatActivity() {
         if(email == "" || email == "null")
             email = "email@gmail.com"
 
+
+        Toast.makeText(this, "ESTE ES EL MAIL: $email", Toast.LENGTH_SHORT).show()
+
         setup()
 
         setPlanButtons(email)

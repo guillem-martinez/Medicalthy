@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 //import kotlinx.android.synthetic.main.activity_home.*
@@ -32,6 +33,7 @@ class HomeActivity : AppCompatActivity() {
         //Recuperar extras del intent de SignIn/SignUp Activity
         val bundle = intent.extras
         val email = bundle?.get(getString(R.string.intentEmail))
+
         val provider = bundle?.get(getString(R.string.provider))
 
         btnAddMedicine.setOnClickListener {

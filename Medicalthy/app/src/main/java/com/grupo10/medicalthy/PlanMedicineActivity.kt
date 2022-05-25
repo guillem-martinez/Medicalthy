@@ -169,6 +169,10 @@ class PlanMedicineActivity : AppCompatActivity() {
                 if(imageBitmap != null){
                     val urlImage = uploadFile(imageBitmap!!)
                     data = hashMapOf(
+                        "CN" to codigoN,
+                        "Finish" to finishDate,
+                        "Start" to startDate,
+                        "n_pastillas" to nPastillas,
                         "nombre" to nombreFinal,
                         "codigo" to codigoN,
                         "url" to urlImage

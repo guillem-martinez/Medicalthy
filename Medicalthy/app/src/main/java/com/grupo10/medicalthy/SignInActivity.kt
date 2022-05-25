@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.util.*
 
 class SignInActivity : AppCompatActivity() {
@@ -18,6 +19,10 @@ class SignInActivity : AppCompatActivity() {
     val GOOGLE_SIGN_IN = 10
     val database = FirebaseAuth.getInstance()
     val authObject = Auth()
+    val databaseFunctions = Database()
+    val cloudFirestore = FirebaseFirestore.getInstance()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,6 +141,7 @@ class SignInActivity : AppCompatActivity() {
                     database.signInWithCredential(credential).addOnCompleteListener {
 
                         if(it.isSuccessful) {
+                            account.email?.let { it1 -> databaseFunctions.makeUserDatabaseGoogle(it1, cloudFirestore) }
                             goHome(account.email ?: "", ProviderType.GOOGLE)
                         }
                         else {
