@@ -37,8 +37,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
             app:boxStrokeWidth="0dp"
+            app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
