@@ -73,7 +73,7 @@ class ShowMedicineActivity : AppCompatActivity() {
         btnOk.setOnClickListener{
             btnOkPressed()
             enOfStock()
-        } //TODO: n_pills - 1 y actualizar BD
+        }
         btnNoOk.setOnClickListener{ btnNoOkPressed() }
     }
 
@@ -104,7 +104,7 @@ class ShowMedicineActivity : AppCompatActivity() {
     }
 
     private fun enOfStock() {
-        getNPills(plan, email) { pills ->
+        getNPills(plan, email) { pills -> //Se comprueba si el numero de existencias esta por debajo del umbral establecido
             if(pills < PILLS_THRESHOLD) {
                 //Si salta aviso de fin de existencias mostrar mensaje de si quiere añadirlo a la lista de la compra
                 //si pulsa si se añade el producto a la lista de la compra, recoger nombre medicamento
@@ -114,17 +114,43 @@ class ShowMedicineActivity : AppCompatActivity() {
                     setMessage("Te quedaste sin pastis mi bro")
 
                     setPositiveButton(getString(R.string.yesMessage)) { _, _ ->
-                        getMedicineName(cn){ name ->
-                            ShoppingList().refreshView(name)
-                        }
+                        addToShoppingList()
+                        if(pills != 0)
+                            updateNPills()
+                        //goHome()
                     }
 
                     setNegativeButton(getString(R.string.noMessage)){_, _ ->
+                        updateNPills()
+                        goHome()
                     }
 
                     setCancelable(true)
                 }.create().show()
             }
+            else {
+                goHome()
+            }
+        }
+    }
+
+    private fun addToShoppingList() {
+        getMedicineName(cn) { name ->
+            val data = hashMapOf(
+                "nombre" to name
+            )
+
+            FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(email)
+                .collection("ListaCompra").document(name).set(data)
+        }
+    }
+
+    private fun updateNPills() {
+        getNPills(plan, email) { pills ->
+            FirebaseFirestore.getInstance().collection("users").document(email).collection("Planes").document(plan).update(
+                mapOf("n_pastillas" to (pills-1)))
         }
     }
 
@@ -163,6 +189,12 @@ class ShowMedicineActivity : AppCompatActivity() {
 
             }
 
+    }
+
+    private fun goHome(){
+
+        val homeIntent = Intent(this, HomeActivity::class.java)
+        startActivity(homeIntent)   //Llamada a la actividad de pantalla de Inicio
     }
 
     override fun onDestroy() {
