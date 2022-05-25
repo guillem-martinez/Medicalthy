@@ -35,11 +35,18 @@ class ShoppingList : AppCompatActivity() {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
+
         // Set up the buttons
         builder.setPositiveButton("Añadir", DialogInterface.OnClickListener { dialog, which ->
             // Here you get get input text from the Edittext
             product = input.text.toString()
-            refreshView(product)
+            if (product.isEmpty()){
+                showAlert("El producto debe contener al menos un carácter")
+                builder.setView(input)
+            }
+            else {
+                refreshView(product)
+            }
         })
         builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
@@ -75,16 +82,27 @@ class ShoppingList : AppCompatActivity() {
 
     fun refreshView(prod: String) {
         linearLayoutList.addView(makeNewTextView(prod, i.toString()))
+        //TODO:
     }
 
     private fun deleteView(){
         linearLayoutList.removeAllViewsInLayout()
+        //TODO: VACIAR LA VARIABLE LIST
     }
 
     private fun deleteAllProducts(){
         btnEmptyList.setOnClickListener{
             deleteView()
         }
+    }
+
+    private fun showAlert(errorMessage : String){
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("Alerta")
+        builder.setMessage(errorMessage)
+        builder.setPositiveButton(getString(R.string.acceptMessage), null)
+        val dialog : androidx.appcompat.app.AlertDialog = builder.create()
+        dialog.show()
     }
 
 
