@@ -14,6 +14,9 @@ import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import kotlinx.android.synthetic.main.activity_shopping_list.*
+import kotlinx.android.synthetic.main.activity_show_shots.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ShoppingList : AppCompatActivity() {
     private var email: String = ""
@@ -25,6 +28,8 @@ class ShoppingList : AppCompatActivity() {
         val bundle = intent.extras
         email = bundle?.get(getString(R.string.intentEmail)).toString()
         Toast.makeText(this, "email Principio: $email", Toast.LENGTH_LONG).show()
+
+        setup()
     }
 
 
@@ -98,15 +103,29 @@ class ShoppingList : AppCompatActivity() {
 
     private fun deleteView(){
         linearLayoutList.removeAllViewsInLayout()
-        FirebaseFirestore.getInstance()
-            .collection("users")
-            .document(email)
-            .collection("ListaCompra").document().delete()
     }
 
     private fun deleteAllProducts(){
         btnEmptyList.setOnClickListener{
             deleteView()
+
+            val usuario = FirebaseFirestore.getInstance().collection("users").document(email)
+
+            usuario.collection("ListaCompra").get().addOnSuccessListener { medicinas->
+                var text: String = ""
+                var tag: String = ""
+
+                if(medicinas != null){
+                    for(medicina in medicinas){
+
+
+                        usuario.collection("ListaCompra").document(medicina.id).delete()
+                    }//usuario.collection("Planes") ... (time_stamp_list)
+                    //for(plan in planes)
+                }//if(planes != null)
+            }//usuario.collection. (planes).addOnSuccessListener
+
+
         }
     }
 
@@ -117,6 +136,27 @@ class ShoppingList : AppCompatActivity() {
         builder.setPositiveButton(getString(R.string.acceptMessage), null)
         val dialog : androidx.appcompat.app.AlertDialog = builder.create()
         dialog.show()
+    }
+
+    private fun setup(){
+
+        val usuario = FirebaseFirestore.getInstance().collection("users").document(email)
+
+        usuario.collection("ListaCompra").get().addOnSuccessListener { medicinas->
+            var text: String = ""
+            var tag: String = ""
+
+            if(medicinas != null){
+                for(medicina in medicinas){
+                    linearLayoutList.addView(makeNewTextView(medicina.id, i.toString()))
+
+                }//usuario.collection("Planes") ... (time_stamp_list)
+                //for(plan in planes)
+            }//if(planes != null)
+        }//usuario.collection. (planes).addOnSuccessListener
+
+
+
     }
 
 
