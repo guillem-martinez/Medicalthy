@@ -52,7 +52,7 @@ class HomeActivity : AppCompatActivity() {
             goToMedicationHistory(email.toString())
         }
         btnShoppingCart.setOnClickListener {
-            goToShoppingList()
+            goToShoppingList(email.toString())
         }
         btnAdminPerson.setOnClickListener {
             goToAdminPatients(email.toString())
@@ -119,8 +119,10 @@ class HomeActivity : AppCompatActivity() {
         startActivity(medicationHistoryIntent)
     }
 
-    private fun goToShoppingList(){
-        val shoppingListIntent = Intent(this, ShoppingList::class.java)
+    private fun goToShoppingList(email: String){
+        val shoppingListIntent = Intent(this, ShoppingList::class.java).apply{
+            putExtra(getString(R.string.intentEmail), email)
+        }
         startActivity(shoppingListIntent)
     }
 

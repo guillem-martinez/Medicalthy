@@ -10,16 +10,23 @@ import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_plan_medicine.*
 import kotlinx.android.synthetic.main.activity_shopping_list.*
 
 class ShoppingList : AppCompatActivity() {
+    private var email: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_list)
         addProduct()
         deleteAllProducts()
+        val bundle = intent.extras
+        email = bundle?.get(getString(R.string.intentEmail)).toString()
+        Toast.makeText(this, "email Principio: $email", Toast.LENGTH_LONG).show()
     }
+
 
     private var i: Int = 0
     private var product: String = ""
@@ -81,13 +88,20 @@ class ShoppingList : AppCompatActivity() {
     }
 
     fun refreshView(prod: String) {
+        Toast.makeText(this, "email es : $email y $prod", Toast.LENGTH_LONG).show()
         linearLayoutList.addView(makeNewTextView(prod, i.toString()))
-        //TODO:
+        FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(email)
+            .collection("ListaCompra").document(prod).set(hashMapOf("nombre" to prod))
     }
 
     private fun deleteView(){
         linearLayoutList.removeAllViewsInLayout()
-        //TODO: VACIAR LA VARIABLE LIST
+        FirebaseFirestore.getInstance()
+            .collection("users")
+            .document(email)
+            .collection("ListaCompra").document().delete()
     }
 
     private fun deleteAllProducts(){
