@@ -76,12 +76,8 @@ class AddMedicineActivity : AppCompatActivity() {
         if((ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) &&
             (ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)){
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE) , 101)
-
-
-        }else {
-
+        } else {
             Toast.makeText(this, "Notificación askCameraPermissions", Toast.LENGTH_SHORT).show()
-
             openCamera()
             //dispatchTakePictureIntent()
         }
@@ -99,30 +95,17 @@ class AddMedicineActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 102 ){
-
             Toast.makeText(this, "Notificación onActivtyResult", Toast.LENGTH_SHORT).show()
-
-
             val imageBitmap = data?.extras?.get("data") as Bitmap?
             selectedImage.setImageBitmap(imageBitmap)
-
-
-
-
-
-
             if (imageBitmap != null) {
                 uploadFile(imageBitmap)
                // goToPlanMedicineActivity(imageBitmap)
             }
-
-
-
             /*
             val f = File(currentPhotoPath)
             selectedImage.setImageURI(Uri.fromFile(f))
             */
-
         }
 
     }
@@ -198,9 +181,6 @@ class AddMedicineActivity : AppCompatActivity() {
         }
     }
 
-
-
-
     private fun showAlert(errorMessage : String){
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.simpleErrorMessage))
@@ -214,24 +194,12 @@ class AddMedicineActivity : AppCompatActivity() {
         override fun onFailure(exception: Exception) {
             val errorCode = (exception as StorageException).errorCode
             val errorMessage = exception.message
-
-
-
-
         }
-
-
     }
 
 
     fun uploadFile(imageBitmap : Bitmap){
-
-
         val storageRef = storage.reference
-
-
-
-
 
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageRef = storageRef.child(timeStamp+".jpg")

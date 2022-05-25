@@ -33,7 +33,7 @@
     <string name="ageCredentialsErrorMessage">La edad seleccionada no es válida. Por favor, seleccione una edad entre 1 y 120 .</string>
     <string name="takePicErrorMessage">El sistema no ha podido reconocer el texto de la imagen. Por favor, repita la foto para intentar reconocer el texto </string>
     <string name="takePicPermission">Se necesitan los permisos de la cámara para poder hacer la foto </string>
-    <string name="NotificationNumDays">Por favor introduzca un número </string>
+    <string name="NotificationNumDays">Por favor introduzca un número válido </string>
 
 
     //Positive button messages
