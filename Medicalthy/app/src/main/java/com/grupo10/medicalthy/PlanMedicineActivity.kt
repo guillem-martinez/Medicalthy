@@ -268,11 +268,17 @@ class PlanMedicineActivity : AppCompatActivity() {
         Log.d("TEST====================", home);
 
         if(home == "HomeActivityCuidador"){
-            val homeCuidadorIntent = Intent(this, HomeActivityCuidador::class.java)
+
+
+            val homeCuidadorIntent = Intent(this, HomeActivityCuidador::class.java).apply {
+                putExtra(getString(R.string.intentEmail)   , email.toString())
+            }
             startActivity(homeCuidadorIntent)
         }
         else{
-            val homeIntent = Intent(this, HomeActivity::class.java)
+            val homeIntent = Intent(this, HomeActivity::class.java).apply{
+                putExtra(getString(R.string.intentEmail)   , email.toString())
+            }
             startActivity(homeIntent)
         }
 

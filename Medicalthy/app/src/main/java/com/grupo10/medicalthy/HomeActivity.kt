@@ -65,6 +65,12 @@ class HomeActivity : AppCompatActivity() {
         preferences.putString(getString(R.string.intentEmail), email.toString())
         preferences.putString(getString(R.string.provider), provider.toString())
         preferences.apply()
+
+
+
+        Toast.makeText(this, "ESTE ES EL MAIL EN HOME: $email", Toast.LENGTH_SHORT).show()
+
+
     }
 
     private fun goToAdminPatients(email: String){
