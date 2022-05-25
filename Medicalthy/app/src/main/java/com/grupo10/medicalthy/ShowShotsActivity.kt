@@ -46,9 +46,10 @@ class ShowShotsActivity : AppCompatActivity() {
         var txt_view = TextView(this)
         txt_view.text = text
         txt_view.tag = tag
-        txt_view.height = 100
+        txt_view.height = 180
         txt_view.textAlignment= View.TEXT_ALIGNMENT_CENTER
         txt_view.gravity = Gravity.CENTER
+        txt_view.textSize = 25F
 
         x++
 
