@@ -65,7 +65,7 @@ class ShowMedicineActivity : AppCompatActivity() {
         btnSpeak.setOnClickListener {
             getMedicineName(cn) { name ->
                 getMedicineDescription(cn) { desc ->
-                    tts.speak("$name + un comprimido")
+                    tts.speak("$name , un comprimido")
                 }
             }
         }
