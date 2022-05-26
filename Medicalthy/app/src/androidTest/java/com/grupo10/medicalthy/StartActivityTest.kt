@@ -2,15 +2,15 @@ package com.grupo10.medicalthy
 
 import android.content.Intent
 import androidx.test.espresso.Espresso.*
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import org.junit.Assert.*
+
 
 import org.junit.Before
 import org.junit.Rule
@@ -25,9 +25,6 @@ class StartActivityTest {
     @JvmField
     var mActivityrule:ActivityTestRule<StartActivity> = ActivityTestRule(StartActivity::class.java, true, false)
 
-    //ActivityScenarioRule(StartActivity::class.java)
-
-    //var ActivityTestRule : ActivityTestRule<StartActivity> = ActivityTestRule
 
     @Before
     fun setUp() {
@@ -61,6 +58,20 @@ class StartActivityTest {
         onView(withId(R.id.signUpEmail)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         onView(withId(R.id.signUpPassword)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         onView(withId(R.id.signUpButton)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    //standby
+    @Test
+    fun pruebaActivity(){
+        onView(withId(R.id.goSignIn)).perform(click())
+
+        val email:String = "soyunyayo@gmail.com"
+        val password:String = "1234567890"
+
+        onView(withId(R.id.signInEmail)).perform(ViewActions.typeText(email))
+        onView(withId(R.id.signInPassword)).perform(ViewActions.typeText(password))
+        onView(withId(R.id.loginButton)).perform(click())
+        onView(withId(R.id.btnShowShotsPatient)).check(matches(isDisplayed()))
     }
 
 }
