@@ -1,7 +1,6 @@
 package com.grupo10.medicalthy
 
 import org.junit.Assert.*
-import org.junit.Assert.*
 import android.content.Intent
 import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.action.ViewActions.click
@@ -180,6 +179,8 @@ class SignUpActivityTest {
         onView(withId(R.id.editTextSurname)).perform(typeText(surname))
         onView(withId(R.id.editTextAge)).perform(typeText(age))
         onView(withId(R.id.signUpButton)).perform(click())
+        closeSoftKeyboard()
+        Thread.sleep(1000)
         onView(withId(R.id.btnAddMedicine)).check(matches(isDisplayed()))
     }
 

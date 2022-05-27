@@ -118,7 +118,7 @@ class SignInActivityTest {
         onView(withId(R.id.btnShowShots)).check(matches(isDisplayed()))
 
     }
-    
+
     @Test
     fun testValidPatientEmailChecksCorrectHome(){
         val email:String = "soyunyayo@gmail.com"
