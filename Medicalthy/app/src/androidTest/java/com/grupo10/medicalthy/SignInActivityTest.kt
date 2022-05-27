@@ -21,14 +21,15 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.concurrent.thread
 
 @RunWith(AndroidJUnit4::class)
 class SignInActivityTest {
-
-    @get:Rule
-    val activityRule:ActivityScenarioRule<SignInActivity> = ActivityScenarioRule(SignInActivity::class.java)
-
     /*
+    @get:Rule
+    val activityRule:ActivityScenarioRule<SignInActivity> = ActivityScenarioRule(SignInActivity::class.java)*/
+
+
     @Rule
     @JvmField
     var mActivityrule:ActivityTestRule<SignInActivity> = ActivityTestRule(SignInActivity::class.java, true, false)
@@ -38,7 +39,7 @@ class SignInActivityTest {
     fun setUp() {
         val intent = Intent()
         mActivityrule.launchActivity(intent)
-    }*/
+    }
 
     @Test
     fun testInvalidMailChecksErrorMessage(){
@@ -102,21 +103,22 @@ class SignInActivityTest {
     }
 
 
-    //stand by
+    //falta cmabiar usuario a cuidador
     @Test
     fun testValidCuidadorLoginChecksCorrectHome(){
         val email:String = "soyunyayo@gmail.com"
         val password:String = "1234567890"
-        val activityScenario = ActivityScenario.launch(SignInActivity::class.java)
+        //val activityScenario = ActivityScenario.launch(SignInActivity::class.java)
 
         onView(withId(R.id.signInEmail)).perform(typeText(email))
         onView(withId(R.id.signInPassword)).perform(typeText(password))
         onView(withId(R.id.loginButton)).perform(click())
-        onView(withId(R.id.btnShowShotsPatient)).check(matches(isDisplayed()))
+        closeSoftKeyboard()
+        Thread.sleep(1000)
+        onView(withId(R.id.btnShowShots)).check(matches(isDisplayed()))
 
     }
-
-    //stand by
+    
     @Test
     fun testValidPatientEmailChecksCorrectHome(){
         val email:String = "soyunyayo@gmail.com"
@@ -126,6 +128,8 @@ class SignInActivityTest {
         onView(withId(R.id.signInEmail)).perform(typeText(email))
         onView(withId(R.id.signInPassword)).perform(typeText(password))
         onView(withId(R.id.loginButton)).perform(click())
-        onView(withId(R.id.btnShowShots)).check(matches(isDisplayed()))
+        closeSoftKeyboard()
+        Thread.sleep(1000)
+        onView(withId(R.id.btnShowShotsPatient)).check(matches(isDisplayed()))
     }
 }
