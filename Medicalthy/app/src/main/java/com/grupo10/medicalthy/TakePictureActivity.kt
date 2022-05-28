@@ -52,10 +52,10 @@ class TakePictureActivity : AppCompatActivity() {
             val uri = applicationContext.drawableToUri(R.drawable.prueba2)
             imageView.setImageURI(null)
             imageView.setImageURI(uri)
-            val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri)
-            val image = InputImage.fromBitmap(bitmap, 0)
-            // imageView.setImageBitmap(data.extras?.get("data") as Bitmap)
-            // val image = InputImage.fromBitmap(data.extras?.get("data") as Bitmap, 0)
+            //val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri)
+            //val image = InputImage.fromBitmap(bitmap, 0)
+            imageView.setImageBitmap(data.extras?.get("data") as Bitmap)
+            val image = InputImage.fromBitmap(data.extras?.get("data") as Bitmap, 0)
             var nc = "";
             val result = recognizer.process(image)
             result.addOnSuccessListener { recognitions ->
