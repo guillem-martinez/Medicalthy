@@ -103,7 +103,14 @@ class AddPatientActivityTest {
         closeSoftKeyboard()
         onView(withText("Añadir cuenta")).perform(click())
         Thread.sleep(1000)
-        onView(withText("yayo, yayo")).check(matches(isDisplayed()))
+        onView(withText("yayo, yayo")).check(matches(isDisplayed())).perform(click())
+        Thread.sleep(1000)
+        onView(withId(R.id.btnAddMedicineCuidador)).check(matches(isDisplayed()))
+        onView(withId(R.id.btnShowShotsCuidador)).check(matches(isDisplayed()))
+        onView(withId(R.id.btnMedicationHistoryCuidador)).check(matches(isDisplayed()))
+        onView(withId(R.id.btnShowShotsCuidador)).perform(click())  //comprobamos las tomas del usuario paciente a cuidar
+        Thread.sleep(1000)
+        onView(withText("Aero-Red -> 15:18")).check(matches(isDisplayed()))
 
     }
 
