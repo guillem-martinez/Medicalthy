@@ -132,4 +132,9 @@ class SignInActivityTest {
         Thread.sleep(1000)
         onView(withId(R.id.btnShowShotsPatient)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun testGoogleButtonChecksUsable(){
+        onView(withId(R.id.googleButton)).check(matches(isDisplayed())).check(matches(isClickable()))
+    }
 }

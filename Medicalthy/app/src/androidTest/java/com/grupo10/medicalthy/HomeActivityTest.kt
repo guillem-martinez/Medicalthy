@@ -1,7 +1,6 @@
 package com.grupo10.medicalthy
 
 import org.junit.Assert.*
-import org.junit.Assert.*
 import android.content.Intent
 import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.action.ViewActions.*
@@ -37,8 +36,9 @@ class HomeActivityTest {
         onView(withText("Tu medicación")).check(matches(isDisplayed()))
     }
 
-    //falta notificaion
-    //Note: set the margin top 300 (original 250),this is due to the view not being scrollable in espresso
+
+    //Note: set the margin top 300 in the layout activity_home_hor (original 250) for the button btnAddMedicine,this is due to the view not being scrollable in espresso
+    //Note: You may have to give permission to the app for it to use the camera
     @Test
     fun testAddMedicineCheckChangesActivity(){
         Thread.sleep(1000)
@@ -50,6 +50,8 @@ class HomeActivityTest {
     @Test
     fun testPharmacyMapChecksClickable(){
         onView(withId(R.id.btnPharmacy)).check(matches(isDisplayed())).check(matches(isClickable()))
+        /*onView(withId(R.id.btnPharmacy)).perform(click())
+        Thread.sleep(1000)*/
     }
 
     @Test

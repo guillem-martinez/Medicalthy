@@ -1,0 +1,179 @@
+package com.grupo10.medicalthy
+
+import android.app.Activity
+import android.app.Instrumentation
+import android.app.TimePickerDialog
+import org.junit.Assert.*
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.TimePicker
+import androidx.test.espresso.Espresso.*
+import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.PickerActions
+import androidx.test.espresso.intent.Intents.intending
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.RootMatchers
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import androidx.test.rule.ActivityTestRule
+import androidx.test.runner.AndroidJUnit4
+import org.hamcrest.Matcher
+
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import java.util.*
+
+@RunWith(AndroidJUnit4ClassRunner::class)
+class PlanMedicineActivityTest {
+
+    @Rule
+    @JvmField
+    val intentsTestRule: IntentsTestRule<HomeActivity> = IntentsTestRule(HomeActivity::class.java)
+
+    //original margin top for imageView4 10
+    //original margin bottom for imageView4 10
+    //original margin top for button2 3
+    //original margin top for linearlayout4 10
+    //Note
+    @Test
+    fun testTakePictureChecksIntent(){
+        val activityResult = createImageCaptureActivityResultStub()
+        val expectedIntent: Matcher<Intent> = hasAction(MediaStore.ACTION_IMAGE_CAPTURE)
+        intending(expectedIntent).respondWith(activityResult)
+
+        onView(withId(R.id.btnAddMedicine)).perform(click())
+        //Thread.sleep(1000)
+        onView(withId(R.id.button)).perform(click())
+        intending(expectedIntent)
+        //Thread.sleep(1000)
+    }
+
+    @Test
+    fun testTakePictureAddMedicineCheckCorrectInitialValues(){
+        val activityResult = createImageCaptureActivityResultStub()
+        val expectedIntent: Matcher<Intent> = hasAction(MediaStore.ACTION_IMAGE_CAPTURE)
+        intending(expectedIntent).respondWith(activityResult)
+
+        onView(withId(R.id.btnAddMedicine)).perform(click())
+        //navegamos a añadir medicamento
+        onView(withId(R.id.button)).perform(click())
+        //tomamos foto medicamento
+        intending(expectedIntent)
+        Thread.sleep(2000)
+        onView(withText("Ibuprofeno Kern Pharma")).check(matches(isDisplayed()))
+        onView(withText("El codigo nacional es: 857979.2")).check(matches(isDisplayed()))
+
+    }
+
+    @Test
+    fun testTakePictureAddMedicineCheckConsumoResponsableIsDisplayed(){
+        val activityResult = createImageCaptureActivityResultStub()
+        val expectedIntent: Matcher<Intent> = hasAction(MediaStore.ACTION_IMAGE_CAPTURE)
+        intending(expectedIntent).respondWith(activityResult)
+        val calendar = Calendar.getInstance()
+
+        onView(withId(R.id.btnAddMedicine)).perform(click())
+        //navegamos a añadir medicamento
+        onView(withId(R.id.button)).perform(click())
+        //tomamos foto medicamento
+        intending(expectedIntent)
+        Thread.sleep(2000)
+        onView(withId(R.id.addDate)).perform(click())
+        //añadimos fecha inial
+        Thread.sleep(2000)
+        onView(withText("OK")).perform(click())
+        Thread.sleep(1000)
+        onView(withText("El dia de inicio es:  28/05/2022")).check(matches(isDisplayed()))
+        //check de la fecha, nota: solo funcionara el dia seleccionado
+        onView(withId(R.id.nComprimidos)).perform(typeText("20"))
+        closeSoftKeyboard()
+        Thread.sleep(1000)
+        onView(withId(R.id.numDays)).perform(typeText("10"))
+        closeSoftKeyboard()
+        Thread.sleep(1000)
+        onView(withId(R.id.addHour)).perform(click())
+        Thread.sleep(1000)
+        onView(isAssignableFrom(TimePicker::class.java)).perform(
+            PickerActions.setTime(
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE)
+            )
+        )
+        onView(withText("OK")).perform(click())
+        Thread.sleep(2000)
+        onView(withId(R.id.addHour)).perform(click())
+        Thread.sleep(1000)
+        onView(isAssignableFrom(TimePicker::class.java)).perform(
+            PickerActions.setTime(
+                calendar.get(Calendar.HOUR_OF_DAY)+2,
+                calendar.get(Calendar.MINUTE)
+            )
+        )
+        onView(withText("OK")).perform(click())
+        Thread.sleep(1000)
+        onView(withId(R.id.saveButton)).perform(scrollTo()).perform(click())
+        Thread.sleep(1000)
+        onView(withText("Consumo Responsable")).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun testTakePictureAddMedicineCheckCorrectValuesAndShowShots(){
+        val activityResult = createImageCaptureActivityResultStub()
+        val expectedIntent: Matcher<Intent> = hasAction(MediaStore.ACTION_IMAGE_CAPTURE)
+        intending(expectedIntent).respondWith(activityResult)
+
+        onView(withId(R.id.btnAddMedicine)).perform(click())
+        //navegamos a añadir medicamento
+        onView(withId(R.id.button)).perform(click())
+        //tomamos foto medicamento
+        intending(expectedIntent)
+        Thread.sleep(1000)
+        onView(withId(R.id.addDate)).perform(click())
+        //añadimos fecha inial
+        Thread.sleep(1000)
+        onView(withText("OK")).perform(click())
+        Thread.sleep(1000)
+        onView(withText("El dia de inicio es:  28/05/2022")).check(matches(isDisplayed()))
+        //check de la fecha, nota: solo funcionara el dia seleccionado
+        onView(withId(R.id.nComprimidos)).perform(typeText("20"))
+        closeSoftKeyboard()
+        Thread.sleep(1000)
+        onView(withId(R.id.numDays)).perform(typeText("10"))
+        closeSoftKeyboard()
+        Thread.sleep(1000)
+        onView(withId(R.id.addHour)).perform(click())
+        Thread.sleep(1000)
+        onView(withText("OK")).perform(click())
+        Thread.sleep(1000)
+        //falta guardar
+
+
+    }
+
+    private fun createImageCaptureActivityResultStub(): Instrumentation.ActivityResult?{
+        val bundle = Bundle()
+        bundle.putParcelable(
+            "data",
+            BitmapFactory.decodeResource(
+                intentsTestRule.activity.resources,
+                R.drawable.ic_launcher_background //cambiar a prueba 2.png
+            )
+
+        )
+        val resultdata = Intent()
+        resultdata.putExtras(bundle)
+        return Instrumentation.ActivityResult(Activity.RESULT_OK, resultdata)
+
+    }
+}

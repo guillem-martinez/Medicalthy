@@ -29,6 +29,7 @@ class TakePictureActivity : AppCompatActivity() {
     val db = FirebaseFirestore.getInstance()
     val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_take_pic)

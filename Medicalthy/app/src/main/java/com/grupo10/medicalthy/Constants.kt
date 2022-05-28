@@ -5,6 +5,7 @@ object Constants {
     const val SET_REPETITIVE_ALARM = "SET_REPETITIVE_ALARM"
     const val EXACT_ALARM_TIME = "EXACT_ALARM_TIME"
     const val NUM_DAYS = "NUM_DAYS"
+    const val REQUEST_IMAGE_CAPTURE = 101
 
     val CLASS_REF = "CLASS_REF"
     val HOME_REF = HomeActivity::class.java
