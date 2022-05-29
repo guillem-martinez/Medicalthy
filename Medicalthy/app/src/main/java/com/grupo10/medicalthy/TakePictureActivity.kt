@@ -54,8 +54,9 @@ class TakePictureActivity : AppCompatActivity() {
             imageView.setImageURI(uri)
             //val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri)
             //val image = InputImage.fromBitmap(bitmap, 0)
-            imageView.setImageBitmap(data.extras?.get("data") as Bitmap)
-            val image = InputImage.fromBitmap(data.extras?.get("data") as Bitmap, 0)
+            imageView.setImageBitmap(data.extras?.get("data") as? Bitmap)
+            val bitmap = data.extras?.get("data") as Bitmap
+            val image = InputImage.fromBitmap(bitmap, 0)
             var nc = "";
             val result = recognizer.process(image)
             result.addOnSuccessListener { recognitions ->

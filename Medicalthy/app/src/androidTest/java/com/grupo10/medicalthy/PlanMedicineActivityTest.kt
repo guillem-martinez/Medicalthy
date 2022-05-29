@@ -3,9 +3,11 @@ package com.grupo10.medicalthy
 import android.app.Activity
 import android.app.Instrumentation
 import android.app.TimePickerDialog
+import android.content.ContentResolver
 import org.junit.Assert.*
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.TimePicker
@@ -45,6 +47,7 @@ class PlanMedicineActivityTest {
     //original margin bottom for imageView4 10
     //original margin top for button2 3
     //original margin top for linearlayout4 10
+    //original margin top for btnaddmedicine 46
     //Note
     @Test
     fun testTakePictureChecksIntent(){
@@ -53,10 +56,10 @@ class PlanMedicineActivityTest {
         intending(expectedIntent).respondWith(activityResult)
 
         onView(withId(R.id.btnAddMedicine)).perform(click())
-        //Thread.sleep(1000)
+        Thread.sleep(1000)
         onView(withId(R.id.button)).perform(click())
         intending(expectedIntent)
-        //Thread.sleep(1000)
+        Thread.sleep(1000)
     }
 
     @Test
@@ -132,6 +135,7 @@ class PlanMedicineActivityTest {
         val activityResult = createImageCaptureActivityResultStub()
         val expectedIntent: Matcher<Intent> = hasAction(MediaStore.ACTION_IMAGE_CAPTURE)
         intending(expectedIntent).respondWith(activityResult)
+        val calendar = Calendar.getInstance()
 
         onView(withId(R.id.btnAddMedicine)).perform(click())
         //navegamos a añadir medicamento
@@ -156,7 +160,13 @@ class PlanMedicineActivityTest {
         Thread.sleep(1000)
         onView(withText("OK")).perform(click())
         Thread.sleep(1000)
-        //falta guardar
+        onView(withId(R.id.saveButton)).perform(scrollTo()).perform(click())
+        Thread.sleep(1000)
+        onView(withId(R.id.btnShowShots)).perform(click())
+        Thread.sleep(1000)
+        onView(withText("Ibuprofeno Kern Pharma -> " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE))).check(matches(
+            isDisplayed()))//mirar
+        Thread.sleep(10000)
 
 
     }
@@ -165,10 +175,20 @@ class PlanMedicineActivityTest {
         val bundle = Bundle()
         bundle.putParcelable(
             "data",
-            BitmapFactory.decodeResource(
+            MediaStore.Images.Media.getBitmap(intentsTestRule.activity.contentResolver,
+            Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +"://"+
+                    intentsTestRule.activity.resources.getResourcePackageName(R.drawable.prueba2)+ "/" +
+                    intentsTestRule.activity.resources.getResourceTypeName(R.drawable.prueba2)+ "/" +
+                    intentsTestRule.activity.resources.getResourceEntryName(R.drawable.prueba2)
+            ))
+            /*BitmapFactory.decodeResource(
                 intentsTestRule.activity.resources,
-                R.drawable.ic_launcher_background //cambiar a prueba 2.png
-            )
+                Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +"://"+
+                intentsTestRule.activity.resources.getResourcePackageName(R.drawable.ic_launcher_background)+ "/" +
+                intentsTestRule.activity.resources.getResourceTypeName(R.drawable.ic_launcher_background)+ "/" +
+                intentsTestRule.activity.resources.getResourceEntryName(R.drawable.ic_launcher_background)
+                ) //cambiar a prueba 2.png
+            )*/
 
         )
         val resultdata = Intent()
