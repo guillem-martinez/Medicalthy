@@ -1,0 +1,12 @@
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\bin\Debug\InterfazPastillero_VB.exe.config
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\bin\Debug\InterfazPastillero_VB.exe
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\bin\Debug\InterfazPastillero_VB.pdb
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\bin\Debug\InterfazPastillero_VB.xml
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\obj\Debug\InterfazPastillero_VB.vbproj.AssemblyReference.cache
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\obj\Debug\InterfazPastillero_VB.Form1.resources
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\obj\Debug\InterfazPastillero_VB.Resources.resources
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\obj\Debug\InterfazPastillero_VB.vbproj.GenerateResource.cache
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\obj\Debug\InterfazPastillero_VB.vbproj.CoreCompileInputs.cache
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\obj\Debug\InterfazPastillero_VB.exe
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\obj\Debug\InterfazPastillero_VB.xml
+D:\GitHub\Medicalthy\Arduino\InterfazPastillero_VB\obj\Debug\InterfazPastillero_VB.pdb
