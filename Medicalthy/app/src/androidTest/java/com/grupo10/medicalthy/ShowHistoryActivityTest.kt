@@ -53,10 +53,46 @@ class ShowHistoryActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.signInEmail)).perform(ViewActions.typeText(email))
         Espresso.onView(ViewMatchers.withId(R.id.signInPassword)).perform(ViewActions.typeText(password))
         Espresso.onView(ViewMatchers.withId(R.id.loginButton)).perform(ViewActions.click())
-        Espresso.closeSoftKeyboard()
-        Thread.sleep(1000)
+        Thread.sleep(2000)
         Espresso.onView(ViewMatchers.withId(R.id.btnMedicationHistory)).perform(ViewActions.click())
-        Thread.sleep(1000)
+        Thread.sleep(2000)
+        Espresso.onView(withText("Wed May 25 13:25:58 GMT 2022 -> true")).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun testHistoryWithMedicinesLongClick() {
+        val email = "klk123@gmail.com"
+        val password = "klk123"
+        Espresso.onView(ViewMatchers.withId(R.id.signInEmail)).perform(ViewActions.typeText(email))
+        Espresso.onView(ViewMatchers.withId(R.id.signInPassword)).perform(ViewActions.typeText(password))
+        Espresso.onView(ViewMatchers.withId(R.id.loginButton)).perform(ViewActions.click())
+        Thread.sleep(2000)
+        Espresso.onView(ViewMatchers.withId(R.id.btnMedicationHistory)).perform(ViewActions.longClick())
+        Thread.sleep(2000)
+        Espresso.onView(withText("Wed May 25 13:25:58 GMT 2022 -> true")).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun testHistoryWithMedicinesGoBack(){
+        val email = "klk123@gmail.com"
+        val password = "klk123"
+        Espresso.onView(ViewMatchers.withId(R.id.signInEmail)).perform(ViewActions.typeText(email))
+        Espresso.onView(ViewMatchers.withId(R.id.signInPassword)).perform(ViewActions.typeText(password))
+        Espresso.onView(ViewMatchers.withId(R.id.loginButton)).perform(ViewActions.click())
+        Thread.sleep(2000)
+        Espresso.onView(ViewMatchers.withId(R.id.btnMedicationHistory)).perform(ViewActions.click())
+        Thread.sleep(2000)
+        Espresso.onView(withText("Wed May 25 13:25:58 GMT 2022 -> true")).check(matches(isDisplayed()))
+        Espresso.pressBack()
+        Espresso.onView(ViewMatchers.withId(R.id.btnAddMedicine)).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.btnPharmacy)).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.btnAdminPerson)).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.btnMedicationHistory)).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.btnShoppingCart)).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withId(R.id.btnShowShots)).check(matches(isDisplayed()))
+        Thread.sleep(2000)
+        Espresso.onView(ViewMatchers.withId(R.id.btnMedicationHistory)).perform(ViewActions.click())
+        Thread.sleep(2000)
         Espresso.onView(withText("Wed May 25 13:25:58 GMT 2022 -> true")).check(matches(isDisplayed()))
     }
 }
