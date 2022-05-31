@@ -197,15 +197,6 @@ class PlanMedicineActivityTest {
                     intentsTestRule.activity.resources.getResourceTypeName(R.drawable.prueba2)+ "/" +
                     intentsTestRule.activity.resources.getResourceEntryName(R.drawable.prueba2)
             ))
-            /*BitmapFactory.decodeResource(
-                intentsTestRule.activity.resources,
-                Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +"://"+
-                intentsTestRule.activity.resources.getResourcePackageName(R.drawable.ic_launcher_background)+ "/" +
-                intentsTestRule.activity.resources.getResourceTypeName(R.drawable.ic_launcher_background)+ "/" +
-                intentsTestRule.activity.resources.getResourceEntryName(R.drawable.ic_launcher_background)
-                ) //cambiar a prueba 2.png
-            )*/
-
         )
         val resultdata = Intent()
         resultdata.putExtras(bundle)
