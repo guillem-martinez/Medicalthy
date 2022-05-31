@@ -191,8 +191,9 @@ class ShowMedicineActivity : AppCompatActivity() {
     }
 
     private fun goHome(){
-
-        val homeIntent = Intent(this, HomeActivity::class.java)
+        val homeIntent = Intent(this, HomeActivity::class.java).apply {
+            putExtra(getString(R.string.intentEmail), email)
+        }
         startActivity(homeIntent)   //Llamada a la actividad de pantalla de Inicio
     }
 
