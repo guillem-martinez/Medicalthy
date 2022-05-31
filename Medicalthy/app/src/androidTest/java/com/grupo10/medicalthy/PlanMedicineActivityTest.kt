@@ -171,6 +171,22 @@ class PlanMedicineActivityTest {
 
     }
 
+    @Test
+    fun testTakePictureAddMedicineWrongPictureChecksErrorMessage(){
+        val activityResult = createImageCaptureWrongActivityResultStub()
+        val expectedIntent: Matcher<Intent> = hasAction(MediaStore.ACTION_IMAGE_CAPTURE)
+        intending(expectedIntent).respondWith(activityResult)
+        onView(withId(R.id.btnAddMedicine)).perform(click())
+        //navegamos a añadir medicamento
+        onView(withId(R.id.button)).perform(click())
+        //tomamos foto medicamento
+        intending(expectedIntent)
+        Thread.sleep(1000)
+        onView(withText("ERROR, no se ha leido bien la imagen ")).check(matches(isDisplayed()))
+        //comprobamos mensaje de error para el ocr fallido
+
+    }
+
     private fun createImageCaptureActivityResultStub(): Instrumentation.ActivityResult?{
         val bundle = Bundle()
         bundle.putParcelable(
@@ -190,6 +206,23 @@ class PlanMedicineActivityTest {
                 ) //cambiar a prueba 2.png
             )*/
 
+        )
+        val resultdata = Intent()
+        resultdata.putExtras(bundle)
+        return Instrumentation.ActivityResult(Activity.RESULT_OK, resultdata)
+
+    }
+
+    private fun createImageCaptureWrongActivityResultStub(): Instrumentation.ActivityResult?{
+        val bundle = Bundle()
+        bundle.putParcelable(
+            "data",
+            MediaStore.Images.Media.getBitmap(intentsTestRule.activity.contentResolver,
+                Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +"://"+
+                        intentsTestRule.activity.resources.getResourcePackageName(R.drawable.prueba2_w)+ "/" +
+                        intentsTestRule.activity.resources.getResourceTypeName(R.drawable.prueba2_w)+ "/" +
+                        intentsTestRule.activity.resources.getResourceEntryName(R.drawable.prueba2_w)
+                ))
         )
         val resultdata = Intent()
         resultdata.putExtras(bundle)
