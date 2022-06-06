@@ -1,0 +1,364 @@
+@startuml
+
+'------ CLASSES ---------
+
+class AddMedicineActivity {
+ - lateinit var selectedImage: ImageView
+ - lateinit var cameraBtn: Button
+ - lateinit var currentPhotoPath: String
+ - lateinit var storage : FirebaseStorage
+ - {static} REQUEST_TAKE_PHOTO : Int
+
+ + onCreate(savedInstanceState: Bundle?)
+ + uploadFile(imageBitmap : Bitmap)
+ + onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+ + onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray)
+ - setup()
+ - askCameraPermissions()
+ - openCamera()
+ - createImageFile(): File
+ - dispatchTakePictureIntent()
+ - showAlert(errorMessage : String)
+ - uploadReference(ref : String)
+}
+
+class AddPatientActivity {
+ - x : Int
+ - email : String
+
+ + onCreate(savedInstanceState: Bundle?)
+ - setup()
+ - setPatientButtons(email: String)
+ - makeNewTextView(text: String, tag: String) : TextView
+}
+
+class Auth {
+ + verifyCredentialsSignUp(email : String, password : String, name : String, surname : String, age: String) : Array<Any>
+ + verifyCredentialsSignIn(email : String, password : String) : Array<Any>
+}
+
+object Constants {
+ + {static} SET_EXACT_ALARM : String
+ + {static} SET_REPETITIVE_ALARM : String
+ + {static} EXACT_ALARM_TIME : String
+ + {static} NUM_DAYS : String
+ + {static} REQUEST_IMAGE_CAPTURE : Int
+ + {static} CLASS_REF : String
+ + {static} HOME_REF : Class<*>
+ + {static} SIGNUP_REF : Class<*>
+ + {static} PLAN_MEDICINE : Class<*>
+ + {static} SHOW_SHOTS : Class<*>
+ + {static} SHOW_MEDICINE : Class<*>
+ + {static} classRefMap : mapOf(ActivityRef : Int, ref : Class<*>)
+}
+
+enum ActivityRef {
+ HomeActivity
+ SignUpActivity
+ ShowShotsActivity
+ PlanMedicineActivity
+ ShowMedicineActivity
+}
+
+class Database {
+ + {static} databaseAuth : FirebaseAuth
+
+ +makeUserDatabase(email : EditText, name: EditText, surname: EditText, age: EditText, cloudFirestore : FirebaseFirestore)
+ makeUserDatabaseGoogle(email : String, cloudFirestore : FirebaseFirestore)
+}
+
+enum ProviderType {
+ BASIC
+ GOOGLE
+}
+
+class HomeActivity {
+ + onCreate(savedInstanceState: Bundle?)
+ + onBackPressed()
+ - setup()
+ - goToAdminPatients(email: String)
+ - goToAddMedicine(email : String)
+ - goToShowSots(email : String)
+ - goToPharmacyMap()
+ - goToMedicationHistory(email: String)
+ - goToShoppingList(email: String)
+}
+
+class HomeActivityCuidador {
+ - email : String
+
+ + onCreate(savedInstanceState: Bundle?)
+ + onBackPressed()
+ - setup()
+ - goToAddMedicine()
+ - goToShowSots(email : String)
+ - goToMedicationHistory()
+}
+
+class HomeActivityPatient {
+ - email : String
+
+ + onCreate(savedInstanceState: Bundle?)
+ + onBackPressed()
+ - setup()
+ - goToShowSots(email : String)
+}
+
+class Notifications {
+ - channelName : String
+ - channelId : String
+ - descriptionText : String
+ - importance : Int
+ - soundUri : Uri
+ - audioAttr : AudioAttributes
+ - largeIcon : Bitmap
+ - notificationManager : NotificationManager
+ - alarmManager : AlarmManager
+ - style : NotificationCompat
+ - channel : NotificationChannel
+
+ + generateNotification(title: String, message: String, subText: String)
+ + setExactAlarm(timeInMillis : Long)
+ + setRepetitiveAlarm(timeInMillis: Long, numDays: Int)
+ + setAlarm(timeInMillis: Long, pendingIntent: PendingIntent)
+ + createNotificationChannel()
+ - getIntent() : Intent
+ - getActivityIntent(notificationId: Int, title: String, message: String): Intent
+ - getPendingActivityIntent(notificationId: Int, title: String, message: String): PendingIntent
+ - getPendingIntent(intent: Intent) : Intent
+}
+
+class NotificationsReceiver {
+ + onReceive(context: Context, intent: Intent)
+}
+
+class PlanMedicineActivity {
+ - db : FirebaseAuth
+ - lateinit var notifications : Notifications
+ - calendar : Calendar
+ - timeInMillis : Long
+ - initialDate : Long
+ - timeInMillisList : MutableList<Long>
+ - nc : String
+ - i : Int
+ - lateinit var selectedImage : ImageView
+ - lateinit var cameraBtn : Button
+ - lateinit var currentPhotoPath : String
+ - lateinit var storage : FirebaseStorage
+ - imageBitmap : Bitmap
+ - planToken : String
+ - lateinit var email : String
+
+ + onCreate(savedInstanceState: Bundle?)
+ + onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+ + onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray)
+ + uploadFile(imageBitmap : Bitmap) : String
+ - makeNewTextView(text: String, tag: String) : TextView
+ - setup()
+ - chooseInitialDate()
+ - chooseInitialHour(timeInMillis: (Long) -> Unit)
+ - resetCalendar()
+ - goHome()
+ - setAlarms()
+ - responsibleConsumption(): Boolean
+ - showAlert(errorMessage : String)
+ - onSavePressed()
+ - checkFieldsAreFilled()
+ - askCameraPermissions()
+ - openCamera()
+ - uploadReference(ref : String)
+ - sendAlarms()
+ - refreshList()
+ - refreshDate()
+ - deleteView()
+}
+
+object RandomUtils {
+ - randomInt : Int
+
+ + getRandomInt() : Int
+ + dateFormatter(timeInMillis: Long) : String
+ + hourFormatter(timeInMillis: Long) : String
+ + dayFormatter(timeInMillis: Long) : String
+ + getMedicineName(cn: String, cback: (String)->Unit)
+ + getMedicineDescription(cn: String, cback: (String)->Unit)
+ + getNPills(plan: String, email: String, cback: (Int)->Unit)
+ + getNCFromString(text: String): String
+ + deleteResponsable(email: String, email_persona_cuidada: String, cback: (Boolean) -> Unit)
+ + deleteCuidaA(email: String, email_persona_cuidada: String, cback: (Boolean) -> Unit)
+}
+
+class ShoppingList {
+ - email : String
+ - i : Int
+ - product : String
+
+ + onCreate(savedInstanceState: Bundle?)
+ + showdialog(): String
+ + refreshView(prod: String)
+ - addProduct()
+ - makeNewTextView(text: String, tag: String) : TextView
+ - deleteView()
+ - deleteAllProducts()
+ - showAlert(errorMessage : String)
+ - setup()
+}
+
+class ShowHistoryActivity {
+ x : Int
+ email : String
+
+ + onCreate(savedInstanceState: Bundle?)
+ - setup()
+ - setHistoryButtons(email: String)
+ - makeNewTextView(text: String, tag: String) : TextView
+}
+
+class ShowMedicineActivity {
+ - tts : TextToSpeechClass
+ - email : String
+ - cn : String
+ - plan : String
+ - {static} PILLS_THRESHOLD : Int
+ - lateinit var selectedImage : ImageView
+ - lateinit var storage : FirebaseStorage
+
+ + onCreate(savedInstanceState: Bundle?)
+ + onDestroy()
+ - setup()
+ - btnOkPressed()
+ - btnNoOkPressed()
+ - setTextViewInfo(name: String, description: String, hours: String)
+ - enOfStock()
+ - addToShoppingList()
+ - updateNPills()
+ - updateImage()
+ - goHome()
+}
+
+class ShowShotsActivity {
+ - x : Int
+ - email : String
+
+ + onCreate(savedInstanceState: Bundle?)
+ - setup()
+ - makeNewTextView(text: String, tag: String) : TextView
+ - setPlanButtons(email: String)
+}
+
+class SignInActivity {
+ - {static} GOOGLE_SIGN_IN : Int
+ - {static} database : FirebaseAuth
+ - {static} authObject : Auth
+ - {static} databaseFunctions : Database
+ - {static} cloudFirestore : FirebaseFirestore
+
+ + onCreate(savedInstanceState: Bundle?)
+ + onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+ - setup()
+ - login() : Boolean
+ - showAlert(errorMessage : String)
+ - goHome(email : String, provider : ProviderType)
+ - isPatient(email: String, cback: (Boolean)->Unit)
+}
+
+class SignInPatientActivity {
+ - {static} database : FirebaseAuth
+ - {static} authObject : Auth
+ - email : String
+
+ + onCreate(savedInstanceState: Bundle?)
+ + onBackPressed()
+ - setup()
+ - showAlert(errorMessage : String)
+ - setResponsable(email_persona_cuidada: String)
+ - setCuidaA(email_persona_cuidada: String)
+}
+
+class SignUpActivity {
+ - {static} databaseAuth : FirebaseAuth
+ - {static} authObject : Auth
+ - {static} cloudFirestore : FirebaseFirestore
+ - {static} databaseFunctions : Database
+
+ + onCreate(savedInstanceState: Bundle?)
+ - setUp()
+ - showAlert(errorMessage : String)
+ - register() : Boolean
+ - goHome(email : String, provider : ProviderType)
+}
+
+class StartActivity {
+ + onCreate(savedInstanceState: Bundle?)
+ + onStart()
+ - verifyActiveSession()
+ - setup()
+ - goToSignIn()
+ - goToSignUp()
+ - goHome(email : String, provider : ProviderType)
+}
+
+class TakePictureActivity {
+ - {static} recognizer : TextRecognizer
+
+ + onCreate(savedInstanceState: Bundle?)
+ + onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+ + onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray)
+ - goToAddMedicine(nc : String)
+}
+
+class TextToSpeechClass {
+ - lateinit var tts : TextToSpeech
+ - activityContext : Context
+ - utteranceId : String
+
+ + getUtteranceId(): String
+ + configurationSettings()
+ + speak(text: String)
+ + shutdown()
+}
+
+package "android.content" {
+ class BroadcastReceiver
+}
+
+package "androidx.appcompat.app" {
+ class AppCompatActivity
+}
+
+package "java.util" {
+ class Calendar
+}
+
+package "com.google.firebase" {
+ class FirebaseAuth
+ class FirebaseStorage
+}
+
+package "com.google.mlkit.vision.text" {
+ class TextRecognition
+ class TextRecognizerOptions
+}
+
+'----- RELATIONS --------
+
+HomeActivity -right> ProviderType
+Constants -[hidden]-> HomeActivity
+AppCompatActivity -[hidden]> HomeActivity
+note top of AppCompatActivity : In kotlin, every activity\nextends this one.
+HomeActivity -|> AppCompatActivity
+note top of RandomUtils : Class of various utilities \nto avoid repeating code.
+SignInActivity --> Auth
+SignUpActivity --> Auth
+SignInPatientActivity --> Auth
+Auth --> Database
+PlanMedicineActivity --> Database
+PlanMedicineActivity --> Calendar
+PlanMedicineActivity --> Notifications
+Database --> "com.google.firebase"
+Constants -> ActivityRef : has a ref to
+NotificationsReceiver -right-|> "android.content"
+TakePictureActivity --> "com.google.mlkit.vision.text"
+ShowMedicineActivity --> TextToSpeechClass
+
+@enduml
