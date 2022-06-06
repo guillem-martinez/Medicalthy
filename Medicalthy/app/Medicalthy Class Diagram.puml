@@ -360,5 +360,7 @@ Constants -> ActivityRef : has a ref to
 NotificationsReceiver -right-|> "android.content"
 TakePictureActivity --> "com.google.mlkit.vision.text"
 ShowMedicineActivity --> TextToSpeechClass
+ShowMedicineActivity -[hidden]-> HomeActivity
+TakePictureActivity -[hidden]-> ShowMedicineActivity
 
 @enduml
